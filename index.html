@@ -1,0 +1,1649 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AMC Irrigação</title>
+<style>
+:root{
+  --green:#25c653;--green2:#118d3a;--dark:#071316;--blue:#1773bf;
+  --card:#ffffffef;--text:#17332b;--muted:#65756f;--yellow:#f0ad00;--red:#e84249
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);
+  background:
+    linear-gradient(#081518aa,#081518aa),
+    radial-gradient(circle at 20% 15%,#376b31 0 10%,transparent 30%),
+    linear-gradient(160deg,#102f27,#1b4f2e 45%,#071316);
+}
+.farm-menu-wrap{position:absolute;right:0;top:0;z-index:30}.farm-menu-btn{border:0;background:rgba(255,255,255,.12);color:#fff;width:44px;height:44px;border-radius:12px;font-size:28px;line-height:1;cursor:pointer}.farm-menu{position:absolute;right:0;top:52px;width:230px;background:#fff;color:#17382c;border-radius:14px;box-shadow:0 12px 35px rgba(0,0,0,.28);padding:8px;display:none}.farm-menu.open{display:block}.farm-menu button{display:block;width:100%;text-align:left;border:0;background:transparent;padding:13px 12px;border-radius:10px;font-weight:700;color:#17382c;cursor:pointer}.farm-menu button:hover{background:#edf6f0}.farm-menu small{display:block;color:#6a7973;font-weight:500;margin-top:3px}.farm-sheet{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:60;display:none;padding:18px;overflow:auto}.farm-sheet.open{display:block}.farm-sheet-card{max-width:900px;margin:30px auto;background:#f6faf8;border-radius:18px;padding:18px}.farm-sheet-head{display:flex;justify-content:space-between;align-items:center;gap:10px;position:sticky;top:0;background:#f6faf8;padding-bottom:10px;z-index:2}.farm-sheet-close{border:0;background:#17382c;color:#fff;border-radius:10px;padding:9px 13px;font-weight:700}.farm-tech-card{background:#fff;border:1px solid #d8e4de;border-radius:14px;padding:14px;margin-top:12px}.farm-tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.farm-tech-grid div{background:#f1f7f4;border-radius:9px;padding:8px}.farm-tech-grid small{display:block;color:#66766f;font-size:11px}.farm-tech-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:11px}.farm-tech-table th,.farm-tech-table td{padding:5px;border-bottom:1px solid #e3ebe7;text-align:center}.farm-tech-table th{background:#edf5f1}.farm-note{color:#65756e;font-size:12px;margin-top:8px}@media(max-width:650px){.farm-menu{width:210px}.farm-sheet{padding:8px}.farm-sheet-card{margin:10px auto;padding:12px}.farm-tech-grid{grid-template-columns:repeat(2,1fr)}}
+header.hero{
+  min-height:235px;padding:20px 24px 18px;color:#fff;
+  background:
+    linear-gradient(180deg,#07131922,#07131999),
+    linear-gradient(90deg,#0c3e2d,#386b35 48%,#17251e);
+  position:relative;overflow:hidden;
+}
+header.hero:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 0 45%,#ffffff08 46% 100%);
+}
+hero-top{position:relative;z-index:2;padding-left:0;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.brand{display:flex;align-items:center;gap:12px}.brand-mark{font-size:54px;font-weight:900;letter-spacing:-6px;text-shadow:0 2px 4px #0008}
+.brand h1{font-size:28px;letter-spacing:6px;margin:0;font-weight:800}.brand p{font-size:11px;letter-spacing:2px;margin:3px 0}
+.farm{font-size:17px;font-weight:700;text-align:right;padding-top:8px}.hero-pivot{display:none}
+main{max-width:1080px;margin:-4px auto 70px;padding:0 22px;position:relative;z-index:3}
+.card{background:var(--card);border:1px solid #ffffff88;box-shadow:0 8px 28px #0003;border-radius:18px;padding:18px}
+.weather{margin-top:0;background:linear-gradient(110deg,#0c67b5e8,#3b86bce8);color:#fff;border:1px solid #63b5f4aa;padding:20px}
+.weather-main{display:grid;grid-template-columns:1.25fr 2fr;gap:18px;align-items:center}.weather-icon{font-size:54px}.temp{font-size:62px;line-height:1;font-weight:850}.weather-place{font-size:16px;margin-top:6px}.weather-data{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;border-left:1px solid #ffffff66;padding-left:18px}.weather-data div{font-size:14px}.weather-data div:first-child{grid-column:1/-1;font-size:18px}
+.forecast{margin-top:18px;background:#286aa9d9;border:1px solid #ffffff55;border-radius:15px;padding:12px}.forecast-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:8px}.forecast-grid div{background:#ffffff15;border:1px solid #ffffff20;border-radius:9px;padding:8px;text-align:center;font-size:12px;line-height:1.45}
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0}.quick-grid button,.quick-grid .amc-nav-link{min-height:145px;border:1px solid #ffffff44;border-radius:18px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:34px;box-shadow:0 5px 15px #0003;background-size:cover;background-position:center}
+.quick-grid button:nth-child(1),.quick-grid .amc-nav-link:nth-child(1){background:linear-gradient(#0677d2dd,#075fa9dd)}.quick-grid button:nth-child(2),.quick-grid .amc-nav-link:nth-child(2){background:linear-gradient(#1b9b32dd,#117424dd)}.quick-grid button:nth-child(3),.quick-grid .amc-nav-link:nth-child(3){background:linear-gradient(#304b64ee,#172536ee)}.quick-grid button:nth-child(4),.quick-grid .amc-nav-link:nth-child(4){background:linear-gradient(#327bb4dd,#175b91dd)}.quick-grid button:nth-child(5),.quick-grid .amc-nav-link:nth-child(5){background:linear-gradient(#efa900dd,#e48700dd)}.quick-grid button:nth-child(6),.quick-grid .amc-nav-link:nth-child(6){background:linear-gradient(#269f35dd,#147421dd)}
+.quick-grid button strong,.quick-grid .amc-nav-link strong{font-size:22px}.quick-grid button span,.quick-grid .amc-nav-link span{font-size:14px;max-width:180px;text-align:center}
+.status-card{background:#fffffff2}.status-title{display:flex;justify-content:space-between;align-items:center}.status-title h2{font-size:25px;margin:0}.status-title span{color:#1766a4;font-weight:700}
+.pivot-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:12px}.mini-pivot{border:1px solid #d9dfdc;border-radius:12px;padding:8px 4px;background:#fff;text-align:center}.circle{width:58px;height:58px;border-radius:50%;background:#d8eee1;display:grid;place-items:center;margin:0 auto 5px;font-size:28px}.mini-pivot h4{margin:2px 0;font-size:13px}.mini-pivot p{margin:0;font-size:11px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:3px}.normal{background:#20a64a}.attention{background:#efb000}.priority{background:#e64248}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:#071316f5;border-top:1px solid #ffffff18;display:grid;grid-template-columns:repeat(6,1fr);padding:8px 12px 10px;gap:5px}
+nav button,nav .nav-fallback{border:0;background:transparent;color:#c9d0cf;font-size:12px;padding:7px 2px;border-radius:10px}nav button.active,nav .nav-fallback.active{color:#24d04f;background:#ffffff08}
+nav button:before{display:block;font-size:25px;margin-bottom:3px}
+nav #bhome:before{content:"⌂"}nav #binfo:before{content:"🌱"}nav #bcalc:before{content:"▦"}nav #bcal:before{content:"☁"}nav button:nth-last-child(2):before{content:"▥"}nav button:last-child:before{content:"⚙"}
+@media(max-width:900px){.pivot-grid{grid-template-columns:repeat(7,1fr)}.weather-main{grid-template-columns:1fr 1.8fr}.weather-data{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){
+  .farm-menu-wrap{position:absolute;right:0;top:0;z-index:30}.farm-menu-btn{border:0;background:rgba(255,255,255,.12);color:#fff;width:44px;height:44px;border-radius:12px;font-size:28px;line-height:1;cursor:pointer}.farm-menu{position:absolute;right:0;top:52px;width:230px;background:#fff;color:#17382c;border-radius:14px;box-shadow:0 12px 35px rgba(0,0,0,.28);padding:8px;display:none}.farm-menu.open{display:block}.farm-menu button{display:block;width:100%;text-align:left;border:0;background:transparent;padding:13px 12px;border-radius:10px;font-weight:700;color:#17382c;cursor:pointer}.farm-menu button:hover{background:#edf6f0}.farm-menu small{display:block;color:#6a7973;font-weight:500;margin-top:3px}.farm-sheet{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:60;display:none;padding:18px;overflow:auto}.farm-sheet.open{display:block}.farm-sheet-card{max-width:900px;margin:30px auto;background:#f6faf8;border-radius:18px;padding:18px}.farm-sheet-head{display:flex;justify-content:space-between;align-items:center;gap:10px;position:sticky;top:0;background:#f6faf8;padding-bottom:10px;z-index:2}.farm-sheet-close{border:0;background:#17382c;color:#fff;border-radius:10px;padding:9px 13px;font-weight:700}.farm-tech-card{background:#fff;border:1px solid #d8e4de;border-radius:14px;padding:14px;margin-top:12px}.farm-tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.farm-tech-grid div{background:#f1f7f4;border-radius:9px;padding:8px}.farm-tech-grid small{display:block;color:#66766f;font-size:11px}.farm-tech-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:11px}.farm-tech-table th,.farm-tech-table td{padding:5px;border-bottom:1px solid #e3ebe7;text-align:center}.farm-tech-table th{background:#edf5f1}.farm-note{color:#65756e;font-size:12px;margin-top:8px}@media(max-width:650px){.farm-menu{width:210px}.farm-sheet{padding:8px}.farm-sheet-card{margin:10px auto;padding:12px}.farm-tech-grid{grid-template-columns:repeat(2,1fr)}}
+header.hero{min-height:180px;padding:15px}.brand-mark{font-size:42px}.brand h1{font-size:20px}.farm{font-size:13px;max-width:145px}
+  main{padding:0 12px;margin-bottom:72px}.weather-main{grid-template-columns:1fr}.weather-data{border-left:0;border-top:1px solid #ffffff55;padding:12px 0 0}.forecast-grid{grid-template-columns:repeat(4,1fr)}.forecast-grid div:nth-child(n+5){display:none}
+  .quick-grid{grid-template-columns:repeat(2,1fr);gap:10px}.quick-grid button,.quick-grid .amc-nav-link{min-height:125px}.quick-grid button strong,.quick-grid .amc-nav-link strong{font-size:17px}.quick-grid button span,.quick-grid .amc-nav-link span{font-size:12px}
+  .pivot-grid{grid-template-columns:repeat(4,1fr)}.mini-pivot{padding:6px 2px}.circle{width:45px;height:45px;font-size:23px}.mini-pivot h4{font-size:12px}
+}
+@media(max-width:430px){nav button{font-size:10px}nav button:before{font-size:22px}.weather-data{grid-template-columns:1fr 1fr}.pivot-grid{grid-template-columns:repeat(4,1fr)}.forecast-grid{grid-template-columns:repeat(4,1fr)}.quick-grid button,.quick-grid .amc-nav-link{min-height:115px}.quick-grid button strong,.quick-grid .amc-nav-link strong{font-size:15px}}
+
+.pivot-detail{display:grid;grid-template-columns:1fr 1.5fr;gap:14px;margin-top:14px}
+.pivot-select{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pivot-select select,.pivot-select input{padding:11px;border:1px solid #ccd7d2;border-radius:10px;background:#fff;font-size:15px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}
+.kpi{background:#fff;border:1px solid #dde5e1;border-radius:12px;padding:11px}.kpi small{display:block;color:#687771}.kpi b{font-size:20px}
+.graph{height:235px;border-radius:14px;background:#f7faf8;border:1px solid #dfe8e3;padding:10px;display:flex;align-items:flex-end;gap:7px;overflow:hidden}
+.bar{flex:1;min-width:9px;border-radius:5px 5px 0 0;background:#2385c6;position:relative}.bar span{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-size:9px;color:#60716a;white-space:nowrap}
+.line-note{display:flex;justify-content:space-between;font-size:12px;color:#687771;margin-top:7px}
+.status-banner{padding:13px;border-radius:12px;font-weight:700;margin-bottom:12px}.status-ok{background:#e0f4e5;color:#19753a}.status-att{background:#fff3d2;color:#8b6700}.status-prio{background:#ffe1e3;color:#a5262e}
+.log-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.log-grid label{font-size:12px;color:#64736d}.log-grid input{width:100%;padding:10px;border:1px solid #ccd7d2;border-radius:9px;margin-top:4px}
+@media(max-width:700px){.pivot-detail{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
+
+
+.tech-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.tech-grid label{font-size:12px;color:#62716b}.tech-grid input,.tech-grid select{width:100%;padding:10px;border:1px solid #ccd7d2;border-radius:9px;background:#fff;margin-top:4px}
+.calc-result{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.calc-result .kpi{background:#eef7f1}
+.tech-note{font-size:12px;color:#697872;line-height:1.4}
+@media(max-width:700px){.tech-grid{grid-template-columns:1fr}.calc-result{grid-template-columns:1fr}}
+
+.pivot-picker{display:grid;grid-template-columns:repeat(5,minmax(52px,1fr));gap:7px;margin-top:6px}
+.pivot-btn{border:1px solid #cfdad5;background:#fff;border-radius:10px;padding:10px 5px;font-weight:700;color:#24443a;cursor:pointer;touch-action:manipulation}
+.pivot-btn.active{background:#16834b;color:#fff;border-color:#16834b}
+@media(max-width:600px){.pivot-picker{grid-template-columns:repeat(4,1fr)}}
+</style>
+<style>
+.full-select{width:100%;padding:12px;border:1px solid #cfd8d4;border-radius:10px;background:#fff;font-size:16px}
+.primary-btn{border:0;border-radius:10px;padding:13px;background:#16834b;color:#fff;font-weight:800;font-size:16px}
+.ind-chart-wrap{height:220px;display:flex;align-items:flex-end;gap:7px;border-bottom:1px solid #cfd8d4;padding:10px 4px 0;overflow-x:auto}
+.ind-day{min-width:48px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px}
+.ind-bars{height:175px;display:flex;align-items:flex-end;gap:3px}
+.ind-bar{width:9px;border-radius:4px 4px 0 0;min-height:2px}
+.ind-bar.irr{background:#16834b}.ind-bar.rain{background:#2879d0}.ind-bar.etc{background:#e2a900}
+.ind-day small{font-size:9px;white-space:nowrap}
+.ind-legend{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0;font-size:12px}
+.ind-legend span{display:inline-flex;align-items:center;gap:4px}.ind-legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.ind-table{width:100%;border-collapse:collapse;font-size:13px}.ind-table th,.ind-table td{padding:8px 5px;border-bottom:1px solid #e5e9e7;text-align:right}.ind-table th:first-child,.ind-table td:first-child{text-align:left}
+</style>
+<style>
+.secondary-btn{border:1px solid #cfd8d4;background:#fff;color:#244438;border-radius:10px;font-weight:700}
+#indHistory table tr:hover{background:#f6faf8}
+.ind-empty{padding:18px;text-align:center;color:#66736d;background:#f7faf8;border-radius:12px}
+</style>
+<style>
+.weather-current{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}
+.weather-main{display:flex;align-items:center;gap:12px}.weather-icon{font-size:42px}.weather-main b{font-size:30px;display:block}.weather-main small{display:block;color:#65736c;margin-top:2px}
+.weather-grid{display:grid;grid-template-columns:repeat(4,minmax(55px,1fr));gap:7px;flex:1}.weather-grid>div{background:#f5f9f7;border-radius:10px;padding:8px;text-align:center}.weather-grid span{display:block}.weather-grid b{display:block;font-size:14px}.weather-grid small{font-size:10px;color:#66736d}
+.weather-forecast{display:flex;gap:8px;overflow-x:auto;margin-top:12px}.weather-day{min-width:100px;background:#f5f9f7;border-radius:11px;padding:9px;text-align:center}.weather-day b,.weather-day small{display:block}.weather-day .wi{font-size:25px;margin:4px}
+@media(max-width:650px){.weather-current{display:block}.weather-grid{margin-top:12px}}
+</style>
+
+<style id="amc-native-nav-fallback">
+/* Navegação nativa: funciona mesmo quando o navegador bloqueia JavaScript em arquivos baixados. */
+main > section { display:none; }
+main > section#home { display:block; }
+main > section:not(.hidden) { display:block !important; }
+main > section:target { display:block !important; }
+.hidden { display:none !important; }
+.amc-nav-link { text-decoration:none; }
+.quick-grid .amc-nav-link { color:inherit; }
+</style>
+
+<style id="crop-progress-style">
+.crop-progress-wrap{margin-top:14px;padding:14px;border-radius:16px;background:rgba(255,255,255,.72);border:1px solid rgba(25,75,55,.12)}
+.crop-progress-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:8px}
+.crop-progress-title{font-weight:800;color:#174b39;font-size:17px}
+.crop-progress-days{font-size:13px;color:#527067}
+.crop-progress-bar{height:14px;border-radius:999px;background:#dfe9e3;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.08)}
+.crop-progress-fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#2eaf5d,#8bcf3f);transition:width .35s ease}
+.crop-progress-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;font-size:13px;color:#48645a}
+.crop-progress-meta b{color:#174b39}
+@media(max-width:480px){.crop-progress-meta{grid-template-columns:1fr}}
+</style>
+</head><body>
+<header class="hero">
+      <div class="hero-top">
+                <div class="farm-menu-wrap">
+          <button class="farm-menu-btn" type="button" aria-label="Selecionar fazenda" onclick="toggleFarmMenu(event)">⋮</button>
+          <div id="farmMenu" class="farm-menu">
+            <button type="button" onclick="selectFarm('Dois Irmãos')">🌾 Dois Irmãos<small>Fichas técnicas e pivôs cadastrados</small></button>
+            <button type="button" onclick="selectFarm('Mundo Novo')">🌱 Mundo Novo<small>Área da fazenda</small></button>
+          </div>
+        </div>
+      </div>
+    </header>
+<div id="farmSheet" class="farm-sheet" aria-hidden="true"><div class="farm-sheet-card"><div class="farm-sheet-head"><div><h2 id="farmSheetTitle" style="margin:0">Dois Irmãos</h2><div id="farmSheetSubtitle" class="farm-note">Fichas técnicas cadastradas no aplicativo</div></div><button class="farm-sheet-close" type="button" onclick="closeFarmSheet()">Fechar</button></div><div id="farmSheetBody"></div></div></div>
+<nav><a id="bhome" class="active nav-fallback" href="#home" onclick="show('home');return false">⌂ Início</a><a id="bpiv" class="nav-fallback" href="#pivotView" onclick="openPivot(currentPivot);return false">💧 Pivôs</a><a id="bcalc" class="nav-fallback" href="#techCalc" onclick="show('techCalc');return false">🧮 Calculadora</a><a id="bcal" class="nav-fallback" href="#home" onclick="goWeather();return false">🌦️ Meteorologia</a><a id="bcharts" class="nav-fallback" href="#charts" onclick="show('charts');return false">▥ Gráficos</a><a id="bconfig" class="nav-fallback" href="#home" onclick="show('home');return false">⚙ Configurações</a></nav>
+<main>
+<button class="home-chart-shortcut" onclick="show('charts')" style="margin:8px 0;padding:10px 16px;border:0;border-radius:10px;background:#e2a900;color:#fff;font-weight:700">📊 Abrir Gráficos</button>
+<section id="home">
+<div class="card" id="weatherPanel">
+  <div class="status-title">
+    <div><h2>🌦️ Meteorologia</h2><span id="weatherLocation">Localização não definida</span></div>
+    <button type="button" class="secondary-btn" onclick="AMC_weatherRefresh()">Atualizar</button>
+  </div>
+  <div class="weather-current">
+    <div class="weather-main"><div id="weatherIcon" class="weather-icon">🌤️</div><div><b id="weatherTemp">-- °C</b><small id="weatherDesc">Aguardando localização</small></div></div>
+    <div class="weather-grid">
+      <div><span>💧</span><b id="weatherRain">--%</b><small>chuva</small></div>
+      <div><span>🌧️</span><b id="weatherPrec">-- mm</b><small>precipitação</small></div>
+      <div><span>💨</span><b id="weatherWind">-- km/h</b><small>vento</small></div>
+      <div><span>💦</span><b id="weatherET0">-- mm</b><small>ET₀ hoje</small></div>
+    </div>
+  </div>
+  <div id="weatherForecast" class="weather-forecast"></div>
+  <div id="weatherMsg" class="tech-note">Toque em Atualizar para obter a previsão pela localização do aparelho.</div>
+</div>
+
+<div class="quick-grid">
+<a class="amc-nav-link" href="#dailyTrack" onclick="show('dailyTrack');return false">💧<strong>Lançamento</strong><span>Irrigação, chuva e necessidade</span></a>
+<a class="amc-nav-link" href="#cal" onclick="show('cal');return false">📅<strong>Calendário</strong><span>Acompanhamento diário</span></a>
+<a class="amc-nav-link" href="#techCalc" onclick="show('techCalc');return false">🧮<strong>Calculadora</strong><span>Vazão, lâmina e tempo</span></a>
+<a class="amc-nav-link" href="#home" onclick="goWeather();return false">🌦️<strong>Meteorologia</strong><span>Previsão da região</span></a>
+<a class="amc-nav-link" href="#charts" onclick="show('charts');return false">📊<strong>Gráficos</strong><span>Evolução da irrigação</span></a>
+<a class="amc-nav-link" href="#pivotView" onclick="openPivot(currentPivot);return false">🚜<strong>Pivôs</strong><span>Gestão individual</span></a>
+</div>
+<div class="card"><div class="status-title"><h2>Status dos Pivôs</h2><span>14 pivôs ativos</span></div><div id="homePivots" class="pivot-grid"></div><p class="small" style="margin:10px 0 0">🟢 Irrigação OK • 🟡 Atenção • 🔴 Prioridade. O status será atualizado automaticamente conforme a necessidade e os lançamentos.</p></div>
+</section>
+
+
+<section id="pivotView" class="hidden">
+  <div class="card">
+    <div class="status-title">
+      <div>
+        <h2 id="pivotTitle">Pivô 01</h2>
+        <span id="pivotSub">Acompanhamento individual</span>
+      </div>
+      <button type="button" onclick="show('home')">← Início</button>
+    </div>
+
+    <div style="margin-top:14px">
+      <label><b>Selecionar pivô</b></label>
+      <select id="individualPivotSelect" class="full-select"></select>
+    </div>
+
+    <div id="individualPivotButtons" class="pivot-picker" style="margin-top:10px"></div>
+
+    <div id="pivotStatus" class="status-banner status-ok" style="margin-top:14px">🟢 Irrigação OK</div>
+    <div class="card" style="margin:10px 0 0;padding:12px;background:#f7fbf8">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <div><small style="color:#65756f">Cultura deste pivô</small><div id="individualCrop" style="font-size:19px;font-weight:800">—</div></div>
+        <div><small style="color:#65756f">Plantio</small><div id="individualPlantDate" style="font-weight:700">—</div></div>
+        <div><small style="color:#65756f">Ciclo</small><div id="individualCycle" style="font-weight:700">—</div></div>
+      </div>
+    </div>
+
+    <div class="calc-result">
+      <div class="kpi"><small>Irrigação</small><b id="kIrr">0,0 mm</b></div>
+      <div class="kpi"><small>Chuva</small><b id="kRain">0,0 mm</b></div>
+      <div class="kpi"><small>Necessidade (ETc)</small><b id="kNeed">0,0 mm</b></div>
+      <div class="kpi"><small>Saldo</small><b id="kBal">0,0 mm</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📝 Lançamento do dia</h3>
+    <div class="tech-grid">
+      <div>
+        <label>Data</label>
+        <input id="indDate" type="date">
+      </div>
+      <div>
+        <label>Irrigação (mm)</label>
+        <input id="indIrr" type="text" inputmode="decimal" min="0" step="0.1" inputmode="decimal" placeholder="0,0">
+      </div>
+      <div>
+        <label>Chuva (mm)</label>
+        <input id="indRain" type="text" inputmode="decimal" min="0" step="0.1" inputmode="decimal" placeholder="0,0">
+      </div>
+      <div>
+        <label>Necessidade / ETc (mm)</label>
+        <input id="indEtc" type="text" inputmode="decimal" min="0" step="0.1" inputmode="decimal" placeholder="0,0">
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:14px">
+      <button type="button" id="indSave" class="primary-btn" style="flex:1" onclick="AMC_saveIndividual()">💾 Salvar lançamento</button>
+      <button type="button" class="secondary-btn" style="padding:0 16px" onclick="AMC_clearIndividual()">Limpar</button>
+    </div>
+    <div id="indMessage" class="tech-note" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card">
+    <h3>💧 Próximo dia</h3>
+    <div id="indTomorrow" class="tech-note">Faça o lançamento do dia para calcular a estimativa.</div>
+  </div>
+
+  <div class="card">
+    <div class="status-title">
+      <div><h3>📈 Evolução diária</h3><span>Chuva × irrigação × necessidade</span></div>
+    </div>
+    <div id="indChart" style="height:250px;margin-top:12px;position:relative"></div>
+  </div>
+
+  <div class="card">
+    <h3>📋 Histórico do pivô</h3>
+    <div id="indHistory"></div>
+  </div>
+</section>
+
+
+
+
+<section id="charts" class="hidden">
+  <div class="card">
+    <div class="status-title">
+      <div><h2>📊 Gráficos de irrigação</h2><span>Chuva × irrigação × necessidade × déficit</span></div>
+      <button onclick="show('home')">← Início</button>
+    </div>
+    <div class="tech-grid" style="margin-top:14px">
+      <div><label>Pivô</label><div id="chPivot" class="pivot-picker" role="group" aria-label="Selecionar pivô"></div></div>
+      <div><label>Período</label><select id="chPeriod">
+        <option value="7">Últimos 7 lançamentos</option>
+        <option value="15">Últimos 15 lançamentos</option>
+        <option value="30" selected>Últimos 30 lançamentos</option>
+        <option value="all">Todos os lançamentos</option>
+      </select></div>
+    </div>
+    <div style="margin-top:18px"><canvas id="waterChart" height="240"></canvas></div>
+    <div class="calc-result">
+      <div class="kpi"><small>Irrigação acumulada</small><b id="chIrr">—</b></div>
+      <div class="kpi"><small>Chuva acumulada</small><b id="chRain">—</b></div>
+      <div class="kpi"><small>ETc acumulada</small><b id="chEtc">—</b></div>
+    </div>
+  </div>
+</section>
+<section id="dailyTrack" class="hidden">
+  <div class="card">
+    <div class="status-title">
+      <div><h2>📅 Acompanhamento diário</h2><span>Chuva • irrigação • necessidade da cultura</span></div>
+      <button onclick="show('home')">← Início</button>
+    </div>
+
+    <div class="tech-grid" style="margin-top:14px">
+      <div><label>Pivô</label><div id="dtPivot" class="pivot-picker" role="group" aria-label="Selecionar pivô"></div></div>
+      <div><label>Data</label><input id="dtDate" type="date"></div>
+      <div><label>Cultura</label><select id="dtCrop">
+<option value="soja">Soja</option><option value="milho">Milho</option><option value="sorgo">Sorgo</option><option value="trigo">Trigo</option><option value="cana">Cana-de-açúcar</option><option value="cafe">Café</option><option value="feijao">Feijão</option><option value="algodao">Algodão</option><option value="amendoim">Amendoim</option><option value="tomate">Tomate</option><option value="mandioca">Mandioca</option><option value="batata">Batata</option><option value="arroz">Arroz</option><option value="girassol">Girassol</option><option value="aveia">Aveia</option><option value="painco">Painço / milheto</option><option value="mamona">Mamona</option>
+</select></div>
+      <div><label>Data do plantio</label><input id="dtPlantDate" type="date"></div>
+      <div><label>Tipo de ciclo</label><select id="dtCycle"><option value="precoce">Precoce</option><option value="medio" selected>Médio / padrão</option><option value="tardio">Tardio</option></select></div>
+      <div class="auto-rec" id="dtCropProgress" style="margin:0">🌱 Informe a data do plantio para acompanhar o ciclo automaticamente.</div>
+
+      <div class="crop-progress-wrap" id="waterRecommendation">
+        <div class="crop-progress-head">
+          <div class="crop-progress-title">💧 Necessidade hídrica automática</div>
+          <div class="crop-progress-days" id="waterRecStatus">Aguardando dados</div>
+        </div>
+        <div class="crop-progress-meta">
+          <div>ETo: <b id="waterEto">— mm</b></div>
+          <div>Kc: <b id="waterKc">—</b></div>
+          <div>ETc: <b id="waterEtc">— mm</b></div>
+          <div>Chuva efetiva: <b id="waterRain">— mm</b></div>
+          <div>Déficit líquido: <b id="waterNet">— mm</b></div>
+          <div><b id="waterGross">— mm</b> recomendados no pivô</div>
+        </div>
+        <div class="tech-note" style="margin-top:9px">Cálculo de referência: ETo × Kc, descontando chuva efetiva e saldo hídrico acumulado, e convertendo a lâmina líquida para lâmina bruta pela eficiência do pivô.</div>
+      </div>
+      <div class="crop-progress-wrap" id="cropProgressCard">
+        <div class="crop-progress-head">
+          <div class="crop-progress-title" id="cropProgressTitle">🌱 Cultura</div>
+          <div class="crop-progress-days" id="cropProgressDays">Dia 0/0</div>
+        </div>
+        <div class="crop-progress-bar"><div class="crop-progress-fill" id="cropProgressFill"></div></div>
+        <div class="crop-progress-meta">
+          <div>Fase: <b id="cropProgressPhase">—</b></div>
+          <div>Desenvolvimento: <b id="cropProgressPercent">0%</b></div>
+          <div>Plantio: <b id="cropProgressPlanting">—</b></div>
+          <div>Maturação estimada: <b id="cropProgressMaturity">—</b></div>
+        </div>
+      </div>
+      <input id="dtStage" type="hidden" value="media">
+      <div><label>Chuva medida (mm)</label><input id="dtRain" type="number" min="0" step="0.1" value="0"></div>
+      <div><label>Irrigação realizada (mm)</label><input id="dtIrr" type="number" min="0" step="0.1" value="0"></div>
+      <div><label>Observação</label><input id="dtObs" type="text" placeholder="Ex.: pivô ligado, chuva forte..."></div>
+      <input id="dtEtc" type="hidden" value="0">
+    </div>
+    <div class="auto-rec" id="dtAutoRec">🌱 Calculando recomendação automática...</div>
+    <button style="margin-top:12px" onclick="saveDaily()">💾 Salvar lançamento</button>
+
+    <div class="calc-result">
+      <div class="kpi"><small>ETc calculada</small><b id="dtCalcEtc">—</b></div>
+      <div class="kpi"><small>Déficit do dia</small><b id="dtDeficit">—</b></div>
+      <div class="kpi"><small>Recomendação de irrigação</small><b id="dtTomorrow">—</b></div>
+      <div class="kpi"><small>Status</small><b id="dtStatus">—</b></div>
+    </div>
+    <div class="tech-note" style="margin-top:12px">
+      <b>🌱 Acompanhamento automático da cultura</b><br>
+      Ao informar a cultura e a data do plantio, o aplicativo acompanha os dias após o plantio,
+      identifica a fase estimada, calcula a data prevista de maturação e usa essa fase no cálculo da ETc e da recomendação de irrigação.
+      O ciclo é uma referência e pode variar conforme cultivar, época de semeadura e condições ambientais.
+    </div>
+    <p class="tech-note">A recomendação é calculada automaticamente com ETo da meteorologia, coeficiente da cultura/fase, chuva prevista ou medida, déficit acumulado e eficiência de aplicação de referência de 85%. É uma recomendação operacional inicial e deve ser ajustada às condições reais do solo e da lavoura.</p>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h3>📊 Histórico do pivô</h3>
+    <div id="dailyTable"></div>
+  </div>
+</section>
+<section id="techCalc" class="hidden">
+  <div class="card">
+    <div class="status-title"><div><h2>🧮 Calculadora do Pivô</h2><span>Valores oficiais das fichas técnicas • vazão • lâmina • tempo de volta</span></div><button onclick="show('home')">← Início</button></div>
+    <div class="tech-grid" style="margin-top:14px">
+      <div><label>Pivô</label><div id="tcPivot" class="pivot-picker" role="group" aria-label="Selecionar pivô"></div></div>
+      <div><label>Velocidade / porcentagem de operação (%)</label><input id="tcSpeed" type="number" min="1" max="100" step="1" value="50"></div>
+      <div><label>Área irrigada (ha)</label><input id="tcArea" type="number" min="0" step="0.01" placeholder="Preencher pela ficha técnica"></div>
+      <div><label>Vazão do pivô (m³/h)</label><input id="tcFlow" type="number" min="0" step="0.01" placeholder="Preencher pela ficha técnica"></div>
+      <div><label>Tempo de volta a 100% (h)</label><input id="tcBaseTime" type="number" min="0.01" step="0.01" placeholder="Preencher pela ficha técnica"></div>
+    </div>
+    <button style="margin-top:12px" onclick="calculateTech()">Calcular</button>
+    <div class="calc-result">
+      <div class="kpi"><small>Tempo para uma volta</small><b id="tcTime">—</b></div>
+      <div class="kpi"><small>Lâmina por hora</small><b id="tcRate">—</b></div>
+      <div class="kpi"><small>Lâmina por volta</small><b id="tcMm">—</b></div>
+    </div>
+    <p id="tcTechnicalSummary" class="tech-note"></p>
+    <p class="tech-note">A calculadora usa os dados da ficha técnica do pivô. Não serão inventados valores: quando a ficha não tiver algum dado, ele ficará para preenchimento.</p>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h3>📋 Ficha técnica do pivô selecionado</h3>
+    <div class="tech-grid">
+      <div><label>Área (ha)</label><input id="specArea" type="number" step="0.01"></div>
+      <div><label>Vazão (m³/h)</label><input id="specFlow" type="number" step="0.01"></div>
+      <div><label>Tempo de volta a 100% (h)</label><input id="specTime" type="number" step="0.01"></div>
+      <div><label>Observações</label><input id="specObs" type="text" placeholder="Ex.: pressão, comprimento, emissores..."></div>
+    </div>
+    <button style="margin-top:12px" onclick="saveTechSpec()">Salvar ficha técnica</button>
+    <p id="specMsg" class="tech-note"></p>
+  </div>
+</section>
+<section id="calc">
+<div class="card"><h2>Calculadora de Pivô</h2><div class="row">
+<div class="field"><label>Pivô</label><select id="pivot"></select></div>
+<div class="field"><label>Percentímetro</label><select id="pct"></select></div>
+</div><div id="calcres" class="grid" style="margin-top:14px"></div></div>
+<div class="card" style="margin-top:12px"><h3>Outros cálculos</h3><div class="row">
+<div class="field"><label>Horas de funcionamento</label><input id="hours" type="number" min="0" step="0.01" placeholder="ex.: 6"></div>
+<button onclick="fromHours()">Calcular mm</button>
+</div><div id="hoursres" class="notice hidden"></div></div>
+</section>
+
+<section id="cal" class="hidden">
+<div class="card"><h2>Calendário do pivô</h2><div class="row">
+<div class="field"><label>Pivô</label><select id="pivotCal"></select></div>
+<div class="field"><label>Cultura</label><input id="crop" placeholder="Ex.: milho"></div>
+</div><p class="small">Os registros ficam salvos neste aparelho. A recomendação automática usa a meteorologia, a cultura/fase e os lançamentos do pivô.</p>
+<div class="card" style="margin-top:10px"><div class="row">
+<div class="field"><label>Data</label><input id="date" type="date"></div>
+<div class="field"><label>Necessidade (mm)</label><input id="need" type="number" step="0.1"></div>
+<div class="field"><label>Irrigação (mm)</label><input id="irr" type="number" step="0.1"></div>
+<div class="field"><label>Chuva (mm)</label><input id="rain" type="number" step="0.1"></div>
+<button onclick="saveDay()">Salvar dia</button></div></div>
+<div id="summary" class="grid" style="margin-top:12px"></div>
+<div id="calendar" class="card" style="margin-top:12px"></div>
+</div>
+</section>
+
+<section id="info" class="hidden">
+<div class="card"><h2>Dados técnicos</h2><div class="field"><label>Pivô</label><select id="pivotInfo"></select></div><div id="infores" style="margin-top:14px"></div></div>
+</section>
+</main><footer>AMC Irrigação • dados de irrigação offline • Pivôs 10 e 11 reservados • status calculado pelos lançamentos</footer>
+<script>
+let currentFarm=localStorage.getItem('amcCurrentFarm')||'Dois Irmãos';
+function toggleFarmMenu(e){e.stopPropagation();const m=document.getElementById('farmMenu');if(m)m.classList.toggle('open');}
+function closeFarmMenu(){const m=document.getElementById('farmMenu');if(m)m.classList.remove('open');}
+document.addEventListener('click',e=>{if(!e.target.closest('.farm-menu-wrap'))closeFarmMenu();});
+function selectFarm(name){currentFarm=name;localStorage.setItem('amcCurrentFarm',name);closeFarmMenu();openFarmSheet(name);}
+function closeFarmSheet(){const s=document.getElementById('farmSheet');if(s){s.classList.remove('open');s.setAttribute('aria-hidden','true');}}
+const FARM_TECH_EXTRA={
+'01':{r1:261,r2:33.58,rt:294.58,v100:242.54,t21:9.77,pump:80,base:30,end:14,lat:-19.220529076449193,lon:-48.411988390213},
+'02':{r1:642,r2:30.80,rt:672.80,v100:274.81,t21:7.83,pump:70,base:74,end:34,lat:-19.23383535236098,lon:-48.4198936121896},
+'03':{r1:462.90,r2:37.52,rt:500.42,v100:260.87,t21:9.57,pump:78,base:75,end:37,lat:-19.231284699247723,lon:-48.40913349972834},
+'04':{r1:205.90,r2:36.64,rt:242.54,v100:301.68,t21:9.50,pump:null,base:32,end:26,lat:-19.24009660868482,lon:-48.39870912848585},
+'05':{r1:325.90,r2:37.42,rt:363.32,v100:266.67,t21:9.90,pump:74,base:47,end:36,lat:-19.234647849888514,lon:-48.39833250174581},
+'06':{r1:451.70,r2:36.98,rt:488.68,v100:298.34,t21:10.35,pump:76,base:49,end:34,lat:-19.22720807757102,lon:-48.394401441206284},
+'07':{r1:355.70,r2:36.14,rt:391.84,v100:301.68,t21:9.97,pump:120,base:40,end:30,lat:-19.216407012375313,lon:-48.39724494524228},
+'08':{r1:246.84,r2:35,rt:281.84,v100:257,t21:15.90,pump:52,base:28,end:13,lat:-19.220150143506775,lon:-48.40218292491042},
+'09':{r1:192,r2:35,rt:227,v100:301,t21:24.65,pump:52,base:28,end:13,lat:-19.22346506112096,lon:-48.4054473969081},
+'12':{r1:252.10,r2:22.25,rt:274.35,v100:297,t21:26.07,pump:52,base:28,end:13,lat:-19.210027164099085,lon:-48.40298134562437},
+'13':{r1:417.30,r2:29.27,rt:446.57,v100:297.50,t21:9.64,pump:85,base:64,end:31,lat:-19.211993135981416,lon:-48.41004888268999},
+'14':{r1:220.20,r2:34.80,rt:255,v100:297.50,t21:10.14,pump:80,base:30,end:14,lat:-19.215197922232214,lon:-48.41556453953389},
+'15':{r1:266.38,r2:37.74,rt:304.12,v100:286,t21:17.35,pump:76,base:49,end:34,lat:-19.24720276722053,lon:-48.42318843482536},
+'16':{r1:300.96,r2:37.74,rt:338.70,v100:286,t21:12.82,pump:76,base:49,end:34,lat:-19.24592648948311,lon:-48.41730903266472}
+};
+function fmtFarmNum(v,d=2){return v==null?'—':Number(v).toFixed(d).replace('.',',');}
+const MUNDO_NOVO_TECH={
+ '01':{raioUltima:377.41,raioApos:37.45,raioTotal:414.86,area:54.07,vel100:255.00,tempo100:9.30,vazao:359.95,pump:110.00,base:75.00,end:34.00,mm100:6.19,mm21:13.98,lat:-19.582746299415263,lon:-48.73845256618277,table:[[100,'09:18','04:39','02:19',6.19],[95,'09:47','04:54','02:27',6.52],[90,'10:20','05:10','02:35',6.88],[85,'10:56','05:28','02:44',7.28],[80,'11:37','05:49','02:54',7.74],[75,'12:24','06:12','03:06',8.25],[70,'13:17','06:39','03:19',8.84],[65,'14:18','07:09','03:35',9.52],[60,'15:30','07:45','03:52',10.32],[55,'16:54','08:27','04:14',11.26],[50,'18:36','09:18','04:39',12.38],[45,'20:40','10:20','05:10',13.76],[40,'23:15','11:37','05:49',15.48],[35,'26:34','13:17','06:39',17.69],[30,'31:00','15:30','07:45',20.64],[25,'37:12','18:36','09:18',24.76],[20,'46:30','23:15','11:37',30.95],[15,'62:00','31:00','15:30',41.27],[10,'93:00','46:30','23:15',61.91],[5,'185:59','93:00','46:30',123.81]]},
+ '02':{raioUltima:577.19,raioApos:25.45,raioTotal:602.64,area:114.09,vel100:258.00,tempo100:14.06,vazao:360.23,pump:110.00,base:49.00,end:13.00,mm100:4.44,mm21:6.63,lat:-19.590405658974483,lon:-48.74349991586968,table:[[100,'14:03','07:02','03:31',4.44],[95,'14:48','07:24','03:42',4.67],[90,'15:37','07:49','03:54',4.93],[85,'16:32','08:16','04:08',5.22],[80,'17:34','08:47','04:24',5.55],[75,'18:45','09:22','04:41',5.92],[70,'20:05','10:02','05:01',6.34],[65,'21:38','10:49','05:24',6.83],[60,'23:26','11:43','05:51',7.40],[55,'25:33','12:47','06:23',8.07],[50,'28:07','14:03','07:02',8.88],[45,'31:14','15:37','07:49',9.86],[40,'35:08','17:34','08:47',11.10],[35,'40:10','20:05','10:02',12.68],[30,'46:51','23:26','11:43',14.79],[25,'56:14','28:07','14:03',17.75],[20,'70:17','35:08','17:34',22.19],[15,'93:43','46:51','23:26',29.59],[10,'140:34','70:17','35:08',44.38],[5,'281:08','140:34','70:17',88.76]]}
+};
+function renderMundoNovo(){
+ const sub=document.getElementById('farmSheetSubtitle'),body=document.getElementById('farmSheetBody');
+ sub.textContent='2 fichas técnicas cadastradas • Pivôs 01 e 02';
+ body.innerHTML=Object.entries(MUNDO_NOVO_TECH).map(([k,x])=>{
+  const rows=x.table.map(r=>`<tr><td>${r[0]}%</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${fmtFarmNum(r[4])}</td></tr>`).join('');
+  return `<div class="farm-tech-card"><h3 style="margin:0 0 8px">💧 Mundo Novo • Pivô ${k}</h3><div class="farm-tech-grid"><div><small>Área irrigada</small><b>${fmtFarmNum(x.area)} ha</b></div><div><small>Vazão</small><b>${fmtFarmNum(x.vazao)} m³/h</b></div><div><small>Volta a 100%</small><b>${fmtFarmNum(x.tempo100)} h</b></div><div><small>Velocidade 100%</small><b>${fmtFarmNum(x.vel100)} m/h</b></div><div><small>Lâmina 100%</small><b>${fmtFarmNum(x.mm100)} mm</b></div><div><small>Lâmina pivô 21 h</small><b>${fmtFarmNum(x.mm21)} mm</b></div><div><small>Raio total</small><b>${fmtFarmNum(x.raioTotal)} m</b></div><div><small>Pressões bomba/base/final</small><b>${fmtFarmNum(x.pump)} / ${fmtFarmNum(x.base)} / ${fmtFarmNum(x.end)} m.c.a</b></div></div><div class="farm-note">Raio última torre: ${fmtFarmNum(x.raioUltima)} m • Raio após última torre: ${fmtFarmNum(x.raioApos)} m • Coordenadas: ${Number(x.lat).toFixed(6)}, ${Number(x.lon).toFixed(6)}</div><details style="margin-top:10px"><summary><b>Ver tabela completa da ficha técnica</b></summary><div style="overflow:auto"><table class="farm-tech-table"><thead><tr><th>Percentímetro</th><th>Volta</th><th>Meia</th><th>Quadrante</th><th>Lâmina bruta</th></tr></thead><tbody>${rows}</tbody></table></div></details></div>`;
+ }).join('');
+}
+function openFarmSheet(name){
+ const sheet=document.getElementById('farmSheet'),title=document.getElementById('farmSheetTitle');
+ title.textContent=name; sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+ if(name==='Mundo Novo'){renderMundoNovo();return;}
+ const sub=document.getElementById('farmSheetSubtitle'),body=document.getElementById('farmSheetBody');
+ sub.textContent='14 pivôs ativos • Pivôs 10 e 11 reservados';
+ body.innerHTML=keys.map(k=>{const p=PIVOTS[k]||{},x=FARM_TECH_EXTRA[k]||{};const rows=(TABLES[k]||[]).map(r=>`<tr><td>${r[0]}%</td><td>${Math.floor(r[1]/60)}:${String(r[1]%60).padStart(2,'0')}</td><td>${fmtFarmNum(r[2])}</td></tr>`).join('');return `<div class="farm-tech-card"><h3 style="margin:0 0 8px">💧 Pivô ${k}</h3><div class="farm-tech-grid"><div><small>Área</small><b>${fmtFarmNum(p.area)} ha</b></div><div><small>Vazão</small><b>${fmtFarmNum(p.flow)} m³/h</b></div><div><small>Volta 100%</small><b>${fmtFarmNum(p.time100)} h</b></div><div><small>Lâmina 100%</small><b>${fmtFarmNum(p.mm100)} mm</b></div><div><small>Lâmina 21 h</small><b>${fmtFarmNum(x.t21)} mm</b></div><div><small>Raio total</small><b>${fmtFarmNum(x.rt)} m</b></div><div><small>Pressão bomba</small><b>${x.pump==null?'—':fmtFarmNum(x.pump)+' m.c.a'}</b></div><div><small>Pressão base/final</small><b>${fmtFarmNum(x.base)} / ${fmtFarmNum(x.end)} m.c.a</b></div></div><div class="farm-note">Coordenadas: ${x.lat!=null?Number(x.lat).toFixed(6)+', '+Number(x.lon).toFixed(6):'—'}</div><details style="margin-top:10px"><summary><b>Ver tabela da ficha técnica</b></summary><div style="overflow:auto"><table class="farm-tech-table"><thead><tr><th>Percentímetro</th><th>Tempo/volta</th><th>Lâmina bruta</th></tr></thead><tbody>${rows}</tbody></table></div></details></div>`;}).join('');
+}
+
+const PIVOTS={"01": {"area": 27.26, "flow": 126.78, "time100": 6.76, "mm100": 3.14}, "02": {"area": 142.21, "flow": 530.09, "time100": 14.6833, "mm100": 5.47}, "03": {"area": 78.67, "flow": 358.48, "time100": 11.15, "mm100": 5.08}, "04": {"area": 18.48, "flow": 83.6, "time100": 4.2833, "mm100": 1.94}, "05": {"area": 41.47, "flow": 195.5, "time100": 7.68, "mm100": 3.62}, "06": {"area": 37.72, "flow": 185.97, "time100": 4.78, "mm100": 2.36}, "07": {"area": 48.24, "flow": 228.95, "time100": 7.41, "mm100": 3.52}, "08": {"area": 24.95, "flow": 189.0, "time100": 6.03, "mm100": 4.57}, "09": {"area": 16.19, "flow": 190.0, "time100": 4.01, "mm100": 4.7}, "12": {"area": 23.65, "flow": 293.6, "time100": 5.33, "mm100": 6.62}, "13": {"area": 62.65, "flow": 287.5, "time100": 8.81, "mm100": 4.04}, "14": {"area": 20.43, "flow": 98.6, "time100": 4.65, "mm100": 2.24}, "15": {"area": 29.06, "flow": 240.0, "time100": 5.85, "mm100": 4.83}, "16": {"area": 36.04, "flow": 220.0, "time100": 6.61, "mm100": 4.04}};
+const TABLES={"05": [[100, 461, 3.62], [95, 485, 3.81], [90, 512, 4.02], [85, 542, 4.26], [80, 576, 4.52], [75, 614, 4.83], [70, 658, 5.17], [65, 709, 5.57], [60, 768, 6.03], [55, 838, 6.58], [50, 921, 7.24], [45, 1024, 8.04], [40, 1152, 9.05], [35, 1316, 10.34], [30, 1536, 12.07], [25, 1843, 14.48], [20, 2304, 18.1], [15, 3071, 24.13], [10, 4607, 36.2], [5, 9214, 72.4]], "06": [[100, 287, 2.36], [95, 302, 2.48], [90, 319, 2.62], [85, 338, 2.77], [80, 359, 2.95], [75, 383, 3.14], [70, 410, 3.37], [65, 442, 3.63], [60, 478, 3.93], [55, 522, 4.29], [50, 574, 4.72], [45, 638, 5.24], [40, 717, 5.9], [35, 820, 6.74], [30, 957, 7.86], [25, 1148, 9.43], [20, 1435, 11.79], [15, 1913, 15.72], [10, 2870, 23.58], [5, 5740, 47.16]], "07": [[100, 444, 3.52], [95, 468, 3.7], [90, 494, 3.91], [85, 523, 4.14], [80, 556, 4.4], [75, 593, 4.69], [70, 635, 5.02], [65, 684, 5.41], [60, 741, 5.86], [55, 808, 6.39], [50, 889, 7.03], [45, 988, 7.81], [40, 1111, 8.79], [35, 1270, 10.05], [30, 1482, 11.72], [25, 1778, 14.07], [20, 2222, 17.58], [15, 2963, 23.44], [10, 4445, 35.16], [5, 8890, 70.33]], "08": [[100, 362, 4.57], [95, 381, 4.81], [90, 402, 5.08], [85, 426, 5.38], [80, 453, 5.71], [75, 483, 6.09], [70, 517, 6.53], [65, 557, 7.03], [60, 603, 7.62], [55, 658, 8.31], [50, 724, 9.14], [45, 805, 10.16], [40, 905, 11.43], [35, 1035, 13.06], [30, 1207, 15.24], [25, 1448, 18.28], [20, 1810, 22.85], [15, 2414, 30.47], [10, 3621, 45.71], [5, 7242, 91.41]], "09": [[100, 240, 4.7], [95, 253, 4.95], [90, 267, 5.23], [85, 283, 5.53], [80, 301, 5.88], [75, 321, 6.27], [70, 344, 6.72], [65, 370, 7.24], [60, 401, 7.84], [55, 437, 8.55], [50, 481, 9.41], [45, 534, 10.45], [40, 601, 11.76], [35, 687, 13.44], [30, 802, 15.68], [25, 962, 18.82], [20, 1202, 23.52], [15, 1603, 31.36], [10, 2405, 47.04], [5, 4809, 94.08]], "12": [[100, 320, 6.62], [95, 337, 6.97], [90, 356, 7.36], [85, 376, 7.79], [80, 400, 8.28], [75, 427, 8.83], [70, 457, 9.46], [65, 492, 10.19], [60, 533, 11.04], [55, 582, 12.04], [50, 640, 13.24], [45, 711, 14.72], [40, 800, 16.56], [35, 914, 18.92], [30, 1067, 22.07], [25, 1280, 26.49], [20, 1600, 33.11], [15, 2133, 44.15], [10, 3200, 66.22], [5, 6400, 132.44]], "13": [[100, 529, 4.04], [95, 557, 4.26], [90, 588, 4.49], [85, 622, 4.76], [80, 661, 5.06], [75, 705, 5.39], [70, 755, 5.78], [65, 814, 6.22], [60, 881, 6.74], [55, 961, 7.35], [50, 1058, 8.09], [45, 1175, 8.99], [40, 1322, 10.11], [35, 1511, 11.56], [30, 1763, 13.48], [25, 2115, 16.18], [20, 2644, 20.22], [15, 3525, 26.96], [10, 5288, 40.44], [5, 10576, 80.89]], "14": [[100, 279, 2.24], [95, 294, 2.36], [90, 310, 2.49], [85, 328, 2.64], [80, 349, 2.81], [75, 372, 2.99], [70, 399, 3.21], [65, 429, 3.45], [60, 465, 3.74], [55, 507, 4.08], [50, 558, 4.49], [45, 620, 4.99], [40, 698, 5.61], [35, 797, 6.41], [30, 930, 7.48], [25, 1116, 8.98], [20, 1395, 11.22], [15, 1860, 14.96], [10, 2790, 22.45], [5, 5581, 44.89]], "15": [[100, 351, 4.83], [95, 370, 5.09], [90, 390, 5.37], [85, 413, 5.69], [80, 439, 6.04], [75, 468, 6.45], [70, 502, 6.91], [65, 540, 7.44], [60, 585, 8.06], [55, 638, 8.79], [50, 702, 9.67], [45, 780, 10.74], [40, 878, 12.08], [35, 1003, 13.81], [30, 1170, 16.11], [25, 1405, 19.34], [20, 1756, 24.17], [15, 2341, 32.23], [10, 3511, 48.34], [5, 7023, 96.68]], "16": [[100, 397, 4.04], [95, 418, 4.25], [90, 441, 4.48], [85, 467, 4.75], [80, 496, 5.05], [75, 529, 5.38], [70, 567, 5.77], [65, 610, 6.21], [60, 661, 6.73], [55, 721, 7.34], [50, 793, 8.07], [45, 882, 8.97], [40, 992, 10.09], [35, 1133, 11.53], [30, 1322, 13.45], [25, 1587, 16.14], [20, 1984, 20.18], [15, 2645, 26.91], [10, 3967, 40.36], [5, 7934, 80.72]]};
+const keys=Object.keys(PIVOTS).sort((a,b)=>Number(a)-Number(b));
+const OFFICIAL_TABLES_01_04={"01":[[100,406,3.14],[95,427,3.31],[90,451,3.49],[85,477,3.70],[80,507,3.93],[75,541,4.19],[70,580,4.49],[65,624,4.84],[60,676,5.24],[55,738,5.72],[50,811,6.29],[45,902,6.99],[40,1014,7.86],[35,1159,8.98],[30,1352,10.48],[25,1623,12.58],[20,2028,15.72],[15,2705,20.96],[10,4057,31.44],[5,8114,62.89]],"02":[[100,881,5.47],[95,927,5.76],[90,979,6.08],[85,1036,6.44],[80,1101,6.84],[75,1174,7.30],[70,1258,7.82],[65,1355,8.42],[60,1468,9.12],[55,1601,9.95],[50,1761,10.94],[45,1957,12.16],[40,2202,13.68],[35,2516,15.63],[30,2936,18.24],[25,3523,21.89],[20,4404,27.36],[15,5871,36.48],[10,8807,54.72],[5,17614,109.43]],"03":[[100,669,5.08],[95,704,5.35],[90,743,5.64],[85,787,5.98],[80,836,6.35],[75,892,6.77],[70,956,7.26],[65,1029,7.82],[60,1115,8.47],[55,1216,9.24],[50,1338,10.16],[45,1487,11.29],[40,1672,12.70],[35,1911,14.52],[30,2230,16.93],[25,2676,20.32],[20,3345,25.40],[15,4460,33.87],[10,6690,50.80],[5,13380,101.61]],"04":[[100,257,1.94],[95,271,2.04],[90,286,2.16],[85,303,2.28],[80,322,2.42],[75,343,2.59],[70,368,2.77],[65,396,2.98],[60,429,3.23],[55,468,3.53],[50,515,3.88],[45,572,4.31],[40,643,4.85],[35,735,5.54],[30,858,6.47],[25,1029,7.76],[20,1287,9.70],[15,1715,12.93],[10,2573,19.40],[5,5146,38.80]]};
+Object.assign(TABLES, OFFICIAL_TABLES_01_04);
+const qs=id=>document.getElementById(id);
+let currentPivot=localStorage.getItem('amcCurrentPivot')||keys[0]||'01';
+function selectPivot(k){
+  k=String(k||'');
+  if(!keys.includes(k))return;
+  currentPivot=k;
+  localStorage.setItem('amcCurrentPivot',k);
+  document.querySelectorAll('.pivot-picker').forEach(box=>{
+    box.querySelectorAll('.pivot-btn').forEach(b=>b.classList.toggle('active',String(b.dataset.pivot)===k));
+    box.dataset.selected=k;
+  });
+  ['pivot','pivotCal','pivotInfo'].forEach(id=>{const e=qs(id);if(e)e.value=k;});
+  // O acompanhamento diário é por pivô. Ao trocar, nunca reaproveita
+  // cultura/lançamento de outro pivô: primeiro carrega a configuração salva
+  // deste pivô e depois o lançamento da data selecionada.
+  if(qs('dtPivot')){
+    qs('dtPivot').dataset.selected=k;
+    if(typeof loadDailyPivot==='function') loadDailyPivot(k);
+  }
+  if(qs('tcPivot') && typeof loadTechSpec==='function')loadTechSpec();
+  if(qs('chPivot') && typeof renderCharts==='function')renderCharts();
+  if(qs('pivotView') && !qs('pivotView').classList.contains('hidden') && typeof loadPivot==='function')loadPivot(k,true);
+  if(typeof AMC_loadIndividual==='function' && qs('individualPivotSelect')?.closest('#pivotView')){
+    try{ AMC_selectIndividual(k); }catch(e){}
+  }
+}
+function fillPicker(id, selected){
+  const el=qs(id); if(!el)return;
+  const chosen=keys.includes(selected)?selected:(currentPivot||keys[0]);
+  el.innerHTML=keys.map(k=>`<button type="button" class="pivot-btn ${k===chosen?'active':''}" data-pivot="${k}" onclick="selectPivot('${k}')">Pivô ${k}</button>`).join('');
+  el.dataset.selected=chosen;
+}
+function fill(id){
+  const el=qs(id);
+  if(!el)return;
+  const current=el.value;
+  if(el.tagName==='SELECT'){
+    el.innerHTML='<option value="">Selecione o pivô</option>'+keys.map(k=>`<option value="${k}">Pivô ${k}</option>`).join('');
+    if(current && keys.includes(current)) el.value=current;
+  }
+}
+function fillAllPivotSelectors(){
+  ['pivot','pivotCal','pivotInfo','chPivot','dtPivot'].forEach(fill);
+}
+fillAllPivotSelectors();
+fillPicker('tcPivot',currentPivot);
+fillPicker('dtPivot',currentPivot);
+fillPicker('chPivot',currentPivot);
+qs('pct').innerHTML=[100,95,90,85,80,75,70,65,60,55,50,45,40,35,30,25,20,15,10,5].map(x=>`<option>${x}%</option>`).join('');
+function fmtHours(h){let total=Math.round(h*60), hh=Math.floor(total/60), mm=total%60; return `${hh}h${String(mm).padStart(2,'0')}`}
+function rowFor(k,pct){
+  let p=PIVOTS[k], arr=TABLES[k];
+  if(arr){let x=arr.find(r=>r[0]===pct); if(x)return {pct,time:x[1]/60,mm:x[2],exact:true}}
+  return {pct,time:p.time100*100/pct,mm:p.mm100*100/pct,exact:false};
+}
+function calc(){let k=qs('pivot').value,pct=Number(qs('pct').value.replace('%','')),p=PIVOTS[k];
+const r=rowFor(k,pct);
+qs('calcres').innerHTML=`<div class="card"><div class="muted">Lâmina bruta da ficha</div><div class="big">${r.mm.toFixed(2)} mm</div></div>
+<div class="card"><div class="muted">Tempo por volta da ficha</div><div class="big">${fmtHours(r.time)}</div></div>
+<div class="card"><div class="muted">Vazão da ficha</div><div class="big">${p.flow.toFixed(2)} m³/h</div></div>
+<div class="card"><div class="muted">Área irrigada</div><div class="big">${p.area.toFixed(2)} ha</div></div>
+<div class="card"><div class="muted">Fonte</div><div class="result">Tabela da ficha técnica — ${pct}%</div></div>`;}
+function fromHours(){let k=qs('pivot').value,h=Number(qs('hours').value); if(!h)return;let p=PIVOTS[k],mm=p.mm100*(h/p.time100);let el=qs('hoursres');el.className='notice green';el.textContent=`Estimativa: ${mm.toFixed(2)} mm em ${h.toFixed(2)} h. Para percentímetro exato, use a tabela acima.`}
+function info(){let k=qs('pivotInfo').value,p=PIVOTS[k];qs('infores').innerHTML=`<div class="grid"><div class="card"><div class="muted">Área</div><div class="big">${p.area.toFixed(2)} ha</div></div><div class="card"><div class="muted">Vazão</div><div class="big">${p.flow.toFixed(2)} m³/h</div></div><div class="card"><div class="muted">Volta a 100%</div><div class="big">${fmtHours(p.time100)}</div></div><div class="card"><div class="muted">Lâmina a 100%</div><div class="big">${p.mm100.toFixed(2)} mm</div></div></div>`}
+function goWeather(){
+  show('home');
+  setTimeout(function(){
+    const w=qs('weatherPanel');
+    if(w) w.scrollIntoView({behavior:'smooth',block:'start'});
+  },50);
+}
+function show(s){
+  ['home','pivotView','dailyTrack','charts','techCalc','calc','cal','info'].forEach(x=>{const e=qs(x);if(e)e.classList.toggle('hidden',x!==s);});
+  ['bhome','bpiv','bcalc','bcal','bcharts','bconfig'].forEach(x=>{const e=qs(x);if(e)e.classList.remove('active')}); if(s==='home')qs('bhome')?.classList.add('active'); if(s==='pivotView')qs('bpiv')?.classList.add('active'); if(s==='techCalc')qs('bcalc')?.classList.add('active'); if(s==='charts')qs('bcharts')?.classList.add('active');
+  if(s==='calc'||s==='techCalc')calc(); if(s==='info')info(); if(s==='cal'){fillAllPivotSelectors(); if(qs('pivotCal')&&!qs('pivotCal').value)qs('pivotCal').value=currentPivot||keys[0]; renderCal();}
+  if(s==='home')homePivots(); if(s==='pivotView')AMC_initIndividual(); if(s==='techCalc')initTechCalc(); if(s==='dailyTrack')initDaily(); if(s==='charts')initCharts();
+}
+function homePivots(){
+  const el=qs('homePivots');
+  if(!el)return;
+  el.innerHTML=keys.map(k=>{
+    const logs=(pivotLogs[k]||[]).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+    const last=logs.at(-1);
+    const bal=last ? (Number(last.irr)||0)+(Number(last.rain)||0)-(Number(last.etc)||0) : 0;
+    const cls=bal>=0?'normal':bal>=-3?'attention':'priority';
+    const label=bal>=0?'Normal':bal>=-3?'Atenção':'Prioridade';
+    return `<div class="mini-pivot" onclick="openPivot('${k}')"><div class="circle">💧</div><h4>Pivô ${k}</h4><p><span class="dot ${cls}"></span>${label}</p></div>`;
+  }).join('');
+}
+function storage(){return JSON.parse(localStorage.getItem('amcRecords')||'{}')}
+function saveDay(){let k=qs('pivotCal').value,d=qs('date').value;if(!d)return;let all=storage();all[`${k}|${d}`]={pivot:k,date:d,crop:qs('crop').value,need:+qs('need').value||0,irr:+qs('irr').value||0,rain:+qs('rain').value||0};localStorage.setItem('amcRecords',JSON.stringify(all));renderCal()}
+function renderCal(){let k=qs('pivotCal').value, all=storage(), now=new Date(), y=now.getFullYear(),m=now.getMonth();let month=String(m+1).padStart(2,'0');let first=new Date(y,m,1).getDay();first=(first+6)%7;let days=new Date(y,m+1,0).getDate();let html='<h3>'+now.toLocaleDateString('pt-BR',{month:'long',year:'numeric'})+'</h3><div class="days">'+['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'].map(x=>`<div class="small"><b>${x}</b></div>`).join('');for(let i=0;i<first;i++)html+='<div></div>';let totalN=0,totalI=0,totalR=0;for(let d=1;d<=days;d++){let key=`${k}|${y}-${month}-${String(d).padStart(2,'0')}`,r=all[key];let cls='';if(r){let bal=r.irr+r.rain-r.need;cls=bal>=-0.5?'g':bal>=-2?'y':'r';totalN+=r.need;totalI+=r.irr;totalR+=r.rain}html+=`<div class="day ${cls}"><b>${d}</b>${r?`<br>${r.irr.toFixed(1)}💧<br>${r.rain.toFixed(1)}🌧️`:''}</div>`}html+='</div>';qs('calendar').innerHTML=html;qs('summary').innerHTML=`<div class="card"><div class="muted">Necessidade registrada</div><div class="big">${totalN.toFixed(1)} mm</div></div><div class="card"><div class="muted">Irrigação</div><div class="big">${totalI.toFixed(1)} mm</div></div><div class="card"><div class="muted">Chuva</div><div class="big">${totalR.toFixed(1)} mm</div></div>`}
+qs('pivot').onchange=calc;qs('pct').onchange=calc;qs('pivotInfo').onchange=info; if(qs('pivotCal'))qs('pivotCal').onchange=renderCal;
+qs('date').value=new Date().toISOString().slice(0,10);calc();info();renderCal();
+
+const pivotLogs = JSON.parse(localStorage.getItem('amcPivotLogs')||'{}');
+
+function pivotOptions(selected){
+  return keys.map(x=>`<option value="${x}" ${x===selected?'selected':''}>Pivô ${x}</option>`).join('');
+}
+
+function renderPivotButtons(k){
+  const box=qs('pivotButtons');
+  if(!box)return;
+  box.innerHTML=keys.map(x=>`<button type="button" class="pivot-btn ${x===k?'active':''}" data-pivot="${x}" onclick="chooseIndividualPivot('${x}')">Pivô ${x}</button>`).join('');
+}
+
+function chooseIndividualPivot(k){
+  if(!keys.includes(k))return;
+  currentPivot=k;
+  localStorage.setItem('amcCurrentPivot',k);
+  const sel=qs('pivotSelect');
+  if(sel)sel.value=k;
+  renderPivotButtons(k);
+  loadPivot(k);
+}
+
+function openPivot(k){
+  if(!keys.includes(k)) k=currentPivot||keys[0];
+  currentPivot=k;
+  localStorage.setItem('amcCurrentPivot',k);
+  show('pivotView');
+
+  const sel=qs('pivotSelect');
+  if(sel){
+    sel.innerHTML='<option value="">Selecione o pivô</option>'+pivotOptions(k);
+    sel.value=k;
+    sel.onchange=()=>chooseIndividualPivot(sel.value);
+  }
+  renderPivotButtons(k);
+  loadPivot(k);
+}
+
+function renderPivotEvolution(k){
+  const canvas=qs('pivotEvolutionChart');
+  if(!canvas)return;
+  const rows=(dailyEntries.filter(x=>x.pivot===k)
+    .slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)))).slice(-14);
+
+  const dpr=window.devicePixelRatio||1;
+  const w=Math.max(canvas.clientWidth||620,520), h=260;
+  canvas.width=w*dpr; canvas.height=h*dpr;
+  const ctx=canvas.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,w,h);
+
+  if(!rows.length){
+    ctx.fillStyle='#66736e'; ctx.font='15px sans-serif';
+    ctx.fillText('Nenhum lançamento registrado para este pivô.',20,42);
+    return;
+  }
+
+  const pad={l:44,r:18,t:34,b:48}, iw=w-pad.l-pad.r, ih=h-pad.t-pad.b;
+  const vals=rows.flatMap(r=>[Number(r.rain)||0,Number(r.irr)||0,Number(r.etc)||0]);
+  const max=Math.max(1,...vals)*1.15;
+  ctx.strokeStyle='#d7dedb'; ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const y=pad.t+ih-(ih*i/4);
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();
+    ctx.fillStyle='#66736e';ctx.font='11px sans-serif';
+    ctx.fillText((max*i/4).toFixed(1),4,y+4);
+  }
+
+  const series=[
+    ['rain','Chuva','#3b82f6'],
+    ['irr','Irrigação','#159447'],
+    ['etc','ETc','#e2a900']
+  ];
+  const step=rows.length===1?0:iw/(rows.length-1);
+
+  series.forEach(([key,label,color])=>{
+    ctx.strokeStyle=color;ctx.lineWidth=3;ctx.beginPath();
+    rows.forEach((r,i)=>{
+      const x=pad.l+i*step;
+      const y=pad.t+ih-((Number(r[key])||0)/max)*ih;
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+      ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();
+    });
+    ctx.stroke();
+  });
+
+  ctx.font='11px sans-serif';
+  rows.forEach((r,i)=>{
+    const x=pad.l+i*step;
+    if(i===0||i===rows.length-1||rows.length<=8){
+      ctx.fillStyle='#34413d';
+      ctx.fillText(String(r.date||'').slice(5).replace('-','/'),x-14,h-17);
+    }
+  });
+
+  let lx=pad.l;
+  series.forEach(([key,label,color])=>{
+    ctx.fillStyle=color;ctx.fillRect(lx,10,10,10);
+    ctx.fillStyle='#34413d';ctx.fillText(label,lx+15,19);lx+=82;
+  });
+}
+
+function loadPivot(k, preserveForm=false){
+  if(!keys.includes(k))return;
+  currentPivot=k;
+  localStorage.setItem('amcCurrentPivot',k);
+
+  const sel=qs('pivotSelect');
+  if(sel){
+    if(!sel.options.length)sel.innerHTML='<option value="">Selecione o pivô</option>'+pivotOptions(k);
+    sel.value=k;
+  }
+  renderPivotButtons(k);
+
+  const logs=(pivotLogs[k]||[]).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  const last=logs.length?logs[logs.length-1]:null;
+
+  qs('pivotTitle').textContent='Pivô '+k;
+  qs('pivotSub').textContent='Acompanhamento individual';
+
+  // KPIs sempre mostram o lançamento do dia selecionado/mais recente.
+  qs('kIrr').textContent=(last?.irr??0).toFixed(1)+' mm';
+  qs('kRain').textContent=(last?.rain??0).toFixed(1)+' mm';
+  qs('kNeed').textContent=(last?.etc??0).toFixed(1)+' mm';
+
+  const bal=(last?.irr??0)+(last?.rain??0)-(last?.etc??0);
+  qs('kBal').textContent=bal.toFixed(1)+' mm';
+
+  const st=qs('pivotStatus');
+  if(bal>=0){st.className='status-banner status-ok';st.textContent='🟢 Irrigação OK';}
+  else if(bal>=-3){st.className='status-banner status-att';st.textContent='🟡 Atenção';}
+  else{st.className='status-banner status-prio';st.textContent='🔴 Prioridade';}
+
+  renderPivotEvolution(k);
+
+  const tomorrow=Math.max(0,(last?.etc??0)-((last?.irr??0)+(last?.rain??0)));
+  qs('tomorrowText').textContent=last
+    ? `Com os dados lançados em ${last.date}, a necessidade restante estimada é de ${tomorrow.toFixed(1)} mm.`
+    : 'Informe os dados do dia para calcular a necessidade estimada para amanhã.';
+
+  if(!preserveForm){
+    const today=new Date().toISOString().slice(0,10);
+    qs('logIrr').value='';
+    qs('logRain').value='';
+    qs('logEtc').value='';
+    qs('logDate').value=today;
+  }
+}
+
+function savePivotLog(){
+  const sel=qs('pivotSelect');
+  const k=sel?.value || currentPivot || keys[0];
+  const date=qs('logDate').value;
+
+  if(!keys.includes(k)){qs('saveMsg').textContent='Selecione um pivô antes de salvar.';return;}
+  if(!date){qs('saveMsg').textContent='Informe a data do lançamento.';return;}
+
+  const item={
+    pivot:k,date,
+    irr:Number(qs('logIrr').value)||0,
+    rain:Number(qs('logRain').value)||0,
+    etc:Number(qs('logEtc').value)||0
+  };
+
+  if(!pivotLogs[k])pivotLogs[k]=[];
+  const idx=pivotLogs[k].findIndex(x=>x.date===date);
+  if(idx>=0)pivotLogs[k][idx]=item;else pivotLogs[k].push(item);
+  pivotLogs[k].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+
+  // Mantém o acompanhamento diário e o gráfico geral sincronizados.
+  const didx=dailyEntries.findIndex(x=>x.pivot===k&&x.date===date);
+  const existingDaily=didx>=0?dailyEntries[didx]:null;
+  const cfg=(JSON.parse(localStorage.getItem('amcCropConfig')||'{}')[k])||{};
+  const dailyItem={...item,obs:'',
+    crop:existingDaily?.crop||cfg.crop||'soja',
+    plantDate:existingDaily?.plantDate||cfg.plantDate||date,
+    cycleType:existingDaily?.cycleType||cfg.cycleType||'medio',
+    stage:existingDaily?.stage||cfg.stage||'media'};
+  if(didx>=0)dailyEntries[didx]=dailyItem;else dailyEntries.push(dailyItem);
+
+  localStorage.setItem('amcPivotLogs',JSON.stringify(pivotLogs));
+  localStorage.setItem('amcDailyEntries',JSON.stringify(dailyEntries));
+  currentPivot=k;
+  localStorage.setItem('amcCurrentPivot',k);
+
+  if(qs('dtPivot'))qs('dtPivot').value=k;
+  if(qs('chPivot'))selectPivot(k);
+
+  // Não apaga a mensagem nem os dados recém-lançados.
+  loadPivot(k,true);
+  qs('saveMsg').textContent=`✅ Lançamento do Pivô ${k} em ${date} salvo com sucesso.`;
+  renderDaily();
+  renderCharts();
+  previewDaily();
+  homePivots();
+}
+
+
+const techSpecs = JSON.parse(localStorage.getItem('amcTechSpecs')||'{}');
+
+function initTechCalc(){
+  fillPicker('tcPivot', currentPivot || keys[0]);
+  loadTechSpec();
+}
+function loadTechSpec(){
+  const k=currentPivot;
+  const p=PIVOTS[k]||{};
+  const saved=techSpecs[k]||{};
+  const area=saved.area||p.area;
+  const flow=saved.flow||p.flow;
+  const baseTime=saved.baseTime||p.time100;
+  qs('tcArea').value=area??'';
+  qs('tcFlow').value=flow??'';
+  qs('tcBaseTime').value=baseTime??'';
+  qs('specArea').value=area??'';
+  qs('specFlow').value=flow??'';
+  qs('specTime').value=baseTime??'';
+  qs('specObs').value=saved.obs||`Dados cadastrados do Pivô ${k}.`;
+  qs('tcSpeed').value=50;
+  qs('tcTechnicalSummary').textContent=`Pivô ${k} • Área ${Number(area||0).toFixed(2)} ha • Vazão ${Number(flow||0).toFixed(2)} m³/h • Lâmina a 100% ${Number(p.mm100||0).toFixed(2)} mm.`;
+  calculateTech();
+}
+function saveTechSpec(){
+  const k=currentPivot;
+  techSpecs[k]={
+    area:Number(qs('specArea').value)||0,
+    flow:Number(qs('specFlow').value)||0,
+    baseTime:Number(qs('specTime').value)||0,
+    obs:qs('specObs').value||''
+  };
+  localStorage.setItem('amcTechSpecs',JSON.stringify(techSpecs));
+  loadTechSpec();
+  qs('specMsg').textContent='Ficha técnica salva neste aparelho e disponível offline.';
+}
+function calculateTech(){
+  const k=currentPivot, pvt=PIVOTS[k]||{};
+  const speed=Number(qs('tcSpeed').value);
+  const area=Number(qs('tcArea').value)||pvt.area||0;
+  const flow=Number(qs('tcFlow').value)||pvt.flow||0;
+  const baseTime=Number(qs('tcBaseTime').value)||pvt.time100||0;
+  if(!(speed>0&&speed<=100)){
+    qs('tcTime').textContent='Informe 1–100%';qs('tcRate').textContent='—';qs('tcMm').textContent='—';return;
+  }
+  const pct=Math.max(5,Math.min(100,Math.round(speed/5)*5));
+  const row=TABLES[k]?.find(r=>r[0]===pct);
+  const time=row ? row[1]/60 : baseTime*100/pct;
+  const mm=row ? row[2] : (pvt.mm100||0)*100/pct;
+  const rate=area>0 ? flow/(10*area) : 0;
+  qs('tcTime').textContent=fmtHours(time)+(row&&pct!==speed?` (${pct}%)`:'');
+  qs('tcRate').textContent=rate.toFixed(2)+' mm/h';
+  qs('tcMm').textContent=Number(mm).toFixed(2)+' mm';
+}
+
+
+const dailyEntries = JSON.parse(localStorage.getItem('amcDailyEntries')||'[]');
+const CROP_KC={
+  soja:{inicial:0.40,desenvolvimento:0.80,media:1.15,final:0.50},
+  milho:{inicial:0.40,desenvolvimento:0.80,media:1.20,final:0.60},
+  sorgo:{inicial:0.30,desenvolvimento:0.75,media:1.15,final:0.55},
+  trigo:{inicial:0.30,desenvolvimento:0.70,media:1.15,final:0.40},
+  painco:{inicial:0.35,desenvolvimento:0.75,media:1.10,final:0.45},
+  mamona:{inicial:0.35,desenvolvimento:0.75,media:1.10,final:0.60}
+};
+const CROP_LABEL={soja:'Soja',milho:'Milho',sorgo:'Sorgo',trigo:'Trigo',painco:'Painço',mamona:'Mamona'};
+
+// Catálogo regional ampliado — mantido no acompanhamento individual de cada pivô.
+Object.assign(CROP_LABEL,{
+  cana:'Cana-de-açúcar',cafe:'Café',feijao:'Feijão',algodao:'Algodão',amendoim:'Amendoim',
+  tomate:'Tomate',mandioca:'Mandioca',batata:'Batata',arroz:'Arroz',girassol:'Girassol',aveia:'Aveia'
+});
+
+Object.assign(CROP_KC,{
+  soja:{inicial:.40,desenvolvimento:.80,media:1.15,final:.50},
+  cana:{inicial:.40,desenvolvimento:.90,media:1.20,final:.75},
+  cafe:{inicial:.80,desenvolvimento:1.00,media:1.10,final:.90},
+  feijao:{inicial:.40,desenvolvimento:.75,media:1.10,final:.40},
+  algodao:{inicial:.35,desenvolvimento:.80,media:1.15,final:.70},
+  amendoim:{inicial:.40,desenvolvimento:.75,media:1.10,final:.55},
+  tomate:{inicial:.60,desenvolvimento:.90,media:1.15,final:.80},
+  mandioca:{inicial:.40,desenvolvimento:.75,media:1.05,final:.80},
+  batata:{inicial:.45,desenvolvimento:.75,media:1.15,final:.75},
+  arroz:{inicial:1.05,desenvolvimento:1.10,media:1.20,final:.90},
+  girassol:{inicial:.35,desenvolvimento:.75,media:1.05,final:.65},
+  aveia:{inicial:.40,desenvolvimento:.85,media:1.15,final:.45}
+});
+
+const CROP_CYCLE={
+  soja:{
+    label:'Soja', defaultDays:120,
+    phases:[
+      {key:'inicial',label:'Emergência / estabelecimento',start:0,end:0.15},
+      {key:'desenvolvimento',label:'Crescimento vegetativo',start:0.15,end:0.45},
+      {key:'media',label:'Florescimento / enchimento de grãos',start:0.45,end:0.82},
+      {key:'final',label:'Maturação fisiológica',start:0.82,end:1}
+    ]
+  },
+  milho:{
+    label:'Milho', defaultDays:120,
+    phases:[
+      {key:'inicial',label:'Estabelecimento / emergência',start:0,end:0.17},
+      {key:'desenvolvimento',label:'Crescimento vegetativo',start:0.17,end:0.45},
+      {key:'media',label:'Florescimento / enchimento de grãos',start:0.45,end:0.78},
+      {key:'final',label:'Maturação / colheita',start:0.78,end:1}
+    ]
+  },
+  sorgo:{
+    label:'Sorgo', defaultDays:100,
+    phases:[
+      {key:'inicial',label:'Vegetativo inicial',start:0,end:0.30},
+      {key:'desenvolvimento',label:'Crescimento / formação da panícula',start:0.30,end:0.60},
+      {key:'media',label:'Florescimento / enchimento de grãos',start:0.60,end:0.85},
+      {key:'final',label:'Maturação fisiológica',start:0.85,end:1}
+    ]
+  },
+  trigo:{
+    label:'Trigo', defaultDays:130,
+    phases:[
+      {key:'inicial',label:'Estabelecimento',start:0,end:0.08},
+      {key:'desenvolvimento',label:'Crescimento vegetativo',start:0.08,end:0.46},
+      {key:'media',label:'Florescimento / produção / enchimento',start:0.46,end:0.85},
+      {key:'final',label:'Maturação / senescência',start:0.85,end:1}
+    ]
+  },
+  painco:{
+    label:'Painço / milheto', defaultDays:80,
+    phases:[
+      {key:'inicial',label:'Vegetativo',start:0,end:0.625},
+      {key:'desenvolvimento',label:'Formação da panícula / florescimento',start:0.625,end:0.73},
+      {key:'media',label:'Enchimento de grãos',start:0.73,end:0.93},
+      {key:'final',label:'Maturação fisiológica',start:0.93,end:1}
+    ]
+  },
+  mamona:{
+    label:'Mamona', defaultDays:107,
+    phases:[
+      {key:'inicial',label:'Germinação / cobertura do solo',start:0,end:0.112},
+      {key:'desenvolvimento',label:'Inflorescência do 1º cacho',start:0.112,end:0.346},
+      {key:'media',label:'Inflorescência do 2º cacho / maturação inicial',start:0.346,end:0.514},
+      {key:'final',label:'Maturação dos cachos / colheita',start:0.514,end:1}
+    ]
+  }
+};
+
+Object.assign(AMC_KC_TABLE,{
+  soja:{inicial:.40,desenvolvimento:.80,media:1.15,final:.50},
+  cana:{inicial:.40,desenvolvimento:.90,media:1.20,final:.75},
+  cafe:{inicial:.80,desenvolvimento:1.00,media:1.10,final:.90},
+  feijao:{inicial:.40,desenvolvimento:.75,media:1.10,final:.40},
+  algodao:{inicial:.35,desenvolvimento:.80,media:1.15,final:.70},
+  amendoim:{inicial:.40,desenvolvimento:.75,media:1.10,final:.55},
+  tomate:{inicial:.60,desenvolvimento:.90,media:1.15,final:.80},
+  mandioca:{inicial:.40,desenvolvimento:.75,media:1.05,final:.80},
+  batata:{inicial:.45,desenvolvimento:.75,media:1.15,final:.75},
+  arroz:{inicial:1.05,desenvolvimento:1.10,media:1.20,final:.90},
+  girassol:{inicial:.35,desenvolvimento:.75,media:1.05,final:.65},
+  aveia:{inicial:.40,desenvolvimento:.85,media:1.15,final:.45}
+});
+const AMC_DEFAULT_EFFICIENCY=0.85;
+
+// Ciclos de referência das culturas regionais.
+Object.assign(CROP_CYCLE,{
+  cana:{label:'Cana-de-açúcar',defaultDays:365,phases:[
+    {key:'inicial',label:'Estabelecimento',start:0,end:.15},
+    {key:'desenvolvimento',label:'Perfilhamento / crescimento',start:.15,end:.60},
+    {key:'media',label:'Grande crescimento',start:.60,end:.88},
+    {key:'final',label:'Maturação',start:.88,end:1}]},
+  cafe:{label:'Café',defaultDays:365,phases:[
+    {key:'inicial',label:'Florada / pegamento',start:0,end:.18},
+    {key:'desenvolvimento',label:'Expansão dos frutos',start:.18,end:.50},
+    {key:'media',label:'Enchimento / granação',start:.50,end:.82},
+    {key:'final',label:'Maturação / colheita',start:.82,end:1}]},
+  feijao:{label:'Feijão',defaultDays:90,phases:[
+    {key:'inicial',label:'Estabelecimento',start:0,end:.22},
+    {key:'desenvolvimento',label:'Vegetativo / formação de botões',start:.22,end:.48},
+    {key:'media',label:'Florescimento / enchimento',start:.48,end:.78},
+    {key:'final',label:'Maturação',start:.78,end:1}]},
+  algodao:{label:'Algodão',defaultDays:170,phases:[
+    {key:'inicial',label:'Emergência / estabelecimento',start:0,end:.18},
+    {key:'desenvolvimento',label:'Crescimento vegetativo',start:.18,end:.45},
+    {key:'media',label:'Florescimento / formação de maçãs',start:.45,end:.82},
+    {key:'final',label:'Maturação / abertura de capulhos',start:.82,end:1}]},
+  amendoim:{label:'Amendoim',defaultDays:125,phases:[
+    {key:'inicial',label:'Estabelecimento',start:0,end:.20},
+    {key:'desenvolvimento',label:'Crescimento / florescimento',start:.20,end:.52},
+    {key:'media',label:'Formação / enchimento das vagens',start:.52,end:.82},
+    {key:'final',label:'Maturação',start:.82,end:1}]},
+  tomate:{label:'Tomate',defaultDays:120,phases:[
+    {key:'inicial',label:'Estabelecimento',start:0,end:.20},
+    {key:'desenvolvimento',label:'Crescimento vegetativo',start:.20,end:.45},
+    {key:'media',label:'Floração / frutificação',start:.45,end:.80},
+    {key:'final',label:'Maturação / colheita',start:.80,end:1}]},
+  mandioca:{label:'Mandioca',defaultDays:300,phases:[
+    {key:'inicial',label:'Estabelecimento',start:0,end:.15},
+    {key:'desenvolvimento',label:'Crescimento vegetativo',start:.15,end:.55},
+    {key:'media',label:'Engrossamento das raízes',start:.55,end:.85},
+    {key:'final',label:'Maturação',start:.85,end:1}]},
+  batata:{label:'Batata',defaultDays:110,phases:[
+    {key:'inicial',label:'Estabelecimento / emergência',start:0,end:.18},
+    {key:'desenvolvimento',label:'Crescimento vegetativo',start:.18,end:.42},
+    {key:'media',label:'Tuberização / enchimento',start:.42,end:.80},
+    {key:'final',label:'Maturação',start:.80,end:1}]},
+  arroz:{label:'Arroz',defaultDays:115,phases:[
+    {key:'inicial',label:'Estabelecimento',start:0,end:.20},
+    {key:'desenvolvimento',label:'Perfilhamento / crescimento',start:.20,end:.50},
+    {key:'media',label:'Emborrachamento / enchimento',start:.50,end:.82},
+    {key:'final',label:'Maturação',start:.82,end:1}]},
+  girassol:{label:'Girassol',defaultDays:110,phases:[
+    {key:'inicial',label:'Estabelecimento',start:0,end:.20},
+    {key:'desenvolvimento',label:'Crescimento vegetativo',start:.20,end:.50},
+    {key:'media',label:'Florescimento / enchimento',start:.50,end:.82},
+    {key:'final',label:'Maturação',start:.82,end:1}]},
+  aveia:{label:'Aveia',defaultDays:120,phases:[
+    {key:'inicial',label:'Estabelecimento',start:0,end:.20},
+    {key:'desenvolvimento',label:'Perfilhamento / crescimento',start:.20,end:.50},
+    {key:'media',label:'Emissão da panícula / enchimento',start:.50,end:.82},
+    {key:'final',label:'Maturação',start:.82,end:1}]}
+});
+
+const AMC_KC_TABLE={
+  soja:{inicial:0.40,desenvolvimento:0.80,media:1.15,final:0.50},
+  milho:{inicial:0.40,desenvolvimento:0.80,media:1.20,final:0.60},
+  sorgo:{inicial:0.30,desenvolvimento:0.75,media:1.15,final:0.55},
+  trigo:{inicial:0.30,desenvolvimento:0.70,media:1.15,final:0.40},
+  painco:{inicial:0.35,desenvolvimento:0.75,media:1.10,final:0.45},
+  mamona:{inicial:0.35,desenvolvimento:0.75,media:1.10,final:0.60}
+};
+function amcKc(crop,stage){return Number(AMC_KC_TABLE[crop]?.[stage] ?? CROP_KC[crop]?.[stage] ?? 1);}
+function amcEffectiveRain(rain){const r=Math.max(0,Number(rain)||0);return r<=5?r:Math.min(r,5+0.75*(r-5));}
+function amcWaterNeed({eto,crop,stage,rain=0,previousBalance=0,efficiency=AMC_DEFAULT_EFFICIENCY}){
+  const ETo=Math.max(0,Number(eto)||0), Kc=amcKc(crop,stage), ETc=ETo*Kc, Pe=amcEffectiveRain(rain);
+  const balance=Math.max(0,Number(previousBalance)||0);
+  const net=Math.max(0,ETc-Pe-balance);
+  const gross=net/Math.max(0.01,Number(efficiency)||AMC_DEFAULT_EFFICIENCY);
+  return {ETo,Kc,ETc,Pe,previousBalance:balance,net,gross};
+}
+function dateDiffDays(a,b){
+  const x=new Date(a+'T12:00:00'), y=new Date(b+'T12:00:00');
+  return Math.floor((y-x)/86400000);
+}
+function cropCycle(crop,cycleType){
+  const base=CROP_CYCLE[crop]||CROP_CYCLE.milho;
+  const factor=cycleType==='precoce'?0.84:cycleType==='tardio'?1.17:1;
+  return {...base,days:Math.round(base.defaultDays*factor)};
+}
+function getCropProgress(crop,plantDate,asOf,cycleType){
+  const cfg=cropCycle(crop,cycleType);
+  if(!plantDate) return {dap:0,days:cfg.days,progress:0,phase:cfg.phases[0],maturityDate:null};
+  const dap=Math.max(0,dateDiffDays(plantDate,asOf));
+  const progress=Math.min(1,dap/Math.max(1,cfg.days));
+  const phase=cfg.phases.find(p=>progress < p.end) || cfg.phases[cfg.phases.length-1];
+  const maturity=new Date(plantDate+'T12:00:00');
+  maturity.setDate(maturity.getDate()+cfg.days);
+  const maturityDate=maturity.toISOString().slice(0,10);
+  return {dap,days:cfg.days,progress,phase,maturityDate};
+}
+function autoCropStage(crop,plantDate,asOf,cycleType){
+  return getCropProgress(crop,plantDate,asOf,cycleType).phase.key;
+}
+
+function weatherForDate(date){
+  try{
+    const c=JSON.parse(localStorage.getItem('amcWeatherCacheV1')||'null');
+    if(!c?.d?.daily)return null;
+    const i=(c.d.daily.time||[]).indexOf(date);
+    if(i<0)return null;
+    return {eto:Number(c.d.daily.et0_fao_evapotranspiration?.[i]||0),rain:Number(c.d.daily.precipitation_sum?.[i]||0),prob:Number(c.d.daily.precipitation_probability_max?.[i]||0)};
+  }catch(e){return null;}
+}
+function getAutoRecommendation(k,date,crop,stage,rainOverride,irrOverride){
+  const kc=(CROP_KC[crop]||CROP_KC.milho)[stage]||1;
+  const weather=weatherForDate(date);
+  const logs=getPivotEntries(k).filter(x=>x.date<date);
+  const accumulated=logs.reduce((sum,x)=>sum+Math.max(0,(Number(x.etc)||0)-(Number(x.rain)||0)-(Number(x.irr)||0)),0);
+  const eto=weather?.eto||0;
+  const rain=rainOverride!=null ? Number(rainOverride)||0 : (weather?.rain||0);
+  const etc=eto*kc;
+  const effectiveRain=Math.min(rain,5)*0.80;
+  const net=Math.max(0,accumulated+etc-effectiveRain);
+  const gross=net/0.85;
+  return {kc,eto,rain,etc,accumulated,net,gross,prob:weather?.prob||0,hasWeather:!!weather};
+}
+function updateAutoRecommendation(){
+  const k=currentPivot||qs('dtPivot')?.value||keys[0];
+  const date=qs('dtDate')?.value||new Date().toISOString().slice(0,10);
+  const crop=qs('dtCrop')?.value||'milho';
+  const plantDate=qs('dtPlantDate')?.value||new Date().toISOString().slice(0,10);
+  const cycleType=qs('dtCycle')?.value||'medio';
+  const stage=autoCropStage(crop,plantDate,date,cycleType);
+  let weather=weatherForDate(date);
+  let eto=Number(weather?.eto||0);
+  // Fallback: current/first forecast day when the selected date is outside the 7-day cache.
+  if(!eto){try{const c=JSON.parse(localStorage.getItem('amcWeatherCacheV1')||'null');eto=Number(c?.d?.daily?.et0_fao_evapotranspiration?.[0]||0);}catch(e){}}
+  const rain=Number(qs('dtRain')?.value||0);
+  const irr=Number(qs('dtIrr')?.value||0);
+  const entries=getPivotEntries(k).filter(x=>String(x.date)<String(date)).sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  let balance=0;
+  for(const x of entries){
+    const xcrop=x.crop||crop, xplant=x.plantDate||plantDate, xcycle=x.cycleType||cycleType;
+    const xstage=x.stage||autoCropStage(xcrop,xplant,x.date,xcycle);
+    const xeto=Number(x.eto||0);
+    if(xeto){
+      const calc=amcWaterNeed({eto:xeto,crop:xcrop,stage:xstage,rain:Number(x.rain||0),previousBalance:balance,efficiency:Number(x.efficiency||AMC_DEFAULT_EFFICIENCY)});
+      balance=Math.max(0,calc.net-Number(x.irr||0)*Number(x.efficiency||AMC_DEFAULT_EFFICIENCY));
+    }
+  }
+  const calc=amcWaterNeed({eto,crop,stage,rain,previousBalance:balance,efficiency:AMC_DEFAULT_EFFICIENCY});
+  const set=(id,v)=>{const e=qs(id);if(e)e.textContent=v;};
+  set('waterRecStatus',eto?'Cálculo automático':'Aguardando meteorologia');
+  set('waterEto',eto?calc.ETo.toFixed(1)+' mm':'— mm');
+  set('waterKc',calc.Kc.toFixed(2));
+  set('waterEtc',calc.ETc.toFixed(1)+' mm');
+  set('waterRain',calc.Pe.toFixed(1)+' mm');
+  set('waterNet',calc.net.toFixed(1)+' mm');
+  set('waterGross',calc.gross.toFixed(1)+' mm');
+  if(qs('dtEtc'))qs('dtEtc').value=calc.ETc.toFixed(1);
+  if(qs('dtCalcEtc'))qs('dtCalcEtc').textContent=calc.ETc.toFixed(1)+' mm';
+  if(qs('dtDeficit'))qs('dtDeficit').textContent=calc.net.toFixed(1)+' mm';
+  if(qs('dtTomorrow'))qs('dtTomorrow').textContent=calc.gross.toFixed(1)+' mm';
+  const status=calc.gross<=0.5?'Normal':calc.gross<=5?'Atenção':'Prioridade';
+  if(qs('dtStatus'))qs('dtStatus').textContent=status;
+  const box=qs('dtAutoRec');
+  if(box){box.className='auto-rec '+(status==='Prioridade'?'prio':status==='Atenção'?'warn':'');box.innerHTML=eto?`💧 <b>Recomendação automática: ${calc.gross.toFixed(1)} mm</b><br><small>${CROP_LABEL[crop]||crop} • ${stage} • ETo ${calc.ETo.toFixed(1)} mm × Kc ${calc.Kc.toFixed(2)} = ETc ${calc.ETc.toFixed(1)} mm • chuva efetiva ${calc.Pe.toFixed(1)} mm • saldo anterior ${balance.toFixed(1)} mm.</small>`:`📍 Atualize a meteorologia para calcular automaticamente. Cultura: ${CROP_LABEL[crop]||crop} • fase: ${stage}.`;}
+  return {...calc,stage,eto:calc.ETo,balance};
+}
+
+function initDaily(){
+  fillPicker('dtPivot', currentPivot || keys[0]);
+  const today=new Date().toISOString().slice(0,10);
+  const el=qs('dtDate'); if(el && !el.value) el.value=today;
+  ['dtRain','dtIrr','dtDate','dtCrop','dtPlantDate','dtCycle'].forEach(id=>{
+    const e=qs(id);
+    if(!e) return;
+    e.oninput=previewDaily;
+    e.onchange=()=>{
+      if(id==='dtDate') loadSavedDailyEntry(currentPivot);
+      if(id==='dtCrop'||id==='dtPlantDate'||id==='dtCycle') persistDailyPivotConfig(currentPivot);
+      previewDaily();
+    };
+  });
+  loadDailyPivot(currentPivot);
+}
+
+function ensureCropOption(crop){
+  const sel=qs('dtCrop'); if(!sel||!crop) return;
+  if(!Array.from(sel.options).some(o=>o.value===crop)){
+    const o=document.createElement('option'); o.value=crop; o.textContent=CROP_LABEL[crop]||crop; sel.appendChild(o);
+  }
+}
+
+function getPivotProfiles(){
+  try{return JSON.parse(localStorage.getItem('amcCropConfig')||'{}')||{};}catch(e){return {};}
+}
+function getPivotProfile(k){
+  k=String(k||'');
+  const profiles=getPivotProfiles();
+  let p=profiles[k];
+  if(!p){
+    // Recover the profile from the most recent daily entry belonging to this pivot.
+    const rows=dailyEntries.filter(x=>String(x.pivot)===k).sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+    const last=rows[rows.length-1];
+    if(last){
+      p={crop:last.crop||'soja',plantDate:last.plantDate||last.date,cycleType:last.cycleType||'medio',stage:last.stage||'media'};
+    }
+  }
+  return p||{crop:'soja',plantDate:'',cycleType:'medio',stage:'media'};
+}
+function savePivotProfile(k,profile){
+  k=String(k||''); if(!keys.includes(k)) return false;
+  const all=getPivotProfiles();
+  all[k]={crop:profile.crop||'soja',plantDate:profile.plantDate||'',cycleType:profile.cycleType||'medio',stage:profile.stage||'media'};
+  localStorage.setItem('amcCropConfig',JSON.stringify(all));
+  return true;
+}
+
+function loadDailyPivot(k){
+  k=String(k||'');
+  if(!keys.includes(k)) return;
+  currentPivot=k;
+  localStorage.setItem('amcCurrentPivot',k);
+  const today=new Date().toISOString().slice(0,10);
+  const dateEl=qs('dtDate');
+  if(dateEl && !dateEl.value) dateEl.value=today;
+
+  const saved=getPivotProfile(k);
+  if(qs('dtCrop')){ ensureCropOption(saved?.crop); qs('dtCrop').value=saved?.crop||'soja'; }
+  if(qs('dtPlantDate')) qs('dtPlantDate').value=saved?.plantDate||today;
+  if(qs('dtCycle')) qs('dtCycle').value=saved?.cycleType||'medio';
+  loadSavedDailyEntry(k);
+  previewDaily();
+  renderDaily();
+}
+
+function loadSavedDailyEntry(k){
+  const date=qs('dtDate')?.value||new Date().toISOString().slice(0,10);
+  const row=dailyEntries.find(x=>x.pivot===k&&x.date===date);
+  if(row){
+    if(qs('dtCrop') && row.crop){ ensureCropOption(row.crop); qs('dtCrop').value=row.crop; }
+    if(qs('dtPlantDate') && row.plantDate) qs('dtPlantDate').value=row.plantDate;
+    if(qs('dtCycle') && row.cycleType) qs('dtCycle').value=row.cycleType;
+    if(qs('dtRain')) qs('dtRain').value=Number(row.rain)||0;
+    if(qs('dtIrr')) qs('dtIrr').value=Number(row.irr)||0;
+    if(qs('dtObs')) qs('dtObs').value=row.obs||'';
+  } else {
+    const cfg=JSON.parse(localStorage.getItem('amcCropConfig')||'{}')[k]||{};
+    if(qs('dtCrop')){ ensureCropOption(cfg.crop); qs('dtCrop').value=cfg.crop||qs('dtCrop')?.value||'soja'; }
+    if(qs('dtPlantDate')) qs('dtPlantDate').value=cfg.plantDate||qs('dtPlantDate')?.value||date;
+    if(qs('dtCycle')) qs('dtCycle').value=cfg.cycleType||qs('dtCycle')?.value||'medio';
+    if(qs('dtRain')) qs('dtRain').value=0;
+    if(qs('dtIrr')) qs('dtIrr').value=0;
+    if(qs('dtObs')) qs('dtObs').value='';
+  }
+}
+
+
+function getPivotEntries(k){
+  return dailyEntries.filter(x=>x.pivot===k).sort((a,b)=>a.date.localeCompare(b.date));
+}
+
+function calcEntry(e){
+  const rain=Number(e.rain)||0, irr=Number(e.irr)||0, etc=Number(e.etc)||0;
+  return Math.max(0,etc-rain-irr);
+}
+
+function previewDaily(){
+  const crop=qs('dtCrop')?.value||'milho';
+  const plantDate=qs('dtPlantDate')?.value||new Date().toISOString().slice(0,10);
+  const cycleType=qs('dtCycle')?.value||'medio';
+  const asOf=qs('dtDate')?.value||new Date().toISOString().slice(0,10);
+  const prog=getCropProgress(crop,plantDate,asOf,cycleType);
+  if(qs('dtStage'))qs('dtStage').value=prog.phase.key;
+  // previewDaily apenas calcula. Não grava a configuração do pivô a cada
+  // renderização, pois isso fazia um pivô herdar/reescrever a cultura de outro.
+  const pct=Math.min(100,prog.progress*100);
+  const p=qs('dtCropProgress');
+  if(p)p.innerHTML=`🌱 <b>${CROP_LABEL[crop]||crop}</b> • Dia ${prog.dap} de ${prog.days}<br><small>Fase automática: <b>${prog.phase.label}</b> • ${pct.toFixed(0)}% do ciclo • maturação estimada: <b>${prog.maturityDate||'—'}</b></small>`;
+  if(qs('cropProgressTitle'))qs('cropProgressTitle').textContent=`🌱 ${CROP_LABEL[crop]||crop}`;
+  if(qs('cropProgressDays'))qs('cropProgressDays').textContent=`Dia ${prog.dap}/${prog.days}`;
+  if(qs('cropProgressFill'))qs('cropProgressFill').style.width=`${pct.toFixed(1)}%`;
+  if(qs('cropProgressPhase'))qs('cropProgressPhase').textContent=prog.phase.label;
+  if(qs('cropProgressPercent'))qs('cropProgressPercent').textContent=`${pct.toFixed(0)}%`;
+  if(qs('cropProgressPlanting'))qs('cropProgressPlanting').textContent=plantDate;
+  if(qs('cropProgressMaturity'))qs('cropProgressMaturity').textContent=prog.maturityDate||'—';
+  updateAutoRecommendation();
+}
+
+function persistDailyPivotConfig(k){
+  k=String(k||currentPivot||'');
+  if(!keys.includes(k)) return;
+  const crop=qs('dtCrop')?.value||'milho';
+  const plantDate=qs('dtPlantDate')?.value||'';
+  const cycleType=qs('dtCycle')?.value||'medio';
+  const asOf=qs('dtDate')?.value||new Date().toISOString().slice(0,10);
+  const prog=getCropProgress(crop,plantDate||asOf,asOf,cycleType);
+  savePivotProfile(k,{crop,plantDate:plantDate||asOf,cycleType,stage:prog.phase.key});
+}
+
+function saveDaily(){
+  const k=currentPivot, date=qs('dtDate')?.value||'';
+  const msg=qs('dtAutoRec');
+  if(!keys.includes(k)){ if(msg)msg.innerHTML='⚠️ Selecione um pivô.'; return false; }
+  if(!date){ if(msg)msg.innerHTML='⚠️ Informe a data do lançamento.'; return false; }
+  const r=updateAutoRecommendation();
+  const crop=qs('dtCrop')?.value||'milho';
+  const plantDate=qs('dtPlantDate')?.value||date;
+  const cycleType=qs('dtCycle')?.value||'medio';
+  persistDailyPivotConfig(k);
+  const item={pivot:k,date,
+    rain:Number(qs('dtRain').value)||0,
+    irr:Number(qs('dtIrr').value)||0,
+    etc:Number(r.ETc||r.etc)||0,
+    eto:Number(r.ETo||r.eto)||0,
+    kc:Number(r.Kc||r.kc)||0,
+    efficiency:AMC_DEFAULT_EFFICIENCY,
+    recommendedMm:Number(r.gross)||0, netMm:Number(r.net)||0,
+    crop,plantDate,cycleType,stage:qs('dtStage')?.value||r.stage||'media',
+    obs:qs('dtObs')?.value||''
+  };
+  const idx=dailyEntries.findIndex(x=>x.pivot===k&&x.date===date);
+  if(idx>=0) dailyEntries[idx]=item; else dailyEntries.push(item);
+  dailyEntries.sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  localStorage.setItem('amcDailyEntries',JSON.stringify(dailyEntries));
+
+  // A configuração de cultura/plantio é individual por pivô e só é gravada
+  // quando o usuário confirma o lançamento.
+  persistDailyPivotConfig(k);
+
+  // Mantém o armazenamento da tela de acompanhamento individual sincronizado.
+  const indiv=JSON.parse(localStorage.getItem('amcIndividualLaunchesV2')||'{}');
+  if(!Array.isArray(indiv[k])) indiv[k]=[];
+  const ii=indiv[k].findIndex(x=>String(x.date)===date);
+  const indivItem={date,irr:item.irr,rain:item.rain,etc:item.etc,crop,plantDate,cycleType,stage:item.stage};
+  if(ii>=0) indiv[k][ii]=indivItem; else indiv[k].push(indivItem);
+  indiv[k].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  localStorage.setItem('amcIndividualLaunchesV2',JSON.stringify(indiv));
+
+  // Mantém o histórico antigo e o acompanhamento individual sincronizados.
+  const logs=JSON.parse(localStorage.getItem('amcPivotLogs')||'{}');
+  if(!Array.isArray(logs[k])) logs[k]=[];
+  const li=logs[k].findIndex(x=>x.date===date);
+  const legacy={pivot:k,date,irr:item.irr,rain:item.rain,etc:item.etc,crop,plantDate,cycleType,stage:item.stage,obs:item.obs};
+  if(li>=0) logs[k][li]=legacy; else logs[k].push(legacy);
+  logs[k].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  localStorage.setItem('amcPivotLogs',JSON.stringify(logs));
+
+  // Confirmação real do salvamento antes de redesenhar a tela.
+  const check=JSON.parse(localStorage.getItem('amcDailyEntries')||'[]');
+  const saved=check.find(x=>x.pivot===k&&x.date===date);
+  if(!saved){ if(msg)msg.innerHTML='❌ O lançamento não foi confirmado no aparelho.'; return false; }
+
+  renderDaily();
+  renderCharts();
+  homePivots();
+  if(typeof AMC_loadIndividual==='function') AMC_loadIndividual(k);
+  if(msg)msg.innerHTML=`💾 <b>Lançamento do Pivô ${k} salvo.</b> ${date} • ${CROP_LABEL[crop]||crop} • ${item.etc.toFixed(1)} mm de ETc.`;
+  return true;
+}
+
+function renderDaily(){
+  previewDaily();
+  const k=currentPivot;
+  const rows=getPivotEntries(k);
+  const box=qs('dailyTable');
+  if(!rows.length){box.innerHTML='<p class="tech-note">Nenhum lançamento para este pivô ainda.</p>';return;}
+  box.innerHTML=`<div style="overflow:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">
+  <thead><tr><th>Data</th><th>Cultura</th><th>Fase</th><th>Chuva</th><th>Irrigação</th><th>ETc</th><th>Déficit</th><th>Status</th></tr></thead>
+  <tbody>${rows.slice().reverse().map(x=>{
+    const d=calcEntry(x), st=d<=0?'🟢 Normal':d<=5?'🟡 Atenção':'🔴 Prioridade';
+    return `<tr><td>${x.date}</td><td>${CROP_LABEL[x.crop]||x.crop||'—'}</td><td>${x.stage||'—'}</td><td>${x.rain.toFixed(1)}</td><td>${x.irr.toFixed(1)}</td><td>${x.etc.toFixed(1)}</td><td>${d.toFixed(1)} mm</td><td>${st}</td></tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+
+
+function initCharts(){
+  fillPicker('chPivot', currentPivot || keys[0]);
+  const p=qs('chPeriod'); if(p)p.onchange=renderCharts;
+  renderCharts();
+}
+function renderCharts(){
+  const k=currentPivot, p=qs('chPeriod').value;
+  let rows=getPivotEntries(k); if(p!=='all')rows=rows.slice(-Number(p));
+  const canvas=qs('waterChart'); if(!canvas)return;
+  const ctx=canvas.getContext('2d'), dpr=devicePixelRatio||1, w=canvas.clientWidth||600, h=240;
+  canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+  if(!rows.length){ctx.font='14px sans-serif';ctx.fillText('Nenhum lançamento registrado para este pivô.',20,40);['chIrr','chRain','chEtc'].forEach(id=>qs(id).textContent='0,0 mm');return;}
+  const pad={l:42,r:16,t:20,b:45},iw=w-pad.l-pad.r,ih=h-pad.t-pad.b;
+  const vals=rows.flatMap(x=>[+x.rain||0,+x.irr||0,+x.etc||0]),max=Math.max(1,...vals)*1.15;
+  ctx.strokeStyle='#d7dedb';ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){const y=pad.t+ih-ih*i/4;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();ctx.fillStyle='#66736e';ctx.font='11px sans-serif';ctx.fillText((max*i/4).toFixed(1),4,y+4);}
+  const series=[['rain','Chuva','#3b82f6'],['irr','Irrigação','#159447'],['etc','ETc','#e2a900']];
+  const step=rows.length===1?0:iw/(rows.length-1);
+  series.forEach(([key,label,color])=>{ctx.strokeStyle=color;ctx.lineWidth=3;ctx.beginPath();rows.forEach((r,i)=>{const x=pad.l+i*step,y=pad.t+ih-((+r[key]||0)/max)*ih;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();});
+  ctx.fillStyle='#34413d';ctx.font='11px sans-serif';rows.forEach((r,i)=>{if(i===0||i===rows.length-1||rows.length<=10){const x=pad.l+i*step;ctx.fillText((r.date||'').slice(5).replace('-','/'),x-12,h-15);}});
+  let lx=pad.l;series.forEach(([key,label,color])=>{ctx.fillStyle=color;ctx.fillRect(lx,5,10,10);ctx.fillStyle='#34413d';ctx.fillText(label,lx+15,14);lx+=75;});
+  const sums={rain:0,irr:0,etc:0};rows.forEach(r=>{sums.rain+=+r.rain||0;sums.irr+=+r.irr||0;sums.etc+=+r.etc||0});
+  qs('chIrr').textContent=sums.irr.toFixed(1)+' mm';qs('chRain').textContent=sums.rain.toFixed(1)+' mm';qs('chEtc').textContent=sums.etc.toFixed(1)+' mm';
+}
+
+
+let weatherState={lat:null,lon:null,online:false};
+function setWeatherText(main,place,icon,forecast){
+  const home=qs('home'); if(!home)return;
+  const temp=home.querySelector('.temp'), wi=home.querySelector('.weather-icon');
+  const placeEl=home.querySelector('.weather-main>div:first-child>div:nth-child(3)');
+  if(temp)temp.textContent=main.temp!=null?`${Math.round(main.temp)}°C`:'--°C';
+  if(wi)wi.textContent=icon||'🌤️';
+  if(placeEl)placeEl.textContent=place||'Localização atual';
+  const ds=home.querySelectorAll('.weather-data div');
+  if(ds.length>=5){
+    ds[1].innerHTML=`🌧️ Chuva: <b>${Number(main.rain||0).toFixed(1)} mm</b>`;
+    ds[2].innerHTML=`💨 Vento: <b>${Number(main.wind||0).toFixed(1)} m/s</b>`;
+    ds[3].innerHTML=`🌡️ Mín./Máx.: <b>${main.min!=null?Math.round(main.min):'--'} / ${main.max!=null?Math.round(main.max):'--'} °C</b>`;
+    ds[4].innerHTML=`💧 Umidade: <b>${main.humidity!=null?Math.round(main.humidity):'--'}%</b>`;
+  }
+  const fg=home.querySelector('.forecast-grid');
+  if(fg&&forecast?.length) fg.innerHTML=forecast.slice(0,4).map((d,i)=>`<div>${i===0?'Hoje':i===1?'Amanhã':'+'+i+' dias'}<br>${d.icon}<br>${Math.round(d.min)}° / ${Math.round(d.max)}°<br>${Number(d.rain||0).toFixed(1)} mm</div>`).join('');
+}
+function weatherIcon(code){ if(code===0)return '☀️'; if(code<=3)return '🌤️'; if(code<=48)return '🌫️'; if(code<=67)return '🌧️'; if(code<=77)return '🌨️'; if(code<=82)return '🌦️'; return '⛈️'; }
+async function fetchWeather(lat,lon){
+  const url=`https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=7&timezone=auto`;
+  const r=await fetch(url); if(!r.ok)throw new Error('Falha no clima'); const d=await r.json();
+  const c=d.current||{}, daily=d.daily||{};
+  const forecast=(daily.time||[]).map((t,i)=>({date:t,min:daily.temperature_2m_min[i],max:daily.temperature_2m_max[i],rain:daily.precipitation_sum[i],icon:weatherIcon(daily.weather_code[i])}));
+  setWeatherText({temp:c.temperature_2m,rain:c.precipitation,wind:c.wind_speed_10m,humidity:c.relative_humidity_2m,min:forecast[0]?.min,max:forecast[0]?.max},`Localização atual • ${Number(lat).toFixed(4)}, ${Number(lon).toFixed(4)}`,weatherIcon(c.weather_code),forecast);
+  weatherState={lat,lon,online:true};
+  localStorage.setItem('amcWeatherCoords',JSON.stringify({lat,lon}));
+  localStorage.setItem('amcWeatherCacheV1',JSON.stringify({lat,lon,d,updatedAt:new Date().toISOString()}));
+  if(qs('dailyTrack') && !qs('dailyTrack').classList.contains('hidden')) previewDaily();
+}
+function loadWeather(){
+  const cached=JSON.parse(localStorage.getItem('amcWeatherCoords')||'null');
+  const use=(lat,lon)=>fetchWeather(lat,lon).catch(()=>{});
+  if(window.AndroidLocation?.getLocation){
+    try{const raw=AndroidLocation.getLocation(); const pos=JSON.parse(raw); if(pos.lat&&pos.lon){use(pos.lat,pos.lon);return;}}catch(e){}
+  }
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(p=>use(p.coords.latitude,p.coords.longitude),()=>cached&&use(cached.lat,cached.lon),{enableHighAccuracy:true,timeout:10000,maximumAge:300000});
+  } else if(cached) use(cached.lat,cached.lon);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const k=localStorage.getItem('amcCurrentPivot');
+  if(k && keys.includes(k)) currentPivot=k;
+  fillAllPivotSelectors();
+  const ps=qs('pivotSelect');
+  if(ps){
+    ps.innerHTML='<option value="">Selecione o pivô</option>'+pivotOptions(currentPivot);
+    ps.value=currentPivot;
+    ps.addEventListener('change',()=>{ if(ps.value) chooseIndividualPivot(ps.value); });
+  }
+  renderPivotButtons(currentPivot);
+  loadWeather();
+});
+
+
+document.addEventListener('DOMContentLoaded',()=>{
+  homePivots();
+});
+
+document.addEventListener('input',e=>{if(e.target?.id==='tcSpeed')calculateTech();});
+</script>
+<script>
+(function(){
+  const AMC_KEYS = ()=> (typeof keys!=='undefined' ? keys.slice().sort((a,b)=>Number(a)-Number(b)) : []);
+  const AMC_STORE = 'amcIndividualLaunchesV2';
+  const AMC_PIVOT = 'amcIndividualPivotV2';
+
+  function q(id){ return document.getElementById(id); }
+  function today(){ return new Date().toISOString().slice(0,10); }
+  function readAll(){
+    try { return JSON.parse(localStorage.getItem(AMC_STORE)||'{}') || {}; }
+    catch(e){ return {}; }
+  }
+  function writeAll(x){ localStorage.setItem(AMC_STORE,JSON.stringify(x)); }
+
+  window.AMC_selectIndividual=function(k){
+    if(!AMC_KEYS().includes(String(k))) return;
+    k=String(k);
+    localStorage.setItem(AMC_PIVOT,k);
+    localStorage.setItem('amcCurrentPivot',k);
+    currentPivot=k;
+    const sel=q('individualPivotSelect');
+    if(sel) sel.value=k;
+    if(q('dtPivot')) q('dtPivot').value=k;
+    q('indDate').value ||= today();
+    AMC_loadIndividual(k);
+    if(typeof loadDailyPivot==='function' && qs('dailyTrack') && !qs('dailyTrack').classList.contains('hidden')) loadDailyPivot(k);
+  };
+
+  window.AMC_initIndividual=function(k){
+    const ks=AMC_KEYS();
+    if(!ks.length) return;
+    k=String(k||localStorage.getItem(AMC_PIVOT)||currentPivot||ks[0]);
+    if(!ks.includes(k)) k=ks[0];
+
+    const sel=q('individualPivotSelect');
+    if(sel){
+      sel.innerHTML=ks.map(x=>`<option value="${x}">Pivô ${x}</option>`).join('');
+      sel.value=k;
+      sel.onchange=()=>AMC_selectIndividual(sel.value);
+    }
+
+    const box=q('individualPivotButtons');
+    if(box){
+      box.innerHTML=ks.map(x=>`<button type="button" class="pivot-btn ${x===k?'active':''}" data-p="${x}">Pivô ${x}</button>`).join('');
+      box.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>AMC_selectIndividual(b.dataset.p));
+    }
+
+    q('indDate').value=today();
+    AMC_selectIndividual(k);
+  };
+
+  window.AMC_loadIndividual=function(k){
+    const data=readAll(), rows=(data[k]||[]).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+    const last=rows.length?rows[rows.length-1]:null;
+    q('pivotTitle').textContent='Pivô '+k;
+    q('pivotSub').textContent='Acompanhamento individual';
+
+    const profile=getPivotProfile(k);
+    const crop=(last&&last.crop)||profile.crop||'soja';
+    const plantDate=(last&&last.plantDate)||profile.plantDate||'—';
+    const cycle=(last&&last.cycleType)||profile.cycleType||'medio';
+    if(q('individualCrop')) q('individualCrop').textContent=CROP_LABEL[crop]||crop;
+    if(q('individualPlantDate')) q('individualPlantDate').textContent=plantDate||'—';
+    if(q('individualCycle')) q('individualCycle').textContent=cycle;
+
+    const irr=last?Number(last.irr)||0:0, rain=last?Number(last.rain)||0:0, etc=last?Number(last.etc)||0:0;
+    q('kIrr').textContent=irr.toFixed(1)+' mm';
+    q('kRain').textContent=rain.toFixed(1)+' mm';
+    q('kNeed').textContent=etc.toFixed(1)+' mm';
+    q('kBal').textContent=(irr+rain-etc).toFixed(1)+' mm';
+
+    const bal=irr+rain-etc, st=q('pivotStatus');
+    if(bal>=0){st.className='status-banner status-ok';st.textContent='🟢 Irrigação OK'}
+    else if(bal>=-3){st.className='status-banner status-att';st.textContent='🟡 Atenção'}
+    else {st.className='status-banner status-prio';st.textContent='🔴 Prioridade'}
+
+    // Populate today's fields from saved record, if it exists.
+    const d=q('indDate').value||today();
+    const existing=rows.find(r=>r.date===d);
+    q('indIrr').value=existing?existing.irr:'';
+    q('indRain').value=existing?existing.rain:'';
+    q('indEtc').value=existing?existing.etc:'';
+    const tomorrowBox=q('indTomorrow');
+    if(tomorrowBox){
+      if(existing){
+        const deficit=Math.max(0,(Number(existing.etc)||0)-(Number(existing.irr)||0)-(Number(existing.rain)||0));
+        tomorrowBox.innerHTML=deficit>0
+          ? `<b>Estimativa inicial:</b> ${deficit.toFixed(1)} mm para reposição.<br><small>Baseada no saldo do lançamento selecionado.</small>`
+          : `<b>Estimativa inicial:</b> 0,0 mm de reposição pelo saldo informado.<br><small>Considere chuva prevista e a necessidade da cultura antes de decidir a irrigação.</small>`;
+      }else{
+        tomorrowBox.textContent='Faça o lançamento do dia para calcular a estimativa.';
+      }
+    }
+
+    AMC_renderIndividualChart(rows);
+    AMC_renderIndividualHistory(rows);
+    AMC_updateButtons(k);
+  };
+
+  function AMC_updateButtons(k){
+    q('individualPivotButtons')?.querySelectorAll('[data-p]').forEach(b=>b.classList.toggle('active',b.dataset.p===String(k)));
+  }
+
+
+  window.AMC_clearIndividual=function(){
+    q('indIrr').value='';
+    q('indRain').value='';
+    q('indEtc').value='';
+    q('indMessage').textContent='Campos limpos. O histórico salvo não foi apagado.';
+  };
+
+  document.addEventListener('change',function(ev){
+    if(ev.target && ev.target.id==='indDate'){
+      const sel=q('individualPivotSelect');
+      if(sel && sel.value) AMC_loadIndividual(sel.value);
+    }
+  });
+
+  window.AMC_saveIndividual=function(){
+    const msg=q('indMessage');
+    try{
+      const sel=q('individualPivotSelect');
+      const k=String(sel?.value||localStorage.getItem(AMC_PIVOT)||'');
+      const date=String(q('indDate')?.value||'').trim();
+      if(!k){ msg.textContent='⚠️ Selecione um pivô.'; return false; }
+      if(!date){ msg.textContent='⚠️ Informe a data.'; return false; }
+
+      const num=(id)=>{
+        const raw=String(q(id)?.value??'').trim().replace(',','.');
+        if(raw==='') return 0;
+        const n=Number(raw);
+        return Number.isFinite(n) && n>=0 ? n : NaN;
+      };
+      const irr=num('indIrr'), rain=num('indRain'), etc=num('indEtc');
+      if([irr,rain,etc].some(Number.isNaN)){
+        msg.textContent='⚠️ Confira os valores. Use somente números, por exemplo 5,5.';
+        return false;
+      }
+
+      const profile=getPivotProfile(k);
+      const item={date,irr,rain,etc,crop:profile.crop||'soja',plantDate:profile.plantDate||date,cycleType:profile.cycleType||'medio',stage:profile.stage||'media'};
+      const data=readAll();
+      if(!Array.isArray(data[k])) data[k]=[];
+      const idx=data[k].findIndex(x=>String(x.date)===date);
+      if(idx>=0) data[k][idx]={...data[k][idx],...item}; else data[k].push(item);
+      data[k].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+
+      const payload=JSON.stringify(data);
+      localStorage.setItem(AMC_STORE,payload);
+
+      // Mantém o lançamento individual e o acompanhamento diário usando a
+      // mesma fonte de dados, evitando que uma tela mostre dados diferentes.
+      if(typeof dailyEntries!=='undefined'){
+        const di=dailyEntries.findIndex(x=>x.pivot===k&&x.date===date);
+        const existingDaily=di>=0?dailyEntries[di]:null;
+        const cfg=getPivotProfile(k);
+        const dItem={pivot:k,date,irr,rain,etc,
+          crop:existingDaily?.crop||cfg.crop||'soja',
+          plantDate:existingDaily?.plantDate||cfg.plantDate||date,
+          cycleType:existingDaily?.cycleType||cfg.cycleType||'medio',
+          stage:existingDaily?.stage||cfg.stage||'media',obs:''};
+        if(di>=0) dailyEntries[di]=dItem; else dailyEntries.push(dItem);
+        localStorage.setItem('amcDailyEntries',JSON.stringify(dailyEntries));
+      }
+
+      // Keep the old application's data store in sync when available.
+      if(typeof pivotLogs!=='undefined'){
+        if(!pivotLogs[k]) pivotLogs[k]=[];
+        pivotLogs[k]=data[k].slice();
+        localStorage.setItem('amcPivotLogs',JSON.stringify(pivotLogs));
+      }
+      localStorage.setItem(AMC_PIVOT,k);
+
+      // Verify the write before telling the user it was saved.
+      const verify=readAll();
+      const saved=(verify[k]||[]).find(x=>String(x.date)===date);
+      if(!saved){
+        msg.textContent='❌ O celular não confirmou o salvamento. Tente novamente.';
+        return false;
+      }
+
+      msg.textContent=`✅ Lançamento do Pivô ${k} salvo em ${date}.`;
+      AMC_loadIndividual(k);   // rebuilds KPIs, history and chart immediately
+      if(typeof renderCharts==='function') renderCharts();
+      if(typeof homePivots==='function') homePivots();
+      return true;
+    }catch(err){
+      msg.textContent='❌ Erro ao salvar: '+(err?.message||err);
+      return false;
+    }
+  };
+
+  window.AMC_renderIndividualChart=function(rows){
+    const box=q('indChart');
+    if(!rows.length){
+      box.innerHTML='<div class="tech-note">Ainda não há lançamentos. Salve o primeiro dia para gerar a evolução.</div>';
+      return;
+    }
+    const max=Math.max(1,...rows.flatMap(r=>[Number(r.irr)||0,Number(r.rain)||0,Number(r.etc)||0]));
+    const recent=rows.slice(-15);
+    box.innerHTML=`<div class="ind-legend"><span><i style="background:#16834b"></i>Irrigação</span><span><i style="background:#2879d0"></i>Chuva</span><span><i style="background:#e2a900"></i>ETc</span></div>
+      <div class="ind-chart-wrap">${recent.map(r=>{
+        const a=(Number(r.irr)||0)/max*170,b=(Number(r.rain)||0)/max*170,c=(Number(r.etc)||0)/max*170;
+        return `<div class="ind-day"><div class="ind-bars"><div class="ind-bar irr" style="height:${Math.max(2,a)}px" title="Irrigação ${Number(r.irr||0).toFixed(1)} mm"></div><div class="ind-bar rain" style="height:${Math.max(2,b)}px" title="Chuva ${Number(r.rain||0).toFixed(1)} mm"></div><div class="ind-bar etc" style="height:${Math.max(2,c)}px" title="ETc ${Number(r.etc||0).toFixed(1)} mm"></div></div><small>${String(r.date).slice(5).replace('-','/')}</small></div>`;
+      }).join('')}</div>`;
+  };
+
+  window.AMC_renderIndividualHistory=function(rows){
+    const box=q('indHistory');
+    if(!rows.length){box.innerHTML='<div class="ind-empty">Nenhum lançamento salvo para este pivô.</div>';return;}
+    box.innerHTML=`<div style="overflow-x:auto"><table class="ind-table"><thead><tr><th>Data</th><th>Irrig.</th><th>Chuva</th><th>ETc</th><th>Saldo</th></tr></thead><tbody>${rows.slice().reverse().map(r=>{
+      const irr=Number(r.irr)||0,rain=Number(r.rain)||0,etc=Number(r.etc)||0;
+      return `<tr><td>${r.date}</td><td>${irr.toFixed(1)}</td><td>${rain.toFixed(1)}</td><td>${etc.toFixed(1)}</td><td>${(irr+rain-etc).toFixed(1)}</td></tr>`;
+    }).join('')}</tbody></table></div>`;
+  };
+
+  document.addEventListener('DOMContentLoaded',()=>{
+    // One-time reconciliation: rebuild per-pivot culture profiles from the
+    // newest saved daily/individual records when an older version lost them.
+    try{
+      const profiles=getPivotProfiles();
+      const ind=readAll();
+      AMC_KEYS().forEach(k=>{
+        let p=profiles[k];
+        const rows=(dailyEntries||[]).filter(x=>String(x.pivot)===k).sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+        const ir=(ind[k]||[]).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+        const last=rows[rows.length-1]||ir[ir.length-1];
+        if(last && (!p || !p.crop)){
+          profiles[k]={crop:last.crop||'soja',plantDate:last.plantDate||last.date,cycleType:last.cycleType||'medio',stage:last.stage||'media'};
+        }
+      });
+      localStorage.setItem('amcCropConfig',JSON.stringify(profiles));
+    }catch(e){}
+    AMC_initIndividual();
+  });
+})();
+</script>
+
+<script>
+(function(){
+const WKEY='amcWeatherCacheV1';
+const q=id=>document.getElementById(id);
+function code(c){const m={0:['☀️','Céu limpo'],1:['🌤️','Poucas nuvens'],2:['⛅','Parcialmente nublado'],3:['☁️','Nublado'],45:['🌫️','Neblina'],48:['🌫️','Neblina'],51:['🌦️','Garoa leve'],53:['🌦️','Garoa'],55:['🌧️','Garoa forte'],61:['🌦️','Chuva leve'],63:['🌧️','Chuva'],65:['🌧️','Chuva forte'],80:['🌦️','Pancadas'],81:['🌧️','Pancadas'],82:['⛈️','Pancadas fortes'],95:['⛈️','Trovoada'],96:['⛈️','Trovoada'],99:['⛈️','Trovoada']};return m[c]||['🌤️','Condição variável']}
+function day(d){return new Date(d+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'}).replace('.','')}
+window.AMC_weatherRefresh=function(){
+ const msg=q('weatherMsg');
+ if(!navigator.geolocation){msg.textContent='⚠️ Este navegador não disponibiliza localização.';return}
+ msg.textContent='📍 Obtendo localização...';
+ navigator.geolocation.getCurrentPosition(async p=>{
+  try{
+   const lat=p.coords.latitude,lon=p.coords.longitude;
+   const u='https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,precipitation,weather_code,wind_speed_10m&hourly=precipitation_probability&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,et0_fao_evapotranspiration&forecast_days=7&timezone=auto&temperature_unit=celsius&wind_speed_unit=kmh&precipitation_unit=mm';
+   const r=await fetch(u);if(!r.ok)throw Error('falha na previsão');
+   const d=await r.json();localStorage.setItem(WKEY,JSON.stringify({lat,lon,d,at:Date.now()}));render(d,lat,lon);msg.textContent='✅ Meteorologia atualizada.';
+  }catch(e){msg.textContent='⚠️ Não foi possível atualizar. Verifique a internet.'}
+ },e=>{msg.textContent=e.code===1?'📍 Permissão de localização bloqueada. Ative-a no aparelho.':'⚠️ Não foi possível obter a localização.'},{enableHighAccuracy:false,timeout:10000,maximumAge:300000});
+}
+function render(d,lat,lon){
+ const c=code(d.current.weather_code);q('weatherIcon').textContent=c[0];q('weatherTemp').textContent=Number(d.current.temperature_2m).toFixed(1)+' °C';q('weatherDesc').textContent=c[1];
+ const p=d.hourly.precipitation_probability?.[0]??0;q('weatherRain').textContent=Math.round(p)+'%';q('weatherPrec').textContent=Number(d.current.precipitation||0).toFixed(1)+' mm';q('weatherWind').textContent=Math.round(d.current.wind_speed_10m||0)+' km/h';q('weatherET0').textContent=Number(d.daily.et0_fao_evapotranspiration?.[0]||0).toFixed(1)+' mm';
+ q('weatherLocation').textContent='📍 '+lat.toFixed(4)+', '+lon.toFixed(4)+' • '+(d.timezone||'');
+ q('weatherForecast').innerHTML=d.daily.time.map((x,i)=>{let z=code(d.daily.weather_code[i]);return `<div class="weather-day"><b>${day(x)}</b><div class="wi">${z[0]}</div><small>${z[1]}</small><b>${d.daily.temperature_2m_min[i].toFixed(0)}° / ${d.daily.temperature_2m_max[i].toFixed(0)}°</b><small>🌧️ ${Number(d.daily.precipitation_sum[i]||0).toFixed(1)} mm</small><small>💦 ET₀ ${Number(d.daily.et0_fao_evapotranspiration?.[i]||0).toFixed(1)} mm</small></div>`}).join('');
+}
+document.addEventListener('DOMContentLoaded',()=>{try{const c=JSON.parse(localStorage.getItem(WKEY)||'null');if(c)render(c.d,c.lat,c.lon)}catch(e){}});
+})();
+</script>
+</body></html>

@@ -1,5 +1,5 @@
 
-name: Gerar APK AMC Irrigacao
+name: Build AMC Irrigacao APK
 
 on:
   workflow_dispatch:
@@ -11,31 +11,31 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Baixar codigo
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Preparar Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Verificar arquivos
+      - name: Inspect project
         run: |
           ls -la
-          find . -maxdepth 3 -type f
+          find . -maxdepth 4 -type f
 
-      - name: Gerar APK
+      - name: Build APK
         run: |
           if [ -f ./gradlew ]; then
             chmod +x ./gradlew
             ./gradlew assembleDebug
           else
-            echo "ERRO: gradlew nao encontrado na raiz do projeto."
+            echo "gradlew not found at repository root"
             exit 1
           fi
 
-      - name: Disponibilizar APK
+      - name: Upload APK
         if: success()
         uses: actions/upload-artifact@v4
         with:

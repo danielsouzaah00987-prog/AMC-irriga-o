@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AMC Irrigação</title>
+<style>
+:root{
+  --green:#25c653;--green2:#118d3a;--dark:#071316;--blue:#1773bf;
+  --card:#ffffffef;--text:#17332b;--muted:#65756f;--yellow:#f0ad00;--red:#e84249
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);
+  background:
+    linear-gradient(#081518aa,#081518aa),
+    radial-gradient(circle at 20% 15%,#376b31 0 10%,transparent 30%),
+    linear-gradient(160deg,#102f27,#1b4f2e 45%,#071316);
+}
+header.hero{
+  min-height:235px;padding:20px 24px 18px;color:#fff;
+  background:
+    linear-gradient(180deg,#07131922,#07131999),
+    linear-gradient(90deg,#0c3e2d,#386b35 48%,#17251e);
+  position:relative;overflow:hidden;
+}
+header.hero:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 0 45%,#ffffff08 46% 100%);
+}
+.hamb{position:absolute;left:0;top:0;border:0;background:transparent;color:#fff;font-size:30px;z-index:3;cursor:pointer}.hero-top{position:relative;z-index:2;padding-left:38px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.brand{display:flex;align-items:center;gap:12px}.brand-mark{font-size:54px;font-weight:900;letter-spacing:-6px;text-shadow:0 2px 4px #0008}
+.brand h1{font-size:28px;letter-spacing:6px;margin:0;font-weight:800}.brand p{font-size:11px;letter-spacing:2px;margin:3px 0}
+.farm{font-size:17px;font-weight:700;text-align:right;padding-top:8px}.hero-pivot{display:none}
+main{max-width:1080px;margin:-4px auto 70px;padding:0 22px;position:relative;z-index:3}
+.card{background:var(--card);border:1px solid #ffffff88;box-shadow:0 8px 28px #0003;border-radius:18px;padding:18px}
+.weather{margin-top:0;background:linear-gradient(110deg,#0c67b5e8,#3b86bce8);color:#fff;border:1px solid #63b5f4aa;padding:20px}
+.weather-main{display:grid;grid-template-columns:1.25fr 2fr;gap:18px;align-items:center}.weather-icon{font-size:54px}.temp{font-size:62px;line-height:1;font-weight:850}.weather-place{font-size:16px;margin-top:6px}.weather-data{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;border-left:1px solid #ffffff66;padding-left:18px}.weather-data div{font-size:14px}.weather-data div:first-child{grid-column:1/-1;font-size:18px}
+.forecast{margin-top:18px;background:#286aa9d9;border:1px solid #ffffff55;border-radius:15px;padding:12px}.forecast-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:8px}.forecast-grid div{background:#ffffff15;border:1px solid #ffffff20;border-radius:9px;padding:8px;text-align:center;font-size:12px;line-height:1.45}
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0}.quick-grid button{min-height:145px;border:1px solid #ffffff44;border-radius:18px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:34px;box-shadow:0 5px 15px #0003;background-size:cover;background-position:center}
+.quick-grid button:nth-child(1){background:linear-gradient(#0677d2dd,#075fa9dd)}.quick-grid button:nth-child(2){background:linear-gradient(#1b9b32dd,#117424dd)}.quick-grid button:nth-child(3){background:linear-gradient(#304b64ee,#172536ee)}.quick-grid button:nth-child(4){background:linear-gradient(#327bb4dd,#175b91dd)}.quick-grid button:nth-child(5){background:linear-gradient(#efa900dd,#e48700dd)}.quick-grid button:nth-child(6){background:linear-gradient(#269f35dd,#147421dd)}
+.quick-grid button strong{font-size:22px}.quick-grid button span{font-size:14px;max-width:180px;text-align:center}
+.status-card{background:#fffffff2}.status-title{display:flex;justify-content:space-between;align-items:center}.status-title h2{font-size:25px;margin:0}.status-title span{color:#1766a4;font-weight:700}
+.pivot-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:12px}.mini-pivot{border:1px solid #d9dfdc;border-radius:12px;padding:8px 4px;background:#fff;text-align:center}.circle{width:58px;height:58px;border-radius:50%;background:#d8eee1;display:grid;place-items:center;margin:0 auto 5px;font-size:28px}.mini-pivot h4{margin:2px 0;font-size:13px}.mini-pivot p{margin:0;font-size:11px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:3px}.normal{background:#20a64a}.attention{background:#efb000}.priority{background:#e64248}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:#071316f5;border-top:1px solid #ffffff18;display:grid;grid-template-columns:repeat(6,1fr);padding:8px 12px 10px;gap:5px}
+nav button{border:0;background:transparent;color:#c9d0cf;font-size:12px;padding:7px 2px;border-radius:10px}nav button.active{color:#24d04f;background:#ffffff08}
+nav button:before{display:block;font-size:25px;margin-bottom:3px}
+nav #bhome:before{content:"⌂"}nav #binfo:before{content:"🌱"}nav #bcalc:before{content:"▦"}nav #bcal:before{content:"☁"}nav button:nth-last-child(2):before{content:"▥"}nav button:last-child:before{content:"⚙"}
+@media(max-width:900px){.pivot-grid{grid-template-columns:repeat(7,1fr)}.weather-main{grid-template-columns:1fr 1.8fr}.weather-data{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){
+  header.hero{min-height:180px;padding:15px}.brand-mark{font-size:42px}.brand h1{font-size:20px}.farm{font-size:13px;max-width:145px}
+  main{padding:0 12px;margin-bottom:72px}.weather-main{grid-template-columns:1fr}.weather-data{border-left:0;border-top:1px solid #ffffff55;padding:12px 0 0}.forecast-grid{grid-template-columns:repeat(4,1fr)}.forecast-grid div:nth-child(n+5){display:none}
+  .quick-grid{grid-template-columns:repeat(2,1fr);gap:10px}.quick-grid button{min-height:125px}.quick-grid button strong{font-size:17px}.quick-grid button span{font-size:12px}
+  .pivot-grid{grid-template-columns:repeat(4,1fr)}.mini-pivot{padding:6px 2px}.circle{width:45px;height:45px;font-size:23px}.mini-pivot h4{font-size:12px}
+}
+@media(max-width:430px){nav button{font-size:10px}nav button:before{font-size:22px}.weather-data{grid-template-columns:1fr 1fr}.pivot-grid{grid-template-columns:repeat(4,1fr)}.forecast-grid{grid-template-columns:repeat(4,1fr)}.quick-grid button{min-height:115px}.quick-grid button strong{font-size:15px}}
+
+.pivot-detail{display:grid;grid-template-columns:1fr 1.5fr;gap:14px;margin-top:14px}
+.pivot-select{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pivot-select select,.pivot-select input{padding:11px;border:1px solid #ccd7d2;border-radius:10px;background:#fff;font-size:15px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}
+.kpi{background:#fff;border:1px solid #dde5e1;border-radius:12px;padding:11px}.kpi small{display:block;color:#687771}.kpi b{font-size:20px}
+.graph{height:235px;border-radius:14px;background:#f7faf8;border:1px solid #dfe8e3;padding:10px;display:flex;align-items:flex-end;gap:7px;overflow:hidden}
+.bar{flex:1;min-width:9px;border-radius:5px 5px 0 0;background:#2385c6;position:relative}.bar span{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-size:9px;color:#60716a;white-space:nowrap}
+.line-note{display:flex;justify-content:space-between;font-size:12px;color:#687771;margin-top:7px}
+.status-banner{padding:13px;border-radius:12px;font-weight:700;margin-bottom:12px}.status-ok{background:#e0f4e5;color:#19753a}.status-att{background:#fff3d2;color:#8b6700}.status-prio{background:#ffe1e3;color:#a5262e}
+.log-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.log-grid label{font-size:12px;color:#64736d}.log-grid input{width:100%;padding:10px;border:1px solid #ccd7d2;border-radius:9px;margin-top:4px}
+@media(max-width:700px){.pivot-detail{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
+
+
+.tech-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.tech-grid label{font-size:12px;color:#62716b}.tech-grid input,.tech-grid select{width:100%;padding:10px;border:1px solid #ccd7d2;border-radius:9px;background:#fff;margin-top:4px}
+.calc-result{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.calc-result .kpi{background:#eef7f1}
+.tech-note{font-size:12px;color:#697872;line-height:1.4}
+@media(max-width:700px){.tech-grid{grid-template-columns:1fr}.calc-result{grid-template-columns:1fr}}
+
+.pivot-picker{display:grid;grid-template-columns:repeat(5,minmax(52px,1fr));gap:7px;margin-top:6px}
+.pivot-btn{border:1px solid #cfdad5;background:#fff;border-radius:10px;padding:10px 5px;font-weight:700;color:#24443a;cursor:pointer;touch-action:manipulation}
+.pivot-btn.active{background:#16834b;color:#fff;border-color:#16834b}
+@media(max-width:600px){.pivot-picker{grid-template-columns:repeat(4,1fr)}}
+</style>
+<style>
+.full-select{width:100%;padding:12px;border:1px solid #cfd8d4;border-radius:10px;background:#fff;font-size:16px}
+.primary-btn{border:0;border-radius:10px;padding:13px;background:#16834b;color:#fff;font-weight:800;font-size:16px}
+.ind-chart-wrap{height:220px;display:flex;align-items:flex-end;gap:7px;border-bottom:1px solid #cfd8d4;padding:10px 4px 0;overflow-x:auto}
+.ind-day{min-width:48px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px}
+.ind-bars{height:175px;display:flex;align-items:flex-end;gap:3px}
+.ind-bar{width:9px;border-radius:4px 4px 0 0;min-height:2px}
+.ind-bar.irr{background:#16834b}.ind-bar.rain{background:#2879d0}.ind-bar.etc{background:#e2a900}
+.ind-day small{font-size:9px;white-space:nowrap}
+.ind-legend{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0;font-size:12px}
+.ind-legend span{display:inline-flex;align-items:center;gap:4px}.ind-legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.ind-table{width:100%;border-collapse:collapse;font-size:13px}.ind-table th,.ind-table td{padding:8px 5px;border-bottom:1px solid #e5e9e7;text-align:right}.ind-table th:first-child,.ind-table td:first-child{text-align:left}
+</style>
+</head><body>
+<header class="hero">
+      <div class="hero-top"><button class="hamb" onclick="show('home')">☰</button>
+        <div class="brand">
+          <div class="brand-mark">AMC</div>
+          <div><h1>IRRIGAÇÃO</h1><p>TECNOLOGIA A SERVIÇO DA PRODUTIVIDADE</p></div>
+        </div>
+        <div class="farm">📍 Fazenda<br>Dois Irmãos – AMC⌄</div>
+      </div>
+    </header>
+<nav><button id="bhome" class="active" onclick="show('home')">⌂ Início</button><button id="bpiv" onclick="openPivot(currentPivot)">💧 Pivôs</button><button id="bcalc" onclick="show('techCalc')">🧮 Calculadora</button><button id="bcal" onclick="show('home')">🌦️ Meteorologia</button><button id="bcharts" onclick="show('charts')">▥ Gráficos</button><button id="bconfig" onclick="show('home')">⚙ Configurações</button></nav>
+<main>
+<button class="home-chart-shortcut" onclick="show('charts')" style="margin:8px 0;padding:10px 16px;border:0;border-radius:10px;background:#e2a900;color:#fff;font-weight:700">📊 Abrir Gráficos</button>
+<section id="home">
+<div class="card weather"><div class="weather-main">
+<div><div class="weather-icon">☀️☁️</div><div class="temp">--°C</div><div>Localização da fazenda</div></div>
+<div class="weather-data"><div><b>Previsão meteorológica</b><br><small>Atualiza quando houver internet</small></div><div>🌧️ Chuva: <b>-- mm</b></div><div>💨 Vento: <b>-- m/s</b></div><div>🌡️ Mín./Máx.: <b>-- / -- °C</b></div><div>💧 Umidade: <b>--%</b></div></div>
+</div><div class="forecast"><b>Previsão dos próximos dias</b><div class="forecast-grid"><div>Hoje<br>☀️<br>--° / --°<br>-- mm</div><div>Amanhã<br>🌤️<br>--° / --°<br>-- mm</div><div>+2 dias<br>🌧️<br>--° / --°<br>-- mm</div><div>+3 dias<br>☀️<br>--° / --°<br>-- mm</div></div></div></div>
+<div class="quick-grid">
+<button onclick="show('cal')">💧<strong>Lançamento</strong><span>Irrigação, chuva e necessidade</span></button>
+<button onclick="show('cal')">📅<strong>Calendário</strong><span>Acompanhamento diário</span></button>
+<button onclick="show('techCalc')">🧮<strong>Calculadora</strong><span>Vazão, lâmina e tempo</span></button>
+<button onclick="show('home')">🌦️<strong>Meteorologia</strong><span>Previsão da região</span></button>
+<button onclick="show('cal')">📊<strong>Gráficos</strong><span>Evolução da irrigação</span></button>
+<button onclick="openPivot('01')">🚜<strong>Pivôs</strong><span>Gestão individual</span></button>
+</div>
+<div class="card"><div class="status-title"><h2>Status dos Pivôs</h2><span>14 pivôs ativos</span></div><div id="homePivots" class="pivot-grid"></div><p class="small" style="margin:10px 0 0">🟢 Irrigação OK • 🟡 Atenção • 🔴 Prioridade. O status será atualizado automaticamente conforme a necessidade e os lançamentos.</p></div>
+</section>
+
+
+<section id="pivotView" class="hidden">
+  <div class="card">
+    <div class="status-title">
+      <div>
+        <h2 id="pivotTitle">Pivô 01</h2>
+        <span id="pivotSub">Acompanhamento individual</span>
+      </div>
+      <button type="button" onclick="show('home')">← Início</button>
+    </div>
+
+    <div style="margin-top:14px">
+      <label><b>Selecionar pivô</b></label>
+      <select id="individualPivotSelect" class="full-select"></select>
+    </div>
+
+    <div id="individualPivotButtons" class="pivot-picker" style="margin-top:10px"></div>
+
+    <div id="pivotStatus" class="status-banner status-ok" style="margin-top:14px">🟢 Irrigação OK</div>
+
+    <div class="calc-result">
+      <div class="kpi"><small>Irrigação</small><b id="kIrr">0,0 mm</b></div>
+      <div class="kpi"><small>Chuva</small><b id="kRain">0,0 mm</b></div>
+      <div class="kpi"><small>Necessidade (ETc)</small><b id="kNeed">0,0 mm</b></div>
+      <div class="kpi"><small>Saldo</small><b id="kBal">0,0 mm</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📝 Lançamento do dia</h3>
+    <div class="tech-grid">
+      <div>
+        <label>Data</label>
+        <input id="indDate" type="date">
+      </div>
+      <div>
+        <label>Irrigação (mm)</label>
+        <input id="indIrr" type="text" inputmode="decimal" min="0" step="0.1" inputmode="decimal" placeholder="0,0">
+      </div>
+      <div>
+        <label>Chuva (mm)</label>
+        <input id="indRain" type="text" inputmode="decimal" min="0" step="0.1" inputmode="decimal" placeholder="0,0">
+      </div>
+      <div>
+        <label>Necessidade / ETc (mm)</label>
+        <input id="indEtc" type="text" inputmode="decimal" min="0" step="0.1" inputmode="decimal" placeholder="0,0">
+      </div>
+    </div>
+    <button type="button" id="indSave" class="primary-btn" style="width:100%;margin-top:14px" onclick="AMC_saveIndividual()">💾 Salvar lançamento</button>
+    <div id="indMessage" class="tech-note" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card">
+    <div class="status-title">
+      <div><h3>📈 Evolução diária</h3><span>Chuva × irrigação × necessidade</span></div>
+    </div>
+    <div id="indChart" style="height:250px;margin-top:12px;position:relative"></div>
+  </div>
+
+  <div class="card">
+    <h3>📋 Histórico do pivô</h3>
+    <div id="indHistory"></div>
+  </div>
+</section>
+
+
+
+
+<section id="charts" class="hidden">
+  <div class="card">
+    <div class="status-title">
+      <div><h2>📊 Gráficos de irrigação</h2><span>Chuva × irrigação × necessidade × déficit</span></div>
+      <button onclick="show('home')">← Início</button>
+    </div>
+    <div class="tech-grid" style="margin-top:14px">
+      <div><label>Pivô</label><div id="chPivot" class="pivot-picker" role="group" aria-label="Selecionar pivô"></div></div>
+      <div><label>Período</label><select id="chPeriod">
+        <option value="7">Últimos 7 lançamentos</option>
+        <option value="15">Últimos 15 lançamentos</option>
+        <option value="30" selected>Últimos 30 lançamentos</option>
+        <option value="all">Todos os lançamentos</option>
+      </select></div>
+    </div>
+    <div style="margin-top:18px"><canvas id="waterChart" height="240"></canvas></div>
+    <div class="calc-result">
+      <div class="kpi"><small>Irrigação acumulada</small><b id="chIrr">—</b></div>
+      <div class="kpi"><small>Chuva acumulada</small><b id="chRain">—</b></div>
+      <div class="kpi"><small>ETc acumulada</small><b id="chEtc">—</b></div>
+    </div>
+  </div>
+</section>
+<section id="dailyTrack" class="hidden">
+  <div class="card">
+    <div class="status-title">
+      <div><h2>📅 Acompanhamento diário</h2><span>Chuva • irrigação • necessidade da cultura</span></div>
+      <button onclick="show('home')">← Início</button>
+    </div>
+
+    <div class="tech-grid" style="margin-top:14px">
+      <div><label>Pivô</label><div id="dtPivot" class="pivot-picker" role="group" aria-label="Selecionar pivô"></div></div>
+      <div><label>Data</label><input id="dtDate" type="date"></div>
+      <div><label>Chuva (mm)</label><input id="dtRain" type="number" min="0" step="0.1" value="0"></div>
+      <div><label>Irrigação (mm)</label><input id="dtIrr" type="number" min="0" step="0.1" value="0"></div>
+      <div><label>Necessidade da cultura / ETc (mm)</label><input id="dtEtc" type="number" min="0" step="0.1" value="0"></div>
+      <div><label>Observação</label><input id="dtObs" type="text" placeholder="Ex.: pivô ligado, chuva forte..."></div>
+    </div>
+    <button style="margin-top:12px" onclick="saveDaily()">Salvar lançamento</button>
+
+    <div class="calc-result">
+      <div class="kpi"><small>Déficit do dia</small><b id="dtDeficit">—</b></div>
+      <div class="kpi"><small>Necessidade de irrigação amanhã</small><b id="dtTomorrow">—</b></div>
+      <div class="kpi"><small>Status</small><b id="dtStatus">—</b></div>
+    </div>
+    <p class="tech-note">Regra inicial: déficit = ETc − chuva − irrigação, limitado a zero. A estimativa de amanhã usa o déficit acumulado registrado e a ETc informada para o próximo lançamento; ela é uma estimativa de acompanhamento, não uma recomendação agronômica automática.</p>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h3>📊 Histórico do pivô</h3>
+    <div id="dailyTable"></div>
+  </div>
+</section>
+<section id="techCalc" class="hidden">
+  <div class="card">
+    <div class="status-title"><div><h2>🧮 Calculadora do Pivô</h2><span>Valores oficiais das fichas técnicas • vazão • lâmina • tempo de volta</span></div><button onclick="show('home')">← Início</button></div>
+    <div class="tech-grid" style="margin-top:14px">
+      <div><label>Pivô</label><div id="tcPivot" class="pivot-picker" role="group" aria-label="Selecionar pivô"></div></div>
+      <div><label>Velocidade / porcentagem de operação (%)</label><input id="tcSpeed" type="number" min="1" max="100" step="1" value="50"></div>
+      <div><label>Área irrigada (ha)</label><input id="tcArea" type="number" min="0" step="0.01" placeholder="Preencher pela ficha técnica"></div>
+      <div><label>Vazão do pivô (m³/h)</label><input id="tcFlow" type="number" min="0" step="0.01" placeholder="Preencher pela ficha técnica"></div>
+      <div><label>Tempo de volta a 100% (h)</label><input id="tcBaseTime" type="number" min="0.01" step="0.01" placeholder="Preencher pela ficha técnica"></div>
+    </div>
+    <button style="margin-top:12px" onclick="calculateTech()">Calcular</button>
+    <div class="calc-result">
+      <div class="kpi"><small>Tempo para uma volta</small><b id="tcTime">—</b></div>
+      <div class="kpi"><small>Lâmina por hora</small><b id="tcRate">—</b></div>
+      <div class="kpi"><small>Lâmina por volta</small><b id="tcMm">—</b></div>
+    </div>
+    <p id="tcTechnicalSummary" class="tech-note"></p>
+    <p class="tech-note">A calculadora usa os dados da ficha técnica do pivô. Não serão inventados valores: quando a ficha não tiver algum dado, ele ficará para preenchimento.</p>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h3>📋 Ficha técnica do pivô selecionado</h3>
+    <div class="tech-grid">
+      <div><label>Área (ha)</label><input id="specArea" type="number" step="0.01"></div>
+      <div><label>Vazão (m³/h)</label><input id="specFlow" type="number" step="0.01"></div>
+      <div><label>Tempo de volta a 100% (h)</label><input id="specTime" type="number" step="0.01"></div>
+      <div><label>Observações</label><input id="specObs" type="text" placeholder="Ex.: pressão, comprimento, emissores..."></div>
+    </div>
+    <button style="margin-top:12px" onclick="saveTechSpec()">Salvar ficha técnica</button>
+    <p id="specMsg" class="tech-note"></p>
+  </div>
+</section>
+<section id="calc">
+<div class="card"><h2>Calculadora de Pivô</h2><div class="row">
+<div class="field"><label>Pivô</label><select id="pivot"></select></div>
+<div class="field"><label>Percentímetro</label><select id="pct"></select></div>
+</div><div id="calcres" class="grid" style="margin-top:14px"></div></div>
+<div class="card" style="margin-top:12px"><h3>Outros cálculos</h3><div class="row">
+<div class="field"><label>Horas de funcionamento</label><input id="hours" type="number" min="0" step="0.01" placeholder="ex.: 6"></div>
+<button onclick="fromHours()">Calcular mm</button>
+</div><div id="hoursres" class="notice hidden"></div></div>
+</section>
+
+<section id="cal" class="hidden">
+<div class="card"><h2>Calendário do pivô</h2><div class="row">
+<div class="field"><label>Pivô</label><select id="pivotCal"></select></div>
+<div class="field"><label>Cultura</label><input id="crop" placeholder="Ex.: milho"></div>
+</div><p class="small">Os registros ficam salvos neste aparelho. A necessidade diária da cultura é informada por você.</p>
+<div class="card" style="margin-top:10px"><div class="row">
+<div class="field"><label>Data</label><input id="date" type="date"></div>
+<div class="field"><label>Necessidade (mm)</label><input id="need" type="number" step="0.1"></div>
+<div class="field"><label>Irrigação (mm)</label><input id="irr" type="number" step="0.1"></div>
+<div class="field"><label>Chuva (mm)</label><input id="rain" type="number" step="0.1"></div>
+<button onclick="saveDay()">Salvar dia</button></div></div>
+<div id="summary" class="grid" style="margin-top:12px"></div>
+<div id="calendar" class="card" style="margin-top:12px"></div>
+</div>
+</section>
+
+<section id="info" class="hidden">
+<div class="card"><h2>Dados técnicos</h2><div class="field"><label>Pivô</label><select id="pivotInfo"></select></div><div id="infores" style="margin-top:14px"></div></div>
+</section>
+</main><footer>AMC Irrigação • dados de irrigação offline • Pivôs 10 e 11 reservados • status calculado pelos lançamentos</footer>
+<script>
+const PIVOTS={"01": {"area": 27.26, "flow": 126.78, "time100": 6.76, "mm100": 3.14}, "02": {"area": 142.21, "flow": 530.09, "time100": 14.6833, "mm100": 5.47}, "03": {"area": 78.67, "flow": 358.48, "time100": 11.15, "mm100": 5.08}, "04": {"area": 18.48, "flow": 83.6, "time100": 4.2833, "mm100": 1.94}, "05": {"area": 41.47, "flow": 195.5, "time100": 7.68, "mm100": 3.62}, "06": {"area": 37.72, "flow": 185.97, "time100": 4.78, "mm100": 2.36}, "07": {"area": 48.24, "flow": 228.95, "time100": 7.41, "mm100": 3.52}, "08": {"area": 24.95, "flow": 189.0, "time100": 6.03, "mm100": 4.57}, "09": {"area": 16.19, "flow": 190.0, "time100": 4.01, "mm100": 4.7}, "12": {"area": 23.65, "flow": 293.6, "time100": 5.33, "mm100": 6.62}, "13": {"area": 62.65, "flow": 287.5, "time100": 8.81, "mm100": 4.04}, "14": {"area": 20.43, "flow": 98.6, "time100": 4.65, "mm100": 2.24}, "15": {"area": 29.06, "flow": 240.0, "time100": 5.85, "mm100": 4.83}, "16": {"area": 36.04, "flow": 220.0, "time100": 6.61, "mm100": 4.04}};
+const TABLES={"05": [[100, 461, 3.62], [95, 485, 3.81], [90, 512, 4.02], [85, 542, 4.26], [80, 576, 4.52], [75, 614, 4.83], [70, 658, 5.17], [65, 709, 5.57], [60, 768, 6.03], [55, 838, 6.58], [50, 921, 7.24], [45, 1024, 8.04], [40, 1152, 9.05], [35, 1316, 10.34], [30, 1536, 12.07], [25, 1843, 14.48], [20, 2304, 18.1], [15, 3071, 24.13], [10, 4607, 36.2], [5, 9214, 72.4]], "06": [[100, 287, 2.36], [95, 302, 2.48], [90, 319, 2.62], [85, 338, 2.77], [80, 359, 2.95], [75, 383, 3.14], [70, 410, 3.37], [65, 442, 3.63], [60, 478, 3.93], [55, 522, 4.29], [50, 574, 4.72], [45, 638, 5.24], [40, 717, 5.9], [35, 820, 6.74], [30, 957, 7.86], [25, 1148, 9.43], [20, 1435, 11.79], [15, 1913, 15.72], [10, 2870, 23.58], [5, 5740, 47.16]], "07": [[100, 444, 3.52], [95, 468, 3.7], [90, 494, 3.91], [85, 523, 4.14], [80, 556, 4.4], [75, 593, 4.69], [70, 635, 5.02], [65, 684, 5.41], [60, 741, 5.86], [55, 808, 6.39], [50, 889, 7.03], [45, 988, 7.81], [40, 1111, 8.79], [35, 1270, 10.05], [30, 1482, 11.72], [25, 1778, 14.07], [20, 2222, 17.58], [15, 2963, 23.44], [10, 4445, 35.16], [5, 8890, 70.33]], "08": [[100, 362, 4.57], [95, 381, 4.81], [90, 402, 5.08], [85, 426, 5.38], [80, 453, 5.71], [75, 483, 6.09], [70, 517, 6.53], [65, 557, 7.03], [60, 603, 7.62], [55, 658, 8.31], [50, 724, 9.14], [45, 805, 10.16], [40, 905, 11.43], [35, 1035, 13.06], [30, 1207, 15.24], [25, 1448, 18.28], [20, 1810, 22.85], [15, 2414, 30.47], [10, 3621, 45.71], [5, 7242, 91.41]], "09": [[100, 240, 4.7], [95, 253, 4.95], [90, 267, 5.23], [85, 283, 5.53], [80, 301, 5.88], [75, 321, 6.27], [70, 344, 6.72], [65, 370, 7.24], [60, 401, 7.84], [55, 437, 8.55], [50, 481, 9.41], [45, 534, 10.45], [40, 601, 11.76], [35, 687, 13.44], [30, 802, 15.68], [25, 962, 18.82], [20, 1202, 23.52], [15, 1603, 31.36], [10, 2405, 47.04], [5, 4809, 94.08]], "12": [[100, 320, 6.62], [95, 337, 6.97], [90, 356, 7.36], [85, 376, 7.79], [80, 400, 8.28], [75, 427, 8.83], [70, 457, 9.46], [65, 492, 10.19], [60, 533, 11.04], [55, 582, 12.04], [50, 640, 13.24], [45, 711, 14.72], [40, 800, 16.56], [35, 914, 18.92], [30, 1067, 22.07], [25, 1280, 26.49], [20, 1600, 33.11], [15, 2133, 44.15], [10, 3200, 66.22], [5, 6400, 132.44]], "13": [[100, 529, 4.04], [95, 557, 4.26], [90, 588, 4.49], [85, 622, 4.76], [80, 661, 5.06], [75, 705, 5.39], [70, 755, 5.78], [65, 814, 6.22], [60, 881, 6.74], [55, 961, 7.35], [50, 1058, 8.09], [45, 1175, 8.99], [40, 1322, 10.11], [35, 1511, 11.56], [30, 1763, 13.48], [25, 2115, 16.18], [20, 2644, 20.22], [15, 3525, 26.96], [10, 5288, 40.44], [5, 10576, 80.89]], "14": [[100, 279, 2.24], [95, 294, 2.36], [90, 310, 2.49], [85, 328, 2.64], [80, 349, 2.81], [75, 372, 2.99], [70, 399, 3.21], [65, 429, 3.45], [60, 465, 3.74], [55, 507, 4.08], [50, 558, 4.49], [45, 620, 4.99], [40, 698, 5.61], [35, 797, 6.41], [30, 930, 7.48], [25, 1116, 8.98], [20, 1395, 11.22], [15, 1860, 14.96], [10, 2790, 22.45], [5, 5581, 44.89]], "15": [[100, 351, 4.83], [95, 370, 5.09], [90, 390, 5.37], [85, 413, 5.69], [80, 439, 6.04], [75, 468, 6.45], [70, 502, 6.91], [65, 540, 7.44], [60, 585, 8.06], [55, 638, 8.79], [50, 702, 9.67], [45, 780, 10.74], [40, 878, 12.08], [35, 1003, 13.81], [30, 1170, 16.11], [25, 1405, 19.34], [20, 1756, 24.17], [15, 2341, 32.23], [10, 3511, 48.34], [5, 7023, 96.68]], "16": [[100, 397, 4.04], [95, 418, 4.25], [90, 441, 4.48], [85, 467, 4.75], [80, 496, 5.05], [75, 529, 5.38], [70, 567, 5.77], [65, 610, 6.21], [60, 661, 6.73], [55, 721, 7.34], [50, 793, 8.07], [45, 882, 8.97], [40, 992, 10.09], [35, 1133, 11.53], [30, 1322, 13.45], [25, 1587, 16.14], [20, 1984, 20.18], [15, 2645, 26.91], [10, 3967, 40.36], [5, 7934, 80.72]]};
+const keys=Object.keys(PIVOTS).sort((a,b)=>Number(a)-Number(b));
+const OFFICIAL_TABLES_01_04={"01":[[100,406,3.14],[95,427,3.31],[90,451,3.49],[85,477,3.70],[80,507,3.93],[75,541,4.19],[70,580,4.49],[65,624,4.84],[60,676,5.24],[55,738,5.72],[50,811,6.29],[45,902,6.99],[40,1014,7.86],[35,1159,8.98],[30,1352,10.48],[25,1623,12.58],[20,2028,15.72],[15,2705,20.96],[10,4057,31.44],[5,8114,62.89]],"02":[[100,881,5.47],[95,927,5.76],[90,979,6.08],[85,1036,6.44],[80,1101,6.84],[75,1174,7.30],[70,1258,7.82],[65,1355,8.42],[60,1468,9.12],[55,1601,9.95],[50,1761,10.94],[45,1957,12.16],[40,2202,13.68],[35,2516,15.63],[30,2936,18.24],[25,3523,21.89],[20,4404,27.36],[15,5871,36.48],[10,8807,54.72],[5,17614,109.43]],"03":[[100,669,5.08],[95,704,5.35],[90,743,5.64],[85,787,5.98],[80,836,6.35],[75,892,6.77],[70,956,7.26],[65,1029,7.82],[60,1115,8.47],[55,1216,9.24],[50,1338,10.16],[45,1487,11.29],[40,1672,12.70],[35,1911,14.52],[30,2230,16.93],[25,2676,20.32],[20,3345,25.40],[15,4460,33.87],[10,6690,50.80],[5,13380,101.61]],"04":[[100,257,1.94],[95,271,2.04],[90,286,2.16],[85,303,2.28],[80,322,2.42],[75,343,2.59],[70,368,2.77],[65,396,2.98],[60,429,3.23],[55,468,3.53],[50,515,3.88],[45,572,4.31],[40,643,4.85],[35,735,5.54],[30,858,6.47],[25,1029,7.76],[20,1287,9.70],[15,1715,12.93],[10,2573,19.40],[5,5146,38.80]]};
+Object.assign(TABLES, OFFICIAL_TABLES_01_04);
+const qs=id=>document.getElementById(id);
+let currentPivot=localStorage.getItem('amcCurrentPivot')||keys[0]||'01';
+function selectPivot(k){
+  if(!keys.includes(k))return;
+  currentPivot=k;
+  localStorage.setItem('amcCurrentPivot',k);
+  document.querySelectorAll('.pivot-picker').forEach(box=>{
+    box.querySelectorAll('.pivot-btn').forEach(b=>b.classList.toggle('active',b.dataset.pivot===k));
+    box.dataset.selected=k;
+  });
+  const ids=['pivot','pivotCal','pivotInfo'];
+  ids.forEach(id=>{const e=qs(id);if(e)e.value=k;});
+  // These functions are called only after the whole script has initialized.
+  if(qs('tcPivot') && typeof loadTechSpec==='function')loadTechSpec();
+  if(qs('dtPivot') && typeof renderDaily==='function')renderDaily();
+  if(qs('chPivot') && typeof renderCharts==='function')renderCharts();
+  if(qs('pivotView') && !qs('pivotView').classList.contains('hidden') && typeof loadPivot==='function')loadPivot(k,true);
+}
+function fillPicker(id, selected){
+  const el=qs(id); if(!el)return;
+  const chosen=keys.includes(selected)?selected:(currentPivot||keys[0]);
+  el.innerHTML=keys.map(k=>`<button type="button" class="pivot-btn ${k===chosen?'active':''}" data-pivot="${k}" onclick="selectPivot('${k}')">Pivô ${k}</button>`).join('');
+  el.dataset.selected=chosen;
+}
+function fill(id){
+  const el=qs(id);
+  if(!el)return;
+  const current=el.value;
+  if(el.tagName==='SELECT'){
+    el.innerHTML='<option value="">Selecione o pivô</option>'+keys.map(k=>`<option value="${k}">Pivô ${k}</option>`).join('');
+    if(current && keys.includes(current)) el.value=current;
+  }
+}
+function fillAllPivotSelectors(){
+  ['pivot','pivotCal','pivotInfo','chPivot','dtPivot'].forEach(fill);
+}
+fillAllPivotSelectors();
+fillPicker('tcPivot',currentPivot);
+fillPicker('dtPivot',currentPivot);
+fillPicker('chPivot',currentPivot);
+qs('pct').innerHTML=[100,95,90,85,80,75,70,65,60,55,50,45,40,35,30,25,20,15,10,5].map(x=>`<option>${x}%</option>`).join('');
+function fmtHours(h){let total=Math.round(h*60), hh=Math.floor(total/60), mm=total%60; return `${hh}h${String(mm).padStart(2,'0')}`}
+function rowFor(k,pct){
+  let p=PIVOTS[k], arr=TABLES[k];
+  if(arr){let x=arr.find(r=>r[0]===pct); if(x)return {pct,time:x[1]/60,mm:x[2],exact:true}}
+  return {pct,time:p.time100*100/pct,mm:p.mm100*100/pct,exact:false};
+}
+function calc(){let k=qs('pivot').value,pct=Number(qs('pct').value.replace('%','')),p=PIVOTS[k];
+const r=rowFor(k,pct);
+qs('calcres').innerHTML=`<div class="card"><div class="muted">Lâmina bruta da ficha</div><div class="big">${r.mm.toFixed(2)} mm</div></div>
+<div class="card"><div class="muted">Tempo por volta da ficha</div><div class="big">${fmtHours(r.time)}</div></div>
+<div class="card"><div class="muted">Vazão da ficha</div><div class="big">${p.flow.toFixed(2)} m³/h</div></div>
+<div class="card"><div class="muted">Área irrigada</div><div class="big">${p.area.toFixed(2)} ha</div></div>
+<div class="card"><div class="muted">Fonte</div><div class="result">Tabela da ficha técnica — ${pct}%</div></div>`;}
+function fromHours(){let k=qs('pivot').value,h=Number(qs('hours').value); if(!h)return;let p=PIVOTS[k],mm=p.mm100*(h/p.time100);let el=qs('hoursres');el.className='notice green';el.textContent=`Estimativa: ${mm.toFixed(2)} mm em ${h.toFixed(2)} h. Para percentímetro exato, use a tabela acima.`}
+function info(){let k=qs('pivotInfo').value,p=PIVOTS[k];qs('infores').innerHTML=`<div class="grid"><div class="card"><div class="muted">Área</div><div class="big">${p.area.toFixed(2)} ha</div></div><div class="card"><div class="muted">Vazão</div><div class="big">${p.flow.toFixed(2)} m³/h</div></div><div class="card"><div class="muted">Volta a 100%</div><div class="big">${fmtHours(p.time100)}</div></div><div class="card"><div class="muted">Lâmina a 100%</div><div class="big">${p.mm100.toFixed(2)} mm</div></div></div>`}
+function show(s){
+  ['home','pivotView','dailyTrack','charts','techCalc','calc','cal','info'].forEach(x=>{const e=qs(x);if(e)e.classList.toggle('hidden',x!==s);});
+  ['bhome','bpiv','bcalc','bcal','bcharts','bconfig'].forEach(x=>{const e=qs(x);if(e)e.classList.remove('active')}); if(s==='home')qs('bhome')?.classList.add('active'); if(s==='pivotView')qs('bpiv')?.classList.add('active'); if(s==='techCalc')qs('bcalc')?.classList.add('active'); if(s==='charts')qs('bcharts')?.classList.add('active');
+  if(s==='calc'||s==='techCalc')calc(); if(s==='info')info(); if(s==='cal')renderCal();
+  if(s==='home')homePivots(); if(s==='pivotView')AMC_initIndividual(); if(s==='techCalc')initTechCalc(); if(s==='dailyTrack')initDaily(); if(s==='charts')initCharts();
+}
+function homePivots(){
+  const el=qs('homePivots');
+  if(!el)return;
+  el.innerHTML=keys.map(k=>{
+    const logs=(pivotLogs[k]||[]).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+    const last=logs.at(-1);
+    const bal=last ? (Number(last.irr)||0)+(Number(last.rain)||0)-(Number(last.etc)||0) : 0;
+    const cls=bal>=0?'normal':bal>=-3?'attention':'priority';
+    const label=bal>=0?'Normal':bal>=-3?'Atenção':'Prioridade';
+    return `<div class="mini-pivot" onclick="openPivot('${k}')"><div class="circle">💧</div><h4>Pivô ${k}</h4><p><span class="dot ${cls}"></span>${label}</p></div>`;
+  }).join('');
+}
+function storage(){return JSON.parse(localStorage.getItem('amcRecords')||'{}')}
+function saveDay(){let k=qs('pivotCal').value,d=qs('date').value;if(!d)return;let all=storage();all[`${k}|${d}`]={pivot:k,date:d,crop:qs('crop').value,need:+qs('need').value||0,irr:+qs('irr').value||0,rain:+qs('rain').value||0};localStorage.setItem('amcRecords',JSON.stringify(all));renderCal()}
+function renderCal(){let k=qs('pivotCal').value, all=storage(), now=new Date(), y=now.getFullYear(),m=now.getMonth();let month=String(m+1).padStart(2,'0');let first=new Date(y,m,1).getDay();first=(first+6)%7;let days=new Date(y,m+1,0).getDate();let html='<h3>'+now.toLocaleDateString('pt-BR',{month:'long',year:'numeric'})+'</h3><div class="days">'+['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'].map(x=>`<div class="small"><b>${x}</b></div>`).join('');for(let i=0;i<first;i++)html+='<div></div>';let totalN=0,totalI=0,totalR=0;for(let d=1;d<=days;d++){let key=`${k}|${y}-${month}-${String(d).padStart(2,'0')}`,r=all[key];let cls='';if(r){let bal=r.irr+r.rain-r.need;cls=bal>=-0.5?'g':bal>=-2?'y':'r';totalN+=r.need;totalI+=r.irr;totalR+=r.rain}html+=`<div class="day ${cls}"><b>${d}</b>${r?`<br>${r.irr.toFixed(1)}💧<br>${r.rain.toFixed(1)}🌧️`:''}</div>`}html+='</div>';qs('calendar').innerHTML=html;qs('summary').innerHTML=`<div class="card"><div class="muted">Necessidade registrada</div><div class="big">${totalN.toFixed(1)} mm</div></div><div class="card"><div class="muted">Irrigação</div><div class="big">${totalI.toFixed(1)} mm</div></div><div class="card"><div class="muted">Chuva</div><div class="big">${totalR.toFixed(1)} mm</div></div>`}
+qs('pivot').onchange=calc;qs('pct').onchange=calc;qs('pivotInfo').onchange=info;qs('pivotCal').onchange=renderCal;
+qs('date').value=new Date().toISOString().slice(0,10);calc();info();renderCal();
+
+const pivotLogs = JSON.parse(localStorage.getItem('amcPivotLogs')||'{}');
+
+function pivotOptions(selected){
+  return keys.map(x=>`<option value="${x}" ${x===selected?'selected':''}>Pivô ${x}</option>`).join('');
+}
+
+function renderPivotButtons(k){
+  const box=qs('pivotButtons');
+  if(!box)return;
+  box.innerHTML=keys.map(x=>`<button type="button" class="pivot-btn ${x===k?'active':''}" data-pivot="${x}" onclick="chooseIndividualPivot('${x}')">Pivô ${x}</button>`).join('');
+}
+
+function chooseIndividualPivot(k){
+  if(!keys.includes(k))return;
+  currentPivot=k;
+  localStorage.setItem('amcCurrentPivot',k);
+  const sel=qs('pivotSelect');
+  if(sel)sel.value=k;
+  renderPivotButtons(k);
+  loadPivot(k);
+}
+
+function openPivot(k){
+  if(!keys.includes(k)) k=currentPivot||keys[0];
+  currentPivot=k;
+  localStorage.setItem('amcCurrentPivot',k);
+  show('pivotView');
+
+  const sel=qs('pivotSelect');
+  if(sel){
+    sel.innerHTML='<option value="">Selecione o pivô</option>'+pivotOptions(k);
+    sel.value=k;
+    sel.onchange=()=>chooseIndividualPivot(sel.value);
+  }
+  renderPivotButtons(k);
+  loadPivot(k);
+}
+
+function renderPivotEvolution(k){
+  const canvas=qs('pivotEvolutionChart');
+  if(!canvas)return;
+  const rows=(dailyEntries.filter(x=>x.pivot===k)
+    .slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)))).slice(-14);
+
+  const dpr=window.devicePixelRatio||1;
+  const w=Math.max(canvas.clientWidth||620,520), h=260;
+  canvas.width=w*dpr; canvas.height=h*dpr;
+  const ctx=canvas.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,w,h);
+
+  if(!rows.length){
+    ctx.fillStyle='#66736e'; ctx.font='15px sans-serif';
+    ctx.fillText('Nenhum lançamento registrado para este pivô.',20,42);
+    return;
+  }
+
+  const pad={l:44,r:18,t:34,b:48}, iw=w-pad.l-pad.r, ih=h-pad.t-pad.b;
+  const vals=rows.flatMap(r=>[Number(r.rain)||0,Number(r.irr)||0,Number(r.etc)||0]);
+  const max=Math.max(1,...vals)*1.15;
+  ctx.strokeStyle='#d7dedb'; ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const y=pad.t+ih-(ih*i/4);
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();
+    ctx.fillStyle='#66736e';ctx.font='11px sans-serif';
+    ctx.fillText((max*i/4).toFixed(1),4,y+4);
+  }
+
+  const series=[
+    ['rain','Chuva','#3b82f6'],
+    ['irr','Irrigação','#159447'],
+    ['etc','ETc','#e2a900']
+  ];
+  const step=rows.length===1?0:iw/(rows.length-1);
+
+  series.forEach(([key,label,color])=>{
+    ctx.strokeStyle=color;ctx.lineWidth=3;ctx.beginPath();
+    rows.forEach((r,i)=>{
+      const x=pad.l+i*step;
+      const y=pad.t+ih-((Number(r[key])||0)/max)*ih;
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+      ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();
+    });
+    ctx.stroke();
+  });
+
+  ctx.font='11px sans-serif';
+  rows.forEach((r,i)=>{
+    const x=pad.l+i*step;
+    if(i===0||i===rows.length-1||rows.length<=8){
+      ctx.fillStyle='#34413d';
+      ctx.fillText(String(r.date||'').slice(5).replace('-','/'),x-14,h-17);
+    }
+  });
+
+  let lx=pad.l;
+  series.forEach(([key,label,color])=>{
+    ctx.fillStyle=color;ctx.fillRect(lx,10,10,10);
+    ctx.fillStyle='#34413d';ctx.fillText(label,lx+15,19);lx+=82;
+  });
+}
+
+function loadPivot(k, preserveForm=false){
+  if(!keys.includes(k))return;
+  currentPivot=k;
+  localStorage.setItem('amcCurrentPivot',k);
+
+  const sel=qs('pivotSelect');
+  if(sel){
+    if(!sel.options.length)sel.innerHTML='<option value="">Selecione o pivô</option>'+pivotOptions(k);
+    sel.value=k;
+  }
+  renderPivotButtons(k);
+
+  const logs=(pivotLogs[k]||[]).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  const last=logs.length?logs[logs.length-1]:null;
+
+  qs('pivotTitle').textContent='Pivô '+k;
+  qs('pivotSub').textContent='Acompanhamento individual';
+
+  // KPIs sempre mostram o lançamento do dia selecionado/mais recente.
+  qs('kIrr').textContent=(last?.irr??0).toFixed(1)+' mm';
+  qs('kRain').textContent=(last?.rain??0).toFixed(1)+' mm';
+  qs('kNeed').textContent=(last?.etc??0).toFixed(1)+' mm';
+
+  const bal=(last?.irr??0)+(last?.rain??0)-(last?.etc??0);
+  qs('kBal').textContent=bal.toFixed(1)+' mm';
+
+  const st=qs('pivotStatus');
+  if(bal>=0){st.className='status-banner status-ok';st.textContent='🟢 Irrigação OK';}
+  else if(bal>=-3){st.className='status-banner status-att';st.textContent='🟡 Atenção';}
+  else{st.className='status-banner status-prio';st.textContent='🔴 Prioridade';}
+
+  renderPivotEvolution(k);
+
+  const tomorrow=Math.max(0,(last?.etc??0)-((last?.irr??0)+(last?.rain??0)));
+  qs('tomorrowText').textContent=last
+    ? `Com os dados lançados em ${last.date}, a necessidade restante estimada é de ${tomorrow.toFixed(1)} mm.`
+    : 'Informe os dados do dia para calcular a necessidade estimada para amanhã.';
+
+  if(!preserveForm){
+    const today=new Date().toISOString().slice(0,10);
+    qs('logIrr').value='';
+    qs('logRain').value='';
+    qs('logEtc').value='';
+    qs('logDate').value=today;
+  }
+}
+
+function savePivotLog(){
+  const sel=qs('pivotSelect');
+  const k=sel?.value || currentPivot || keys[0];
+  const date=qs('logDate').value;
+
+  if(!keys.includes(k)){qs('saveMsg').textContent='Selecione um pivô antes de salvar.';return;}
+  if(!date){qs('saveMsg').textContent='Informe a data do lançamento.';return;}
+
+  const item={
+    pivot:k,date,
+    irr:Number(qs('logIrr').value)||0,
+    rain:Number(qs('logRain').value)||0,
+    etc:Number(qs('logEtc').value)||0
+  };
+
+  if(!pivotLogs[k])pivotLogs[k]=[];
+  const idx=pivotLogs[k].findIndex(x=>x.date===date);
+  if(idx>=0)pivotLogs[k][idx]=item;else pivotLogs[k].push(item);
+  pivotLogs[k].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+
+  // Mantém o acompanhamento diário e o gráfico geral sincronizados.
+  const didx=dailyEntries.findIndex(x=>x.pivot===k&&x.date===date);
+  const dailyItem={...item,obs:''};
+  if(didx>=0)dailyEntries[didx]=dailyItem;else dailyEntries.push(dailyItem);
+
+  localStorage.setItem('amcPivotLogs',JSON.stringify(pivotLogs));
+  localStorage.setItem('amcDailyEntries',JSON.stringify(dailyEntries));
+  currentPivot=k;
+  localStorage.setItem('amcCurrentPivot',k);
+
+  if(qs('dtPivot'))qs('dtPivot').value=k;
+  if(qs('chPivot'))selectPivot(k);
+
+  // Não apaga a mensagem nem os dados recém-lançados.
+  loadPivot(k,true);
+  qs('saveMsg').textContent=`✅ Lançamento do Pivô ${k} em ${date} salvo com sucesso.`;
+  renderDaily();
+  renderCharts();
+  homePivots();
+}
+
+
+const techSpecs = JSON.parse(localStorage.getItem('amcTechSpecs')||'{}');
+
+function initTechCalc(){
+  fillPicker('tcPivot', currentPivot || keys[0]);
+  loadTechSpec();
+}
+function loadTechSpec(){
+  const k=currentPivot;
+  const p=PIVOTS[k]||{};
+  const saved=techSpecs[k]||{};
+  const area=saved.area||p.area;
+  const flow=saved.flow||p.flow;
+  const baseTime=saved.baseTime||p.time100;
+  qs('tcArea').value=area??'';
+  qs('tcFlow').value=flow??'';
+  qs('tcBaseTime').value=baseTime??'';
+  qs('specArea').value=area??'';
+  qs('specFlow').value=flow??'';
+  qs('specTime').value=baseTime??'';
+  qs('specObs').value=saved.obs||`Dados cadastrados do Pivô ${k}.`;
+  qs('tcSpeed').value=50;
+  qs('tcTechnicalSummary').textContent=`Pivô ${k} • Área ${Number(area||0).toFixed(2)} ha • Vazão ${Number(flow||0).toFixed(2)} m³/h • Lâmina a 100% ${Number(p.mm100||0).toFixed(2)} mm.`;
+  calculateTech();
+}
+function saveTechSpec(){
+  const k=currentPivot;
+  techSpecs[k]={
+    area:Number(qs('specArea').value)||0,
+    flow:Number(qs('specFlow').value)||0,
+    baseTime:Number(qs('specTime').value)||0,
+    obs:qs('specObs').value||''
+  };
+  localStorage.setItem('amcTechSpecs',JSON.stringify(techSpecs));
+  loadTechSpec();
+  qs('specMsg').textContent='Ficha técnica salva neste aparelho e disponível offline.';
+}
+function calculateTech(){
+  const k=currentPivot, pvt=PIVOTS[k]||{};
+  const speed=Number(qs('tcSpeed').value);
+  const area=Number(qs('tcArea').value)||pvt.area||0;
+  const flow=Number(qs('tcFlow').value)||pvt.flow||0;
+  const baseTime=Number(qs('tcBaseTime').value)||pvt.time100||0;
+  if(!(speed>0&&speed<=100)){
+    qs('tcTime').textContent='Informe 1–100%';qs('tcRate').textContent='—';qs('tcMm').textContent='—';return;
+  }
+  const pct=Math.max(5,Math.min(100,Math.round(speed/5)*5));
+  const row=TABLES[k]?.find(r=>r[0]===pct);
+  const time=row ? row[1]/60 : baseTime*100/pct;
+  const mm=row ? row[2] : (pvt.mm100||0)*100/pct;
+  const rate=area>0 ? flow/(10*area) : 0;
+  qs('tcTime').textContent=fmtHours(time)+(row&&pct!==speed?` (${pct}%)`:'');
+  qs('tcRate').textContent=rate.toFixed(2)+' mm/h';
+  qs('tcMm').textContent=Number(mm).toFixed(2)+' mm';
+}
+
+
+const dailyEntries = JSON.parse(localStorage.getItem('amcDailyEntries')||'[]');
+
+function initDaily(){
+  fillPicker('dtPivot', currentPivot || keys[0]);
+  const el=qs('dtDate'); if(el && !el.value) el.value=new Date().toISOString().slice(0,10);
+  ['dtRain','dtIrr','dtEtc'].forEach(id=>{const e=qs(id);if(e)e.oninput=previewDaily;});
+  renderDaily();
+}
+
+function getPivotEntries(k){
+  return dailyEntries.filter(x=>x.pivot===k).sort((a,b)=>a.date.localeCompare(b.date));
+}
+
+function calcEntry(e){
+  const rain=Number(e.rain)||0, irr=Number(e.irr)||0, etc=Number(e.etc)||0;
+  return Math.max(0,etc-rain-irr);
+}
+
+function previewDaily(){
+  const k=currentPivot, date=qs('dtDate').value;
+  const rain=Number(qs('dtRain').value)||0, irr=Number(qs('dtIrr').value)||0, etc=Number(qs('dtEtc').value)||0;
+  const previous=getPivotEntries(k).filter(x=>x.date<date).reduce((sum,x)=>sum+calcEntry(x),0);
+  const deficit=Math.max(0,etc-rain-irr);
+  const tomorrow=Math.max(0,previous+deficit);
+  qs('dtDeficit').textContent=deficit.toFixed(1)+' mm';
+  qs('dtTomorrow').textContent=tomorrow.toFixed(1)+' mm';
+  const status=tomorrow<=0?'Normal':tomorrow<=5?'Atenção':'Prioridade';
+  qs('dtStatus').textContent=status;
+}
+
+function saveDaily(){
+  const k=currentPivot, date=qs('dtDate').value;
+  if(!date)return;
+  const item={pivot:k,date,
+    rain:Number(qs('dtRain').value)||0,
+    irr:Number(qs('dtIrr').value)||0,
+    etc:Number(qs('dtEtc').value)||0,
+    obs:qs('dtObs').value||''
+  };
+  const idx=dailyEntries.findIndex(x=>x.pivot===k&&x.date===date);
+  if(idx>=0) dailyEntries[idx]=item; else dailyEntries.push(item);
+  localStorage.setItem('amcDailyEntries',JSON.stringify(dailyEntries));
+  renderDaily();
+}
+
+function renderDaily(){
+  previewDaily();
+  const k=currentPivot;
+  const rows=getPivotEntries(k);
+  const box=qs('dailyTable');
+  if(!rows.length){box.innerHTML='<p class="tech-note">Nenhum lançamento para este pivô ainda.</p>';return;}
+  box.innerHTML=`<div style="overflow:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">
+  <thead><tr><th>Data</th><th>Chuva</th><th>Irrigação</th><th>ETc</th><th>Déficit</th><th>Status</th></tr></thead>
+  <tbody>${rows.slice().reverse().map(x=>{
+    const d=calcEntry(x), st=d<=0?'🟢 Normal':d<=5?'🟡 Atenção':'🔴 Prioridade';
+    return `<tr><td>${x.date}</td><td>${x.rain.toFixed(1)}</td><td>${x.irr.toFixed(1)}</td><td>${x.etc.toFixed(1)}</td><td>${d.toFixed(1)} mm</td><td>${st}</td></tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+
+
+function initCharts(){
+  fillPicker('chPivot', currentPivot || keys[0]);
+  const p=qs('chPeriod'); if(p)p.onchange=renderCharts;
+  renderCharts();
+}
+function renderCharts(){
+  const k=currentPivot, p=qs('chPeriod').value;
+  let rows=getPivotEntries(k); if(p!=='all')rows=rows.slice(-Number(p));
+  const canvas=qs('waterChart'); if(!canvas)return;
+  const ctx=canvas.getContext('2d'), dpr=devicePixelRatio||1, w=canvas.clientWidth||600, h=240;
+  canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+  if(!rows.length){ctx.font='14px sans-serif';ctx.fillText('Nenhum lançamento registrado para este pivô.',20,40);['chIrr','chRain','chEtc'].forEach(id=>qs(id).textContent='0,0 mm');return;}
+  const pad={l:42,r:16,t:20,b:45},iw=w-pad.l-pad.r,ih=h-pad.t-pad.b;
+  const vals=rows.flatMap(x=>[+x.rain||0,+x.irr||0,+x.etc||0]),max=Math.max(1,...vals)*1.15;
+  ctx.strokeStyle='#d7dedb';ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){const y=pad.t+ih-ih*i/4;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();ctx.fillStyle='#66736e';ctx.font='11px sans-serif';ctx.fillText((max*i/4).toFixed(1),4,y+4);}
+  const series=[['rain','Chuva','#3b82f6'],['irr','Irrigação','#159447'],['etc','ETc','#e2a900']];
+  const step=rows.length===1?0:iw/(rows.length-1);
+  series.forEach(([key,label,color])=>{ctx.strokeStyle=color;ctx.lineWidth=3;ctx.beginPath();rows.forEach((r,i)=>{const x=pad.l+i*step,y=pad.t+ih-((+r[key]||0)/max)*ih;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();});
+  ctx.fillStyle='#34413d';ctx.font='11px sans-serif';rows.forEach((r,i)=>{if(i===0||i===rows.length-1||rows.length<=10){const x=pad.l+i*step;ctx.fillText((r.date||'').slice(5).replace('-','/'),x-12,h-15);}});
+  let lx=pad.l;series.forEach(([key,label,color])=>{ctx.fillStyle=color;ctx.fillRect(lx,5,10,10);ctx.fillStyle='#34413d';ctx.fillText(label,lx+15,14);lx+=75;});
+  const sums={rain:0,irr:0,etc:0};rows.forEach(r=>{sums.rain+=+r.rain||0;sums.irr+=+r.irr||0;sums.etc+=+r.etc||0});
+  qs('chIrr').textContent=sums.irr.toFixed(1)+' mm';qs('chRain').textContent=sums.rain.toFixed(1)+' mm';qs('chEtc').textContent=sums.etc.toFixed(1)+' mm';
+}
+
+
+let weatherState={lat:null,lon:null,online:false};
+function setWeatherText(main,place,icon,forecast){
+  const home=qs('home'); if(!home)return;
+  const temp=home.querySelector('.temp'), wi=home.querySelector('.weather-icon');
+  const placeEl=home.querySelector('.weather-main>div:first-child>div:nth-child(3)');
+  if(temp)temp.textContent=main.temp!=null?`${Math.round(main.temp)}°C`:'--°C';
+  if(wi)wi.textContent=icon||'🌤️';
+  if(placeEl)placeEl.textContent=place||'Localização atual';
+  const ds=home.querySelectorAll('.weather-data div');
+  if(ds.length>=5){
+    ds[1].innerHTML=`🌧️ Chuva: <b>${Number(main.rain||0).toFixed(1)} mm</b>`;
+    ds[2].innerHTML=`💨 Vento: <b>${Number(main.wind||0).toFixed(1)} m/s</b>`;
+    ds[3].innerHTML=`🌡️ Mín./Máx.: <b>${main.min!=null?Math.round(main.min):'--'} / ${main.max!=null?Math.round(main.max):'--'} °C</b>`;
+    ds[4].innerHTML=`💧 Umidade: <b>${main.humidity!=null?Math.round(main.humidity):'--'}%</b>`;
+  }
+  const fg=home.querySelector('.forecast-grid');
+  if(fg&&forecast?.length) fg.innerHTML=forecast.slice(0,4).map((d,i)=>`<div>${i===0?'Hoje':i===1?'Amanhã':'+'+i+' dias'}<br>${d.icon}<br>${Math.round(d.min)}° / ${Math.round(d.max)}°<br>${Number(d.rain||0).toFixed(1)} mm</div>`).join('');
+}
+function weatherIcon(code){ if(code===0)return '☀️'; if(code<=3)return '🌤️'; if(code<=48)return '🌫️'; if(code<=67)return '🌧️'; if(code<=77)return '🌨️'; if(code<=82)return '🌦️'; return '⛈️'; }
+async function fetchWeather(lat,lon){
+  const url=`https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=7&timezone=auto`;
+  const r=await fetch(url); if(!r.ok)throw new Error('Falha no clima'); const d=await r.json();
+  const c=d.current||{}, daily=d.daily||{};
+  const forecast=(daily.time||[]).map((t,i)=>({date:t,min:daily.temperature_2m_min[i],max:daily.temperature_2m_max[i],rain:daily.precipitation_sum[i],icon:weatherIcon(daily.weather_code[i])}));
+  setWeatherText({temp:c.temperature_2m,rain:c.precipitation,wind:c.wind_speed_10m,humidity:c.relative_humidity_2m,min:forecast[0]?.min,max:forecast[0]?.max},`Localização atual • ${Number(lat).toFixed(4)}, ${Number(lon).toFixed(4)}`,weatherIcon(c.weather_code),forecast);
+  weatherState={lat,lon,online:true};
+  localStorage.setItem('amcWeatherCoords',JSON.stringify({lat,lon}));
+}
+function loadWeather(){
+  const cached=JSON.parse(localStorage.getItem('amcWeatherCoords')||'null');
+  const use=(lat,lon)=>fetchWeather(lat,lon).catch(()=>{});
+  if(window.AndroidLocation?.getLocation){
+    try{const raw=AndroidLocation.getLocation(); const pos=JSON.parse(raw); if(pos.lat&&pos.lon){use(pos.lat,pos.lon);return;}}catch(e){}
+  }
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(p=>use(p.coords.latitude,p.coords.longitude),()=>cached&&use(cached.lat,cached.lon),{enableHighAccuracy:true,timeout:10000,maximumAge:300000});
+  } else if(cached) use(cached.lat,cached.lon);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const k=localStorage.getItem('amcCurrentPivot');
+  if(k && keys.includes(k)) currentPivot=k;
+  fillAllPivotSelectors();
+  const ps=qs('pivotSelect');
+  if(ps){
+    ps.innerHTML='<option value="">Selecione o pivô</option>'+pivotOptions(currentPivot);
+    ps.value=currentPivot;
+    ps.addEventListener('change',()=>{ if(ps.value) chooseIndividualPivot(ps.value); });
+  }
+  renderPivotButtons(currentPivot);
+  loadWeather();
+});
+
+
+document.addEventListener('DOMContentLoaded',()=>{
+  homePivots();
+});
+
+document.addEventListener('input',e=>{if(e.target?.id==='tcSpeed')calculateTech();});
+</script>
+<script>
+(function(){
+  const AMC_KEYS = ()=> (typeof keys!=='undefined' ? keys.slice().sort((a,b)=>Number(a)-Number(b)) : []);
+  const AMC_STORE = 'amcIndividualLaunchesV2';
+  const AMC_PIVOT = 'amcIndividualPivotV2';
+
+  function q(id){ return document.getElementById(id); }
+  function today(){ return new Date().toISOString().slice(0,10); }
+  function readAll(){
+    try { return JSON.parse(localStorage.getItem(AMC_STORE)||'{}') || {}; }
+    catch(e){ return {}; }
+  }
+  function writeAll(x){ localStorage.setItem(AMC_STORE,JSON.stringify(x)); }
+
+  window.AMC_selectIndividual=function(k){
+    if(!AMC_KEYS().includes(String(k))) return;
+    localStorage.setItem(AMC_PIVOT,String(k));
+    const sel=q('individualPivotSelect');
+    if(sel) sel.value=String(k);
+    q('indDate').value ||= today();
+    AMC_loadIndividual(String(k));
+  };
+
+  window.AMC_initIndividual=function(k){
+    const ks=AMC_KEYS();
+    if(!ks.length) return;
+    k=String(k||localStorage.getItem(AMC_PIVOT)||currentPivot||ks[0]);
+    if(!ks.includes(k)) k=ks[0];
+
+    const sel=q('individualPivotSelect');
+    if(sel){
+      sel.innerHTML=ks.map(x=>`<option value="${x}">Pivô ${x}</option>`).join('');
+      sel.value=k;
+      sel.onchange=()=>AMC_selectIndividual(sel.value);
+    }
+
+    const box=q('individualPivotButtons');
+    if(box){
+      box.innerHTML=ks.map(x=>`<button type="button" class="pivot-btn ${x===k?'active':''}" data-p="${x}">Pivô ${x}</button>`).join('');
+      box.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>AMC_selectIndividual(b.dataset.p));
+    }
+
+    q('indDate').value=today();
+    AMC_selectIndividual(k);
+  };
+
+  window.AMC_loadIndividual=function(k){
+    const data=readAll(), rows=(data[k]||[]).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+    const last=rows.length?rows[rows.length-1]:null;
+    q('pivotTitle').textContent='Pivô '+k;
+    q('pivotSub').textContent='Acompanhamento individual';
+
+    const irr=last?Number(last.irr)||0:0, rain=last?Number(last.rain)||0:0, etc=last?Number(last.etc)||0:0;
+    q('kIrr').textContent=irr.toFixed(1)+' mm';
+    q('kRain').textContent=rain.toFixed(1)+' mm';
+    q('kNeed').textContent=etc.toFixed(1)+' mm';
+    q('kBal').textContent=(irr+rain-etc).toFixed(1)+' mm';
+
+    const bal=irr+rain-etc, st=q('pivotStatus');
+    if(bal>=0){st.className='status-banner status-ok';st.textContent='🟢 Irrigação OK'}
+    else if(bal>=-3){st.className='status-banner status-att';st.textContent='🟡 Atenção'}
+    else {st.className='status-banner status-prio';st.textContent='🔴 Prioridade'}
+
+    // Populate today's fields from saved record, if it exists.
+    const d=q('indDate').value||today();
+    const existing=rows.find(r=>r.date===d);
+    q('indIrr').value=existing?existing.irr:'';
+    q('indRain').value=existing?existing.rain:'';
+    q('indEtc').value=existing?existing.etc:'';
+
+    AMC_renderIndividualChart(rows);
+    AMC_renderIndividualHistory(rows);
+    AMC_updateButtons(k);
+  };
+
+  function AMC_updateButtons(k){
+    q('individualPivotButtons')?.querySelectorAll('[data-p]').forEach(b=>b.classList.toggle('active',b.dataset.p===String(k)));
+  }
+
+  window.AMC_saveIndividual=function(){
+    const msg=q('indMessage');
+    try{
+      const sel=q('individualPivotSelect');
+      const k=String(sel?.value||localStorage.getItem(AMC_PIVOT)||'');
+      const date=String(q('indDate')?.value||'').trim();
+      if(!k){ msg.textContent='⚠️ Selecione um pivô.'; return false; }
+      if(!date){ msg.textContent='⚠️ Informe a data.'; return false; }
+
+      const num=(id)=>{
+        const raw=String(q(id)?.value??'').trim().replace(',','.');
+        if(raw==='') return 0;
+        const n=Number(raw);
+        return Number.isFinite(n) && n>=0 ? n : NaN;
+      };
+      const irr=num('indIrr'), rain=num('indRain'), etc=num('indEtc');
+      if([irr,rain,etc].some(Number.isNaN)){
+        msg.textContent='⚠️ Confira os valores. Use somente números, por exemplo 5,5.';
+        return false;
+      }
+
+      const item={date,irr,rain,etc};
+      const data=readAll();
+      if(!Array.isArray(data[k])) data[k]=[];
+      const idx=data[k].findIndex(x=>String(x.date)===date);
+      if(idx>=0) data[k][idx]=item; else data[k].push(item);
+      data[k].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+
+      const payload=JSON.stringify(data);
+      localStorage.setItem(AMC_STORE,payload);
+
+      // Keep the old application's data store in sync when available.
+      if(typeof pivotLogs!=='undefined'){
+        if(!pivotLogs[k]) pivotLogs[k]=[];
+        pivotLogs[k]=data[k].slice();
+        localStorage.setItem('amcPivotLogs',JSON.stringify(pivotLogs));
+      }
+      localStorage.setItem(AMC_PIVOT,k);
+
+      // Verify the write before telling the user it was saved.
+      const verify=readAll();
+      const saved=(verify[k]||[]).find(x=>String(x.date)===date);
+      if(!saved){
+        msg.textContent='❌ O celular não confirmou o salvamento. Tente novamente.';
+        return false;
+      }
+
+      msg.textContent=`✅ Lançamento do Pivô ${k} salvo em ${date}.`;
+      AMC_loadIndividual(k);   // rebuilds KPIs, history and chart immediately
+      if(typeof renderCharts==='function') renderCharts();
+      if(typeof homePivots==='function') homePivots();
+      return true;
+    }catch(err){
+      msg.textContent='❌ Erro ao salvar: '+(err?.message||err);
+      return false;
+    }
+  };
+
+  window.AMC_renderIndividualChart=function(rows){
+    const box=q('indChart');
+    if(!rows.length){
+      box.innerHTML='<div class="tech-note">Ainda não há lançamentos. Salve o primeiro dia para gerar a evolução.</div>';
+      return;
+    }
+    const max=Math.max(1,...rows.flatMap(r=>[Number(r.irr)||0,Number(r.rain)||0,Number(r.etc)||0]));
+    const recent=rows.slice(-15);
+    box.innerHTML=`<div class="ind-legend"><span><i style="background:#16834b"></i>Irrigação</span><span><i style="background:#2879d0"></i>Chuva</span><span><i style="background:#e2a900"></i>ETc</span></div>
+      <div class="ind-chart-wrap">${recent.map(r=>{
+        const a=(Number(r.irr)||0)/max*170,b=(Number(r.rain)||0)/max*170,c=(Number(r.etc)||0)/max*170;
+        return `<div class="ind-day"><div class="ind-bars"><div class="ind-bar irr" style="height:${Math.max(2,a)}px" title="Irrigação ${Number(r.irr||0).toFixed(1)} mm"></div><div class="ind-bar rain" style="height:${Math.max(2,b)}px" title="Chuva ${Number(r.rain||0).toFixed(1)} mm"></div><div class="ind-bar etc" style="height:${Math.max(2,c)}px" title="ETc ${Number(r.etc||0).toFixed(1)} mm"></div></div><small>${String(r.date).slice(5).replace('-','/')}</small></div>`;
+      }).join('')}</div>`;
+  };
+
+  window.AMC_renderIndividualHistory=function(rows){
+    const box=q('indHistory');
+    if(!rows.length){box.innerHTML='<div class="tech-note">Nenhum lançamento salvo.</div>';return;}
+    box.innerHTML=`<div style="overflow-x:auto"><table class="ind-table"><thead><tr><th>Data</th><th>Irrig.</th><th>Chuva</th><th>ETc</th><th>Saldo</th></tr></thead><tbody>${rows.slice().reverse().map(r=>{
+      const irr=Number(r.irr)||0,rain=Number(r.rain)||0,etc=Number(r.etc)||0;
+      return `<tr><td>${r.date}</td><td>${irr.toFixed(1)}</td><td>${rain.toFixed(1)}</td><td>${etc.toFixed(1)}</td><td>${(irr+rain-etc).toFixed(1)}</td></tr>`;
+    }).join('')}</tbody></table></div>`;
+  };
+
+  document.addEventListener('DOMContentLoaded',()=>AMC_initIndividual());
+})();
+</script>
+</body></html>
